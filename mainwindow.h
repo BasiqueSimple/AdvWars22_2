@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "game.h"
+
 #include <QMainWindow>
 
 namespace Ui {
@@ -17,8 +19,10 @@ public:
 
     void paintEvent(QPaintEvent *event);
 
+    void mousePressEvent(QMouseEvent *event);
 private:
     Ui::MainWindow *ui;
+    Game game;
 };
 
 #endif // MAINWINDOW_H

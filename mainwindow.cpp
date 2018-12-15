@@ -1,3 +1,4 @@
+#include "game.h"
 #include "imageholder.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -5,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <QPainter>
+#include <QMouseEvent>
 #include <sstream>
 #include <map>
 
@@ -15,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->game = *new Game();
 }
 
 MainWindow::~MainWindow()
@@ -85,10 +88,10 @@ void MainWindow::paintEvent(QPaintEvent *event){
                                   {2,1,21,15,95,1,1,1,1,3,1,1,1,35,15,20,2,3,1,2,101},
                                   {29,3,1,1,1,3,1,3,1,1,34,15,15,20,1,2,1,1,1,34,101},
                                   {33,29,29,2,1,1,1,34,15,15,20,2,1,3,110,102,102,102,102,102,106}};
+   int width = 1000;
+   int size_img = width/21;
+   int height = size_img*17;
 
-    int width = 1000;
-    int size_img = width/21;
-    int height = size_img*17;
     this->resize(width,height);
 
     for (int l = 0 ; l < 17 ; l++)
@@ -98,4 +101,10 @@ void MainWindow::paintEvent(QPaintEvent *event){
                 painter.drawPixmap(size_img*c,size_img*l,size_img,size_img,*terrain[tableau[l][c]]);
            }
        }
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event){
+    int x = event->x();
+    int y = event->y();
+    this->game.what_in(x,y);
 }

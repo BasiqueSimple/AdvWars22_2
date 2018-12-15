@@ -25,7 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-    cell.cpp \
     game.cpp \
     ia.cpp \
     imageholder.cpp \
@@ -53,27 +52,18 @@ SOURCES += \
     Batiments/batimentsaeroport.cpp \
     Batiments/batimentsusine.cpp \
     Batiments/batimentsville.cpp \
-    joueur.cpp
+    joueur.cpp \
+    activable.cpp
 
 
 HEADERS += \
         mainwindow.h \
-    cell.h \
     game.h \
     ia.h \
     imageholder.h \
     map.h \
     menubox.h \
     ui.h \
-    cell.h \
-    game.h \
-    ia.h \
-    imageholder.h \
-    mainwindow.h \
-    map.h \
-    menubox.h \
-    ui.h \
-    cell.h \
     game.h \
     ia.h \
     imageholder.h \
@@ -81,7 +71,13 @@ HEADERS += \
     map.h \
     menubox.h \
     ui.h \
-    cell.h \
+    game.h \
+    ia.h \
+    imageholder.h \
+    mainwindow.h \
+    map.h \
+    menubox.h \
+    ui.h \
     game.h \
     ia.h \
     imageholder.h \
@@ -90,7 +86,6 @@ HEADERS += \
     menubox.h \
     ui.h \
     Test/buildings.h \
-    cell.h \
     game.h \
     ia.h \
     imageholder.h \
@@ -117,7 +112,8 @@ HEADERS += \
     Batiments/batimentsusine.h \
     Batiments/batimentsaeroport.h \
     Units/Unitterrenoinfant/unitterrenoinfantantiair.h \
-    joueur.h
+    joueur.h \
+    activable.h
 
 FORMS += \
         mainwindow.ui
