@@ -3,10 +3,11 @@
 #include <iostream>
 #include <string>
 #include <QPainter>
+#include "./activable.h"
 
-class Unit
+class Unit : public Activable
 {
-public:
+protected:
     //Attributs
     int PV;
     std::string MoveType;

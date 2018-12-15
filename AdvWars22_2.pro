@@ -53,7 +53,17 @@ SOURCES += \
     Batiments/batimentsusine.cpp \
     Batiments/batimentsville.cpp \
     joueur.cpp \
-    activable.cpp
+    activable.cpp \
+    Terrains/terrains.cpp \
+    Terrains/plaine.cpp \
+    Terrains/montagne.cpp \
+    Terrains/foret.cpp \
+    Terrains/riviere.cpp \
+    Terrains/route.cpp \
+    Terrains/pont.cpp \
+    Terrains/plage.cpp \
+    Terrains/reef.cpp \
+    Terrains/pipe.cpp
 
 
 HEADERS += \
@@ -113,7 +123,17 @@ HEADERS += \
     Batiments/batimentsaeroport.h \
     Units/Unitterrenoinfant/unitterrenoinfantantiair.h \
     joueur.h \
-    activable.h
+    activable.h \
+    Terrains/terrains.h \
+    Terrains/plaine.h \
+    Terrains/montagne.h \
+    Terrains/foret.h \
+    Terrains/riviere.h \
+    Terrains/route.h \
+    Terrains/pont.h \
+    Terrains/plage.h \
+    Terrains/reef.h \
+    Terrains/pipe.h
 
 FORMS += \
         mainwindow.ui
