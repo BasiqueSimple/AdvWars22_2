@@ -1,0 +1,4 @@
+#ifndef CITYBUILDINGS_H
+#define CITYBUILDINGS_H
+
+#endif // CITYBUILDINGS_H

@@ -1,0 +1,4 @@
+#ifndef IMAGEHOLDER_H
+#define IMAGEHOLDER_H
+
+#endif // IMAGEHOLDER_H
