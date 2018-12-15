@@ -1,4 +1,0 @@
-#ifndef LANDVEHICLES_H
-#define LANDVEHICLES_H
-
-#endif // LANDVEHICLES_H

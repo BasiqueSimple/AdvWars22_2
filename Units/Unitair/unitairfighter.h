@@ -1,0 +1,4 @@
+#ifndef UNITAIRFIGHTER_H
+#define UNITAIRFIGHTER_H
+
+#endif // UNITAIRFIGHTER_H

@@ -33,7 +33,6 @@ SOURCES += \
     imageholder.cpp \
     map.cpp \
     menubox.cpp \
-    player.cpp \
     ui.cpp \
     cell.cpp \
     game.cpp \
@@ -43,7 +42,6 @@ SOURCES += \
     mainwindow.cpp \
     map.cpp \
     menubox.cpp \
-    player.cpp \
     ui.cpp \
     cell.cpp \
     game.cpp \
@@ -53,7 +51,6 @@ SOURCES += \
     mainwindow.cpp \
     map.cpp \
     menubox.cpp \
-    player.cpp \
     ui.cpp \
     cell.cpp \
     game.cpp \
@@ -63,7 +60,6 @@ SOURCES += \
     mainwindow.cpp \
     map.cpp \
     menubox.cpp \
-    player.cpp \
     ui.cpp \
     cell.cpp \
     game.cpp \
@@ -73,7 +69,6 @@ SOURCES += \
     mainwindow.cpp \
     map.cpp \
     menubox.cpp \
-    player.cpp \
     ui.cpp \
     Buildings/buildings.cpp \
     Buildings/airbuildings.cpp \
@@ -82,7 +77,25 @@ SOURCES += \
     Units/units.cpp \
     Units/AirUnits/airunits.cpp \
     Units/LandUnits/landunits.cpp \
-    Units/landvehicles.cpp
+    Units/Unitair/unitair.cpp \
+    Units/Unitair/unitairbcopter.cpp \
+    Units/Unitair/unitairbomber.cpp \
+    Units/Unitair/unitaitfighter.cpp \
+    Units/Unitterreinfant/unitterreinfant.cpp \
+    Units/Unitterreinfant/unitterreinfantbazooka.cpp \
+    Units/Unitterreinfant/unitterreinfantinfant.cpp \
+    Units/Unitterrenoinfant/unitterrenoinfant.cpp \
+    Units/Unitterrenoinfant/unitterrenoinfantantiair.cpp \
+    Units/Unitterrenoinfant/unitterrenoinfantmdtank.cpp \
+    Units/Unitterrenoinfant/unitterrenoinfantmegatank.cpp \
+    Units/Unitterrenoinfant/unitterrenoinfantneotank.cpp \
+    Units/Unitterrenoinfant/unitterrenoinfantrecon.cpp \
+    Units/Unitterrenoinfant/unitterrenoinfanttank.cpp \
+    Batiments/batiments.cpp \
+    Batiments/batimentsaeroport.cpp \
+    Batiments/batimentsusine.cpp \
+    Batiments/batimentsville.cpp \
+    joueur.cpp
 
 
 HEADERS += \
@@ -93,7 +106,6 @@ HEADERS += \
     imageholder.h \
     map.h \
     menubox.h \
-    player.h \
     ui.h \
     cell.h \
     game.h \
@@ -102,7 +114,6 @@ HEADERS += \
     mainwindow.h \
     map.h \
     menubox.h \
-    player.h \
     ui.h \
     cell.h \
     game.h \
@@ -111,7 +122,6 @@ HEADERS += \
     mainwindow.h \
     map.h \
     menubox.h \
-    player.h \
     ui.h \
     cell.h \
     game.h \
@@ -120,7 +130,6 @@ HEADERS += \
     mainwindow.h \
     map.h \
     menubox.h \
-    player.h \
     ui.h \
     Test/buildings.h \
     Buildings/airbuildings.h \
@@ -138,11 +147,29 @@ HEADERS += \
     mainwindow.h \
     map.h \
     menubox.h \
-    player.h \
     ui.h \
     Units/units.h \
     Units/AirUnits/airunits.h \
-    Units/LandVehicles/landvehicles.h
+    Units/LandVehicles/landvehicles.h \
+    Units/Unitterreinfant/unitterreinfant.h \
+    Units/Unitterreinfant/unitterreinfantinfant.h \
+    Units/Unitterreinfant/unitterreinfantbazooka.h \
+    Units/Unitterrenoinfant/unitterrenoinfant.h \
+    Units/Unitterrenoinfant/unitterrenoinfantrecon.h \
+    Units/Unitterrenoinfant/unitterrenoinfanttank.h \
+    Units/Unitterrenoinfant/unitterrenoinfantmdtank.h \
+    Units/Unitterrenoinfant/unitterrenoinfantmegatank.h \
+    Units/Unitterrenoinfant/unitterrenoinfantneotank.h \
+    Units/Unitair/unitair.h \
+    Units/Unitair/unitairbcopter.h \
+    Units/Unitair/unitairfighter.h \
+    Units/Unitair/unitairbomber.h \
+    Batiments/batiments.h \
+    Batiments/batimentsville.h \
+    Batiments/batimentsusine.h \
+    Batiments/batimentsaeroport.h \
+    Units/Unitterrenoinfant/unitterrenoinfantantiair.h \
+    joueur.h
 
 FORMS += \
         mainwindow.ui

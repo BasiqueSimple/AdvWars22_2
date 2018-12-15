@@ -1,0 +1,4 @@
+#ifndef BATIMENTSVILLE_H
+#define BATIMENTSVILLE_H
+
+#endif // BATIMENTSVILLE_H

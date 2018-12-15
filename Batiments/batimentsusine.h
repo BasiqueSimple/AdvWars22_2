@@ -1,0 +1,4 @@
+#ifndef BATIMENTSUSINE_H
+#define BATIMENTSUSINE_H
+
+#endif // BATIMENTSUSINE_H

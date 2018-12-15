@@ -1,4 +1,0 @@
-#ifndef AIRBUILDINGS_H
-#define AIRBUILDINGS_H
-
-#endif // AIRBUILDINGS_H
