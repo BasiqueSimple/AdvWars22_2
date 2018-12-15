@@ -25,15 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    cell.cpp \
-    game.cpp \
-    ia.cpp \
-    imageholder.cpp \
-    map.cpp \
-    menubox.cpp \
-    ui.cpp \
     cell.cpp \
     game.cpp \
     ia.cpp \
@@ -43,40 +34,7 @@ SOURCES += \
     map.cpp \
     menubox.cpp \
     ui.cpp \
-    cell.cpp \
-    game.cpp \
-    ia.cpp \
-    imageholder.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    map.cpp \
-    menubox.cpp \
-    ui.cpp \
-    cell.cpp \
-    game.cpp \
-    ia.cpp \
-    imageholder.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    map.cpp \
-    menubox.cpp \
-    ui.cpp \
-    cell.cpp \
-    game.cpp \
-    ia.cpp \
-    imageholder.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    map.cpp \
-    menubox.cpp \
-    ui.cpp \
-    Buildings/buildings.cpp \
-    Buildings/airbuildings.cpp \
-    Buildings/citybuildings.cpp \
-    Buildings/factorybuildings.cpp \
     Units/units.cpp \
-    Units/AirUnits/airunits.cpp \
-    Units/LandUnits/landunits.cpp \
     Units/Unitair/unitair.cpp \
     Units/Unitair/unitairbcopter.cpp \
     Units/Unitair/unitairbomber.cpp \
@@ -132,14 +90,6 @@ HEADERS += \
     menubox.h \
     ui.h \
     Test/buildings.h \
-    Buildings/airbuildings.h \
-    Buildings/buildings.h \
-    Buildings/citybuildings.h \
-    Buildings/factorybuildings.h \
-    Buildings/airbuildings.h \
-    Buildings/buildings.h \
-    Buildings/citybuildings.h \
-    Buildings/factorybuildings.h \
     cell.h \
     game.h \
     ia.h \
@@ -149,8 +99,6 @@ HEADERS += \
     menubox.h \
     ui.h \
     Units/units.h \
-    Units/AirUnits/airunits.h \
-    Units/LandVehicles/landvehicles.h \
     Units/Unitterreinfant/unitterreinfant.h \
     Units/Unitterreinfant/unitterreinfantinfant.h \
     Units/Unitterreinfant/unitterreinfantbazooka.h \
@@ -697,7 +645,8 @@ DISTFILES += \
     Advance Wars By Web 2.1_files/yellowcometport.gif \
     Advance Wars By Web 2.1_files/line.png \
     Advance Wars By Web 2.1_files/awbw_minify.css \
-    Advance Wars By Web 2.1_files/overlib_mini_minify.js.téléchargé
+    Advance Wars By Web 2.1_files/overlib_mini_minify.js.téléchargé \
+    map.txt
 
 RESOURCES += \
     hey.qrc

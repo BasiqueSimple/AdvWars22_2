@@ -1,176 +1,176 @@
 <RCC>
     <qresource prefix="/terrain">
-        <file>Advance Wars By Web 2.1_files/acidrainairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/acidrainbase.gif</file>
-        <file>Advance Wars By Web 2.1_files/acidraincity.gif</file>
-        <file>Advance Wars By Web 2.1_files/acidraincomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/acidrainhq.gif</file>
-        <file>Advance Wars By Web 2.1_files/acidrainlab.gif</file>
-        <file>Advance Wars By Web 2.1_files/acidrainport.gif</file>
-        <file>Advance Wars By Web 2.1_files/amberblazeairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/amberblazebase.gif</file>
-        <file>Advance Wars By Web 2.1_files/amberblazecity.gif</file>
-        <file>Advance Wars By Web 2.1_files/amberblazecomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/amberblazehq.gif</file>
-        <file>Advance Wars By Web 2.1_files/amberblazelab.gif</file>
-        <file>Advance Wars By Web 2.1_files/amberblazeport.gif</file>
-        <file>Advance Wars By Web 2.1_files/awbw_minify.css</file>
-        <file>Advance Wars By Web 2.1_files/awbwlogo3.gif</file>
-        <file>Advance Wars By Web 2.1_files/blackholeairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/blackholebase.gif</file>
-        <file>Advance Wars By Web 2.1_files/blackholecity.gif</file>
-        <file>Advance Wars By Web 2.1_files/blackholecomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/blackholehq.gif</file>
-        <file>Advance Wars By Web 2.1_files/blackholelab.gif</file>
-        <file>Advance Wars By Web 2.1_files/blackholeport.gif</file>
-        <file>Advance Wars By Web 2.1_files/bluemoonairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/bluemoonbase.gif</file>
-        <file>Advance Wars By Web 2.1_files/bluemooncity.gif</file>
-        <file>Advance Wars By Web 2.1_files/bluemooncomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/bluemoonhq.gif</file>
-        <file>Advance Wars By Web 2.1_files/bluemoonlab.gif</file>
-        <file>Advance Wars By Web 2.1_files/bluemoonport.gif</file>
-        <file>Advance Wars By Web 2.1_files/browndesertairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/browndesertbase.gif</file>
-        <file>Advance Wars By Web 2.1_files/browndesertcity.gif</file>
-        <file>Advance Wars By Web 2.1_files/browndesertcomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/browndeserthq.gif</file>
-        <file>Advance Wars By Web 2.1_files/browndesertlab.gif</file>
-        <file>Advance Wars By Web 2.1_files/browndesertport.gif</file>
-        <file>Advance Wars By Web 2.1_files/cobalticeairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/cobalticebase.gif</file>
-        <file>Advance Wars By Web 2.1_files/cobalticecity.gif</file>
-        <file>Advance Wars By Web 2.1_files/cobalticecomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/cobalticehq.gif</file>
-        <file>Advance Wars By Web 2.1_files/cobalticelab.gif</file>
-        <file>Advance Wars By Web 2.1_files/cobalticeport.gif</file>
-        <file>Advance Wars By Web 2.1_files/criver.gif</file>
-        <file>Advance Wars By Web 2.1_files/croad.gif</file>
-        <file>Advance Wars By Web 2.1_files/epipeend.gif</file>
-        <file>Advance Wars By Web 2.1_files/espipe.gif</file>
-        <file>Advance Wars By Web 2.1_files/esriver.gif</file>
-        <file>Advance Wars By Web 2.1_files/esroad.gif</file>
-        <file>Advance Wars By Web 2.1_files/eswriver.gif</file>
-        <file>Advance Wars By Web 2.1_files/eswroad.gif</file>
-        <file>Advance Wars By Web 2.1_files/greenearthairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/greenearthbase.gif</file>
-        <file>Advance Wars By Web 2.1_files/greenearthcity.gif</file>
-        <file>Advance Wars By Web 2.1_files/greenearthcomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/greenearthhq.gif</file>
-        <file>Advance Wars By Web 2.1_files/greenearthlab.gif</file>
-        <file>Advance Wars By Web 2.1_files/greenearthport.gif</file>
-        <file>Advance Wars By Web 2.1_files/greyskyairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/greyskybase.gif</file>
-        <file>Advance Wars By Web 2.1_files/greyskycity.gif</file>
-        <file>Advance Wars By Web 2.1_files/greyskycomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/greyskyhq.gif</file>
-        <file>Advance Wars By Web 2.1_files/greyskylab.gif</file>
-        <file>Advance Wars By Web 2.1_files/greyskyport.gif</file>
-        <file>Advance Wars By Web 2.1_files/hbridge.gif</file>
-        <file>Advance Wars By Web 2.1_files/hpipe.gif</file>
-        <file>Advance Wars By Web 2.1_files/hpiperubble.gif</file>
-        <file>Advance Wars By Web 2.1_files/hpipeseam.gif</file>
-        <file>Advance Wars By Web 2.1_files/hriver.gif</file>
-        <file>Advance Wars By Web 2.1_files/hroad.gif</file>
-        <file>Advance Wars By Web 2.1_files/hshoal.gif</file>
-        <file>Advance Wars By Web 2.1_files/hshoaln.gif</file>
-        <file>Advance Wars By Web 2.1_files/jadesunairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/jadesunbase.gif</file>
-        <file>Advance Wars By Web 2.1_files/jadesuncity.gif</file>
-        <file>Advance Wars By Web 2.1_files/jadesuncomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/jadesunhq.gif</file>
-        <file>Advance Wars By Web 2.1_files/jadesunlab.gif</file>
-        <file>Advance Wars By Web 2.1_files/jadesunport.gif</file>
-        <file>Advance Wars By Web 2.1_files/jquery-3.3.1.min.js.téléchargé</file>
-        <file>Advance Wars By Web 2.1_files/line.png</file>
-        <file>Advance Wars By Web 2.1_files/missilesilo.gif</file>
-        <file>Advance Wars By Web 2.1_files/missilesiloempty.gif</file>
-        <file>Advance Wars By Web 2.1_files/mountain.gif</file>
-        <file>Advance Wars By Web 2.1_files/nepipe.gif</file>
-        <file>Advance Wars By Web 2.1_files/neriver.gif</file>
-        <file>Advance Wars By Web 2.1_files/neroad.gif</file>
-        <file>Advance Wars By Web 2.1_files/nesriver.gif</file>
-        <file>Advance Wars By Web 2.1_files/nesroad.gif</file>
-        <file>Advance Wars By Web 2.1_files/neutralairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/neutralbase.gif</file>
-        <file>Advance Wars By Web 2.1_files/neutralcity.gif</file>
-        <file>Advance Wars By Web 2.1_files/neutralcomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/neutrallab.gif</file>
-        <file>Advance Wars By Web 2.1_files/neutralport.gif</file>
-        <file>Advance Wars By Web 2.1_files/npipeend.gif</file>
-        <file>Advance Wars By Web 2.1_files/orangestarairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/orangestarbase.gif</file>
-        <file>Advance Wars By Web 2.1_files/orangestarcity.gif</file>
-        <file>Advance Wars By Web 2.1_files/orangestarcomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/orangestarhq.gif</file>
-        <file>Advance Wars By Web 2.1_files/orangestarlab.gif</file>
-        <file>Advance Wars By Web 2.1_files/orangestarport.gif</file>
-        <file>Advance Wars By Web 2.1_files/overlib_mini_minify.js.téléchargé</file>
-        <file>Advance Wars By Web 2.1_files/pinkcosmosairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/pinkcosmosbase.gif</file>
-        <file>Advance Wars By Web 2.1_files/pinkcosmoscity.gif</file>
-        <file>Advance Wars By Web 2.1_files/pinkcosmoscomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/pinkcosmoshq.gif</file>
-        <file>Advance Wars By Web 2.1_files/pinkcosmoslab.gif</file>
-        <file>Advance Wars By Web 2.1_files/pinkcosmosport.gif</file>
-        <file>Advance Wars By Web 2.1_files/plain.gif</file>
-        <file>Advance Wars By Web 2.1_files/purplelightningairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/purplelightningbase.gif</file>
-        <file>Advance Wars By Web 2.1_files/purplelightningcity.gif</file>
-        <file>Advance Wars By Web 2.1_files/purplelightningcomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/purplelightninghq.gif</file>
-        <file>Advance Wars By Web 2.1_files/purplelightninglab.gif</file>
-        <file>Advance Wars By Web 2.1_files/purplelightningport.gif</file>
-        <file>Advance Wars By Web 2.1_files/redfireairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/redfirebase.gif</file>
-        <file>Advance Wars By Web 2.1_files/redfirecity.gif</file>
-        <file>Advance Wars By Web 2.1_files/redfirecomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/redfirehq.gif</file>
-        <file>Advance Wars By Web 2.1_files/redfirelab.gif</file>
-        <file>Advance Wars By Web 2.1_files/redfireport.gif</file>
-        <file>Advance Wars By Web 2.1_files/reef.gif</file>
-        <file>Advance Wars By Web 2.1_files/sea.gif</file>
-        <file>Advance Wars By Web 2.1_files/spipeend.gif</file>
-        <file>Advance Wars By Web 2.1_files/swnriver.gif</file>
-        <file>Advance Wars By Web 2.1_files/swnroad.gif</file>
-        <file>Advance Wars By Web 2.1_files/swpipe.gif</file>
-        <file>Advance Wars By Web 2.1_files/swriver.gif</file>
-        <file>Advance Wars By Web 2.1_files/swroad.gif</file>
-        <file>Advance Wars By Web 2.1_files/tealgalaxyairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/tealgalaxybase.gif</file>
-        <file>Advance Wars By Web 2.1_files/tealgalaxycity.gif</file>
-        <file>Advance Wars By Web 2.1_files/tealgalaxycomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/tealgalaxyhq.gif</file>
-        <file>Advance Wars By Web 2.1_files/tealgalaxylab.gif</file>
-        <file>Advance Wars By Web 2.1_files/tealgalaxyport.gif</file>
-        <file>Advance Wars By Web 2.1_files/vbridge.gif</file>
-        <file>Advance Wars By Web 2.1_files/vpipe.gif</file>
-        <file>Advance Wars By Web 2.1_files/vpiperubble.gif</file>
-        <file>Advance Wars By Web 2.1_files/vpipeseam.gif</file>
-        <file>Advance Wars By Web 2.1_files/vriver.gif</file>
-        <file>Advance Wars By Web 2.1_files/vroad.gif</file>
-        <file>Advance Wars By Web 2.1_files/vshoal.gif</file>
-        <file>Advance Wars By Web 2.1_files/vshoale.gif</file>
-        <file>Advance Wars By Web 2.1_files/whitenovaairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/whitenovabase.gif</file>
-        <file>Advance Wars By Web 2.1_files/whitenovacity.gif</file>
-        <file>Advance Wars By Web 2.1_files/whitenovacomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/whitenovahq.gif</file>
-        <file>Advance Wars By Web 2.1_files/whitenovalab.gif</file>
-        <file>Advance Wars By Web 2.1_files/whitenovaport.gif</file>
-        <file>Advance Wars By Web 2.1_files/wneriver.gif</file>
-        <file>Advance Wars By Web 2.1_files/wneroad.gif</file>
-        <file>Advance Wars By Web 2.1_files/wnpipe.gif</file>
-        <file>Advance Wars By Web 2.1_files/wnriver.gif</file>
-        <file>Advance Wars By Web 2.1_files/wnroad.gif</file>
-        <file>Advance Wars By Web 2.1_files/wood.gif</file>
-        <file>Advance Wars By Web 2.1_files/wpipeend.gif</file>
-        <file>Advance Wars By Web 2.1_files/yellowcometairport.gif</file>
-        <file>Advance Wars By Web 2.1_files/yellowcometbase.gif</file>
-        <file>Advance Wars By Web 2.1_files/yellowcometcity.gif</file>
-        <file>Advance Wars By Web 2.1_files/yellowcometcomtower.gif</file>
-        <file>Advance Wars By Web 2.1_files/yellowcomethq.gif</file>
-        <file>Advance Wars By Web 2.1_files/yellowcometlab.gif</file>
-        <file>Advance Wars By Web 2.1_files/yellowcometport.gif</file>
+        <file>doss/acidrainairport.gif</file>
+        <file>doss/acidrainbase.gif</file>
+        <file>doss/acidraincity.gif</file>
+        <file>doss/acidraincomtower.gif</file>
+        <file>doss/acidrainhq.gif</file>
+        <file>doss/acidrainlab.gif</file>
+        <file>doss/acidrainport.gif</file>
+        <file>doss/amberblazeairport.gif</file>
+        <file>doss/amberblazebase.gif</file>
+        <file>doss/amberblazecity.gif</file>
+        <file>doss/amberblazecomtower.gif</file>
+        <file>doss/amberblazehq.gif</file>
+        <file>doss/amberblazelab.gif</file>
+        <file>doss/amberblazeport.gif</file>
+        <file>doss/awbw_minify.css</file>
+        <file>doss/awbwlogo3.gif</file>
+        <file>doss/blackholeairport.gif</file>
+        <file>doss/blackholebase.gif</file>
+        <file>doss/blackholecity.gif</file>
+        <file>doss/blackholecomtower.gif</file>
+        <file>doss/blackholehq.gif</file>
+        <file>doss/blackholelab.gif</file>
+        <file>doss/blackholeport.gif</file>
+        <file>doss/bluemoonairport.gif</file>
+        <file>doss/bluemoonbase.gif</file>
+        <file>doss/bluemooncity.gif</file>
+        <file>doss/bluemooncomtower.gif</file>
+        <file>doss/bluemoonhq.gif</file>
+        <file>doss/bluemoonlab.gif</file>
+        <file>doss/bluemoonport.gif</file>
+        <file>doss/browndesertairport.gif</file>
+        <file>doss/browndesertbase.gif</file>
+        <file>doss/browndesertcity.gif</file>
+        <file>doss/browndesertcomtower.gif</file>
+        <file>doss/browndeserthq.gif</file>
+        <file>doss/browndesertlab.gif</file>
+        <file>doss/browndesertport.gif</file>
+        <file>doss/cobalticeairport.gif</file>
+        <file>doss/cobalticebase.gif</file>
+        <file>doss/cobalticecity.gif</file>
+        <file>doss/cobalticecomtower.gif</file>
+        <file>doss/cobalticehq.gif</file>
+        <file>doss/cobalticelab.gif</file>
+        <file>doss/cobalticeport.gif</file>
+        <file>doss/criver.gif</file>
+        <file>doss/croad.gif</file>
+        <file>doss/epipeend.gif</file>
+        <file>doss/espipe.gif</file>
+        <file>doss/esriver.gif</file>
+        <file>doss/esroad.gif</file>
+        <file>doss/eswriver.gif</file>
+        <file>doss/eswroad.gif</file>
+        <file>doss/greenearthairport.gif</file>
+        <file>doss/greenearthbase.gif</file>
+        <file>doss/greenearthcity.gif</file>
+        <file>doss/greenearthcomtower.gif</file>
+        <file>doss/greenearthhq.gif</file>
+        <file>doss/greenearthlab.gif</file>
+        <file>doss/greenearthport.gif</file>
+        <file>doss/greyskyairport.gif</file>
+        <file>doss/greyskybase.gif</file>
+        <file>doss/greyskycity.gif</file>
+        <file>doss/greyskycomtower.gif</file>
+        <file>doss/greyskyhq.gif</file>
+        <file>doss/greyskylab.gif</file>
+        <file>doss/greyskyport.gif</file>
+        <file>doss/hbridge.gif</file>
+        <file>doss/hpipe.gif</file>
+        <file>doss/hpiperubble.gif</file>
+        <file>doss/hpipeseam.gif</file>
+        <file>doss/hriver.gif</file>
+        <file>doss/hroad.gif</file>
+        <file>doss/hshoal.gif</file>
+        <file>doss/hshoaln.gif</file>
+        <file>doss/jadesunairport.gif</file>
+        <file>doss/jadesunbase.gif</file>
+        <file>doss/jadesuncity.gif</file>
+        <file>doss/jadesuncomtower.gif</file>
+        <file>doss/jadesunhq.gif</file>
+        <file>doss/jadesunlab.gif</file>
+        <file>doss/jadesunport.gif</file>
+        <file>doss/jquery-3.3.1.min.js.téléchargé</file>
+        <file>doss/line.png</file>
+        <file>doss/missilesilo.gif</file>
+        <file>doss/missilesiloempty.gif</file>
+        <file>doss/mountain.gif</file>
+        <file>doss/nepipe.gif</file>
+        <file>doss/neriver.gif</file>
+        <file>doss/neroad.gif</file>
+        <file>doss/nesriver.gif</file>
+        <file>doss/nesroad.gif</file>
+        <file>doss/neutralairport.gif</file>
+        <file>doss/neutralbase.gif</file>
+        <file>doss/neutralcity.gif</file>
+        <file>doss/neutralcomtower.gif</file>
+        <file>doss/neutrallab.gif</file>
+        <file>doss/neutralport.gif</file>
+        <file>doss/npipeend.gif</file>
+        <file>doss/orangestarairport.gif</file>
+        <file>doss/orangestarbase.gif</file>
+        <file>doss/orangestarcity.gif</file>
+        <file>doss/orangestarcomtower.gif</file>
+        <file>doss/orangestarhq.gif</file>
+        <file>doss/orangestarlab.gif</file>
+        <file>doss/orangestarport.gif</file>
+        <file>doss/overlib_mini_minify.js.téléchargé</file>
+        <file>doss/pinkcosmosairport.gif</file>
+        <file>doss/pinkcosmosbase.gif</file>
+        <file>doss/pinkcosmoscity.gif</file>
+        <file>doss/pinkcosmoscomtower.gif</file>
+        <file>doss/pinkcosmoshq.gif</file>
+        <file>doss/pinkcosmoslab.gif</file>
+        <file>doss/pinkcosmosport.gif</file>
+        <file>doss/plain.gif</file>
+        <file>doss/purplelightningairport.gif</file>
+        <file>doss/purplelightningbase.gif</file>
+        <file>doss/purplelightningcity.gif</file>
+        <file>doss/purplelightningcomtower.gif</file>
+        <file>doss/purplelightninghq.gif</file>
+        <file>doss/purplelightninglab.gif</file>
+        <file>doss/purplelightningport.gif</file>
+        <file>doss/redfireairport.gif</file>
+        <file>doss/redfirebase.gif</file>
+        <file>doss/redfirecity.gif</file>
+        <file>doss/redfirecomtower.gif</file>
+        <file>doss/redfirehq.gif</file>
+        <file>doss/redfirelab.gif</file>
+        <file>doss/redfireport.gif</file>
+        <file>doss/reef.gif</file>
+        <file>doss/sea.gif</file>
+        <file>doss/spipeend.gif</file>
+        <file>doss/swnriver.gif</file>
+        <file>doss/swnroad.gif</file>
+        <file>doss/swpipe.gif</file>
+        <file>doss/swriver.gif</file>
+        <file>doss/swroad.gif</file>
+        <file>doss/tealgalaxyairport.gif</file>
+        <file>doss/tealgalaxybase.gif</file>
+        <file>doss/tealgalaxycity.gif</file>
+        <file>doss/tealgalaxycomtower.gif</file>
+        <file>doss/tealgalaxyhq.gif</file>
+        <file>doss/tealgalaxylab.gif</file>
+        <file>doss/tealgalaxyport.gif</file>
+        <file>doss/vbridge.gif</file>
+        <file>doss/vpipe.gif</file>
+        <file>doss/vpiperubble.gif</file>
+        <file>doss/vpipeseam.gif</file>
+        <file>doss/vriver.gif</file>
+        <file>doss/vroad.gif</file>
+        <file>doss/vshoal.gif</file>
+        <file>doss/vshoale.gif</file>
+        <file>doss/whitenovaairport.gif</file>
+        <file>doss/whitenovabase.gif</file>
+        <file>doss/whitenovacity.gif</file>
+        <file>doss/whitenovacomtower.gif</file>
+        <file>doss/whitenovahq.gif</file>
+        <file>doss/whitenovalab.gif</file>
+        <file>doss/whitenovaport.gif</file>
+        <file>doss/wneriver.gif</file>
+        <file>doss/wneroad.gif</file>
+        <file>doss/wnpipe.gif</file>
+        <file>doss/wnriver.gif</file>
+        <file>doss/wnroad.gif</file>
+        <file>doss/wood.gif</file>
+        <file>doss/wpipeend.gif</file>
+        <file>doss/yellowcometairport.gif</file>
+        <file>doss/yellowcometbase.gif</file>
+        <file>doss/yellowcometcity.gif</file>
+        <file>doss/yellowcometcomtower.gif</file>
+        <file>doss/yellowcomethq.gif</file>
+        <file>doss/yellowcometlab.gif</file>
+        <file>doss/yellowcometport.gif</file>
     </qresource>
 </RCC>
