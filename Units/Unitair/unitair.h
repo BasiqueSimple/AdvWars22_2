@@ -3,7 +3,6 @@
 
 #include "./Units/units.h"
 
-
 class Unitair : public Unit
 {
 public:

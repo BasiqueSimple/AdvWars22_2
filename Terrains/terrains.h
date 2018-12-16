@@ -14,6 +14,8 @@ protected:
 
 public:
     Terrain();
+    void modifierConsommationMovePoint(int);
+    int getPointDefense();
 };
 
 

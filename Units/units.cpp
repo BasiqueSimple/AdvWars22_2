@@ -3,7 +3,6 @@
 #include <string>
 
 
-using namespace std;
 
 Unit::Unit(int x, int y) : Activable (x, y)
 {
@@ -19,14 +18,14 @@ void Unit::attendre()
 
 }
 
-void Unit::attaquer()
+int Unit::getPV()
 {
-
+    return this->PV;
 }
 
-void Unit::recevoirdegat()
+void Unit::recevoirdegat(int a)
 {
-
+    this->PV = --a;
 }
 
 void Unit::etrerepare()
@@ -42,6 +41,11 @@ void Unit::fusion()
 bool Unit::EtreEnVie()
 {
 
+}
+
+string Unit::getMoveType()
+{
+    return this->MoveType;
 }
 
 void Unit::activate()

@@ -7,3 +7,13 @@ Terrain::Terrain()
 {
 
 }
+
+void Terrain::modifierConsommationMovePoint(int a)
+{
+    this->ConsommationMovePoint = a;
+}
+
+int Terrain::getPointDefense()
+{
+    return this->PointDefense;
+}

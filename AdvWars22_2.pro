@@ -64,7 +64,9 @@ SOURCES += \
     Terrains/reef.cpp \
     Terrains/pipe.cpp \
     Units/Unitair/unitairfighter.cpp \
-    onmap.cpp
+    onmap.cpp\
+	damage.cpp \
+    combat.cpp
 
 
 HEADERS += \
@@ -135,6 +137,8 @@ HEADERS += \
     Terrains/plage.h \
     Terrains/reef.h \
     Terrains/pipe.h \
+    damage.h \
+    combat.h
     onmap.h
 
 FORMS += \
