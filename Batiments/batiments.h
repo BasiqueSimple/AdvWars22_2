@@ -16,7 +16,6 @@ public:
 
     //Méthodes
     Batiment(int,int);
-    void activate();
 };
 
 

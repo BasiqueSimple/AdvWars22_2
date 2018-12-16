@@ -6,7 +6,7 @@
 class Unitterreinfantbazooka : public Unitterreinfant
 {
 public:
-    Unitterreinfantbazooka(int, int);
+    Unitterreinfantbazooka(int, int, std::string);
 };
 
 #endif // UNITTERREINFANTBAZOOKA_H

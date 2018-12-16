@@ -7,6 +7,14 @@
 #include <Batiments/batimentsaeroport.h>
 #include <Batiments/batimentsusine.h>
 #include <Batiments/batimentsville.h>
+#include <Units/Unitterreinfant/unitterreinfantbazooka.h>
+#include <Units/Unitterreinfant/unitterreinfantinfant.h>
+#include <Units/Unitterrenoinfant/unitterrenoinfantantiair.h>
+#include <Units/Unitterrenoinfant/unitterrenoinfantmdtank.h>
+#include <Units/Unitterrenoinfant/unitterrenoinfantmegatank.h>
+#include <Units/Unitterrenoinfant/unitterrenoinfantneotank.h>
+#include <Units/Unitterrenoinfant/unitterrenoinfantrecon.h>
+#include <Units/Unitterrenoinfant/unitterrenoinfanttank.h>
 
 using namespace std;
 
@@ -21,7 +29,7 @@ tuple<int,int> Game::conv_coord(int x, int y){
     return make_tuple(x/size_img, y/size_img);
 }
 
-void Game::click_on(int x, int y){
+bool Game::click_on(int x, int y){
     tie(x, y) = conv_coord(x, y);
     cout << x << "," << y << endl;
     for(int i = 0; i < this->activables.size(); ++i)
@@ -29,12 +37,15 @@ void Game::click_on(int x, int y){
         if(this->activables[i]->is_at(x,y)){
             if(this->activables[i]->getTeam() == this->joueur_actuel->getTeam()){
                 this->activables[i]->activate();
+                this->dernier_active=this->activables[i];
+                return true;
             }
             else {
                 cout << "Ce n'est pas ton equipe." << endl;
             }
         }
     }
+    return false;
 }
 
 void Game::start_game(){
@@ -89,4 +100,60 @@ void Game::start_game(){
        {
             this->activables.push_back(new Batimentusine(usines3[v][0],usines3[v][1], "bm"));
        }
+}
+
+void Game::create_infant(){
+    activables.push_back(new Unitterreinfantinfant(this->dernier_active->getposx(),
+                                                   this->dernier_active->getposy(),
+                                                   this->joueur_actuel->getTeam()));
+    cout << "infant" << endl;
+}
+
+void Game::create_bazoo(){
+    activables.push_back(new Unitterreinfantbazooka(this->dernier_active->getposx(),
+                                                   this->dernier_active->getposy(),
+                                                   this->joueur_actuel->getTeam()));
+    cout << "baz" << endl;
+}
+
+void Game::create_recon(){
+    activables.push_back(new Unitterrenoinfantrecon(this->dernier_active->getposx(),
+                                                   this->dernier_active->getposy(),
+                                                   this->joueur_actuel->getTeam()));
+    cout << "reco" << endl;
+}
+
+void Game::create_aa(){
+    activables.push_back(new Unitterrenoinfantantiair(this->dernier_active->getposx(),
+                                                   this->dernier_active->getposy(),
+                                                   this->joueur_actuel->getTeam()));
+    cout << "aa" << endl;
+}
+
+void Game::create_tank(){
+    activables.push_back(new Unitterrenoinfanttank(this->dernier_active->getposx(),
+                                                   this->dernier_active->getposy(),
+                                                   this->joueur_actuel->getTeam()));
+    cout << "tank" << endl;
+}
+
+void Game::create_mdtank(){
+    activables.push_back(new Unitterrenoinfantmdtank(this->dernier_active->getposx(),
+                                                   this->dernier_active->getposy(),
+                                                   this->joueur_actuel->getTeam()));
+    cout << "md" << endl;
+}
+
+void Game::create_megatank(){
+    activables.push_back(new Unitterrenoinfantmegatank(this->dernier_active->getposx(),
+                                                   this->dernier_active->getposy(),
+                                                   this->joueur_actuel->getTeam()));
+    cout << "megat" << endl;
+}
+
+void Game::create_neotank(){
+    activables.push_back(new Unitterrenoinfantneotank(this->dernier_active->getposx(),
+                                                   this->dernier_active->getposy(),
+                                                   this->joueur_actuel->getTeam()));
+    cout << "neo" << endl;
 }

@@ -24,7 +24,7 @@ void Batimentusine::GagnerArgent()
 
 }
 
-void Batiment::activate()
+void Batimentusine::activate()
 {
-    cout << this->getTeam() << endl;
+
 }

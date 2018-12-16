@@ -12,6 +12,7 @@ public:
     void GagnerArgent();
     void construireUnit();
     void reparerUnit();
+    void activate();
 };
 
 

@@ -110,7 +110,67 @@ void MainWindow::paintEvent(QPaintEvent *event){
 void MainWindow::mousePressEvent(QMouseEvent *event){
     int x = event->x();
     int y = event->y();
-    this->game.click_on(x,y);
+    if(this->game.click_on(x,y)){
+        QPoint pos = *new QPoint(x,y);
+        this->ShowContextMenu(pos);
+    }
+}
+
+void MainWindow::ShowContextMenu(const QPoint& pos)
+{
+    QPoint globalPos = this->mapToGlobal(pos);
+
+    QMenu myMenu;
+
+    QAction *infant = myMenu.addAction("Infanterie-1000");
+    QAction *bazoo = myMenu.addAction("Bazooka-3000");
+    QAction *recon = myMenu.addAction("Reconnaissance-4000");
+    QAction *tank = myMenu.addAction("Tank-7000");
+    QAction *aa = myMenu.addAction("AntiAir-8000");
+    QAction *mdtank = myMenu.addAction("MDTank-16000");
+    QAction *megatank = myMenu.addAction("MegaTank-28000");
+    QAction *neotank = myMenu.addAction("NeoTank-22000");
+    connect(infant, SIGNAL(triggered()), this, SLOT(create_infant()));
+    connect(bazoo, SIGNAL(triggered()), this, SLOT(create_bazoo()));
+    connect(recon, SIGNAL(triggered()), this, SLOT(create_recon()));
+    connect(tank, SIGNAL(triggered()), this, SLOT(create_tank()));
+    connect(aa, SIGNAL(triggered()), this, SLOT(create_aa()));
+    connect(mdtank, SIGNAL(triggered()), this, SLOT(create_mdtank()));
+    connect(megatank, SIGNAL(triggered()), this, SLOT(create_megatank()));
+    connect(neotank, SIGNAL(triggered()), this, SLOT(create_neotank()));
+    myMenu.exec(globalPos);
+}
+
+void MainWindow::create_infant(){
+    this->game.create_infant();
+}
+
+void MainWindow::create_bazoo(){
+    this->game.create_bazoo();
+}
+
+void MainWindow::create_recon(){
+    this->game.create_recon();
+}
+
+void MainWindow::create_aa(){
+    this->game.create_aa();
+}
+
+void MainWindow::create_tank(){
+    this->game.create_tank();
+}
+
+void MainWindow::create_mdtank(){
+    this->game.create_mdtank();
+}
+
+void MainWindow::create_megatank(){
+    this->game.create_megatank();
+}
+
+void MainWindow::create_neotank(){
+    this->game.create_neotank();
 }
 
 

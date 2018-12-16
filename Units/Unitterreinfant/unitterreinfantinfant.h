@@ -6,7 +6,7 @@
 class Unitterreinfantinfant : public Unitterreinfant
 {
 public:
-    Unitterreinfantinfant(int, int);
+    Unitterreinfantinfant(int, int, std::string);
 };
 
 

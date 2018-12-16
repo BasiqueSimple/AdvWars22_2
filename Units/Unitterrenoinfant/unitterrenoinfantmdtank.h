@@ -6,7 +6,7 @@
 class Unitterrenoinfantmdtank : public Unitterrenoinfant
 {
 public:
-    Unitterrenoinfantmdtank(int, int);
+    Unitterrenoinfantmdtank(int, int, std::string);
 };
 
 #endif // UNITTERRENOINFANTMDTANK_H

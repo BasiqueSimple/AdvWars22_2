@@ -3,6 +3,7 @@
 
 #include "game.h"
 
+#include <QActionGroup>
 #include <QMainWindow>
 
 namespace Ui {
@@ -20,6 +21,18 @@ public:
     void paintEvent(QPaintEvent *event);
 
     void mousePressEvent(QMouseEvent *event);
+
+    void ShowContextMenu(const QPoint &pos);
+
+public slots:
+    void create_infant();
+    void create_bazoo();
+    void create_recon();
+    void create_aa();
+    void create_tank();
+    void create_mdtank();
+    void create_megatank();
+    void create_neotank();
 private:
     Ui::MainWindow *ui;
     Game game;
