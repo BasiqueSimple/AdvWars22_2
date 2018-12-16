@@ -7,7 +7,7 @@
 class Pont : public Terrain
 {
 public:
-    Pont();
+    Pont(int, int);
 };
 
 

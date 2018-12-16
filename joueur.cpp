@@ -14,6 +14,10 @@ std::string Joueur::getTeam(){
     return this->team;
 }
 
+void Joueur::payer(int a)
+{
+    this->argent=--a;
+}
 void Joueur::gagne_argent(int rev)
 {
     this->argent+=rev;

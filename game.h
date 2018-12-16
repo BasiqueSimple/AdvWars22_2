@@ -8,6 +8,7 @@
 #include <Batiments/batiments.h>
 
 
+
 using namespace std;
 
 
@@ -25,6 +26,7 @@ public:
     void create_neotank();
     vector<Unit *> getunits();
 private:
+    std::vector<Terrain*> terrains;
     std::vector<Unit*> units;
     std::vector<Batiment*> batiments;
     std::vector<Joueur*> joueurs;

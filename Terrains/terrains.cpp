@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Terrain::Terrain()
+Terrain::Terrain(int x, int y) : OnMap(x,y)
 {
 
 }

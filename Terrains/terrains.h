@@ -2,18 +2,18 @@
 #define TERRAINS_H
 
 # include <QPainter>
+#include "onmap.h"
 
-class Terrain
+class Terrain : OnMap
 {
 protected:
     int PointDefense;
     int ConsommationMovePoint;
     QPixmap Image;
-    int posX;
-    int posY;
+
 
 public:
-    Terrain();
+    Terrain(int, int);
     void modifierConsommationMovePoint(int);
     int getPointDefense();
 };

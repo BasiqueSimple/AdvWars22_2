@@ -5,6 +5,22 @@
 #include <string>
 #include "./activable.h"
 #include "./Terrains/terrains.h"
+#include "./joueur.h"
+
+#include "./Terrains/plaine.h"
+#include "./Terrains/montagne.h"
+#include "./Terrains/foret.h"
+#include "./Terrains/pipe.h"
+#include "./Terrains/plage.h"
+#include "./Terrains/pont.h"
+#include "./Terrains/reef.h"
+#include "./Terrains/riviere.h"
+#include "./Terrains/route.h"
+#include "./Batiments/batimentsville.h"
+#include "./Batiments/batimentsusine.h"
+#include "./Batiments/batimentsaeroport.h"
+
+
 
 
 
@@ -24,11 +40,13 @@ protected:
 public:
     //Méthodes
     Unit(int,int);
-    void move();
+    ~Unit();
+    void move(Terrain);
+    void mouvementspossibles(Terrain);
     void attendre();
     void recevoirdegat(int);
-    void etrerepare();
-    void fusion();
+    virtual void etrerepare(Terrain, Joueur);
+    void fusion(Unit);
     bool EtreEnVie();
     void activate();
     std:: string getMoveType();
@@ -37,11 +55,6 @@ public:
 private:
     QPixmap img;
 };
-
-int calculerdamage(Unit, Unit);
-int calculerpointdefense(Unit, Terrain);
-
-
 
 
 #endif // UNITS_H

@@ -7,7 +7,7 @@
 class Riviere : public Terrain
 {
 public:
-    Riviere();
+    Riviere(int, int);
 };
 
 

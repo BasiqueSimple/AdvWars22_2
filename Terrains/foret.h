@@ -6,7 +6,7 @@
 class Foret : public Terrain
 {
 public:
-    Foret();
+    Foret(int, int);
 };
 
 

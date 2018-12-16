@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Pipe::Pipe()
+Pipe::Pipe(int x, int y) : Terrain (x, y)
 {
     this->PointDefense=0;
     //this->ConsommationMovePoint=Tjr interdit -

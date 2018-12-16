@@ -7,7 +7,7 @@
 class Pipe : public Terrain
 {
 public:
-    Pipe();
+    Pipe(int, int);
 };
 
 

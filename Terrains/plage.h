@@ -7,7 +7,7 @@
 class Plage : public Terrain
 {
 public:
-    Plage();
+    Plage(int, int);
 };
 
 

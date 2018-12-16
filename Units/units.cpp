@@ -1,6 +1,7 @@
 #include "units.h"
 #include <onmap.h>
 #include <string>
+#include <typeinfo.h>
 
 
 
@@ -8,14 +9,352 @@ Unit::Unit(int x, int y) : Activable (x, y)
 {
 }
 
-void Unit::move()
+void Unit::mouvementspossibles(Terrain terrain)
 {
+    int movepointrestant = this->MovePoint;
 
+    //Associe la bonne ConsommationMovePoint en fonction du terrain et de la unit
+
+    int ConsommationMovePoint;
+    if (typeid(terrain) == typeid(Plaine))
+    {
+        cout << "ca fonctionne !" << endl;
+        if (this->getMoveType() == "F")
+        {
+           ConsommationMovePoint = 1;
+        }
+        else if (this->getMoveType() == "B")
+        {
+           ConsommationMovePoint = 1;
+        }
+        else if (this->getMoveType() == "T")
+        {
+           ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "W")
+        {
+           ConsommationMovePoint = 2 ;
+        }
+        else if (this->getMoveType() == "A")
+        {
+           ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+           cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+    }
+    else if (typeid(terrain) == typeid(Montagne))
+    {
+        if (this->getMoveType() == "F")
+        {
+            ConsommationMovePoint = 2 ;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "T")
+        {
+            ConsommationMovePoint = 0;
+            //0 quand on ne peut pas aller dessus
+        }
+        else if (this->getMoveType() == "W")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "A")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else if (typeid(terrain) == typeid(Foret))
+     {
+        if (this->getMoveType() == "F")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "T")
+        {
+            ConsommationMovePoint = 2 ;
+        }
+        else if (this->getMoveType() == "W")
+        {
+            ConsommationMovePoint = 3 ;
+        }
+        else if (this->getMoveType() == "A")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+    }
+    else if (typeid(terrain) == typeid(Riviere))
+    {
+        if (this->getMoveType() == "F")
+        {
+            ConsommationMovePoint = 2 ;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "T")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "W")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "A")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else if (typeid(terrain) == typeid(Route))
+     {
+        if (this->getMoveType() == "F")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "T")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "W")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "A")
+        {
+             ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else if (typeid(terrain) == typeid(Pont))
+     {
+        if (this->getMoveType() == "F")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "T")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "W")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "A")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else if (typeid(terrain) == typeid(Plage))
+     {
+        if (this->getMoveType() == "F")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "T")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "W")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "A")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else if (typeid(terrain) == typeid(Reef))
+     {
+        if (this->getMoveType() == "F")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "T")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "W")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "A")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else if (typeid(terrain) == typeid(Batimentville))
+     {
+        if (this->getMoveType() == "F")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "T")
+        {
+           ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "W")
+        {
+           ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "A")
+        {
+           ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else if (typeid(terrain) == typeid(Batimentusine))
+     {
+        if (this->getMoveType() == "F")
+        {
+           ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "T")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "W")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "A")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else if (typeid(terrain) == typeid(Batimentaeroport))
+     {
+        if (this->getMoveType() == "F")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "T")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "W")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (this->getMoveType() == "A")
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else if (typeid(terrain) == typeid(Pipe))
+     {
+        if (this->getMoveType() == "F")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "B")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "T")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "W")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else if (this->getMoveType() == "A")
+        {
+            ConsommationMovePoint = 0;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else
+     {
+        cout << "Ce terrain est inconnu" << endl;
+     }
+
+    movepointrestant -= ConsommationMovePoint;
+    //faire bouger la unit
+    // renvoyer movepointrestant pour faire une boucle ailleurs ?
 }
 
 void Unit::attendre()
 {
-
+    //passer un tour
 }
 
 int Unit::getPV()
@@ -28,19 +367,36 @@ void Unit::recevoirdegat(int a)
     this->PV = --a;
 }
 
-void Unit::etrerepare()
+void Unit::etrerepare(Terrain, Joueur)
 {
 
 }
 
-void Unit::fusion()
+void Unit::fusion(Unit celuiquejerejoins)
 {
-
+    if (typeid (this) == typeid (celuiquejerejoins))
+    {
+        if ((celuiquejerejoins.PV)==10)
+        {
+            cout << "Tu ne peux pas fusionner avec moi j'ai encore tous mes points de vie" <<endl;
+        }
+        else
+        {
+            // int a = this->PV + celuiquejerejoins.PV;
+            //if (a > 10)
+            //{
+            //  a = 10;
+            //}
+            //creer un unit du même type dont PV = a
+            //detruire this
+            //detruire celuiquejerejoins
+        }
+    }
 }
 
 bool Unit::EtreEnVie()
 {
-
+    return this->PV > 0;
 }
 
 string Unit::getMoveType()
@@ -60,4 +416,9 @@ void Unit::setImg(QPixmap img){
 
 QPixmap Unit::getimg(){
     return this->img;
+}
+
+Unit::~Unit()
+{
+
 }

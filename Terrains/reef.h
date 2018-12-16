@@ -7,7 +7,7 @@
 class Reef : public Terrain
 {
 public:
-    Reef();
+    Reef(int, int);
 };
 
 

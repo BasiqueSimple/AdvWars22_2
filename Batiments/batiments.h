@@ -5,7 +5,7 @@
 
 #include <activable.h>
 
-class Batiment : public Terrain, public Activable
+class Batiment : public Activable, public Terrain
 {
 public:
     //Attributs

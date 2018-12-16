@@ -7,7 +7,7 @@
 class Route : public Terrain
 {
 public:
-    Route();
+    Route(int, int);
 };
 
 
