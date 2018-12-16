@@ -4,8 +4,7 @@ using namespace std;
 
 Unitairbcopter::Unitairbcopter()
 {
+    this->MoveType="A";
     this->Cout =9000;
     this->MovePoint =6;
-  //image depend de l'équipe (couleur ?)
 }
-

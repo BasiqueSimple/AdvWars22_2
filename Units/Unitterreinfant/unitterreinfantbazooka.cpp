@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Unitterreinfantbazooka::Unitterreinfantbazooka()
+Unitterreinfantbazooka::Unitterreinfantbazooka(int x, int y): Unitterreinfant (x, y)
 {
     this->MoveType ="B";
     this->Cout =3000;

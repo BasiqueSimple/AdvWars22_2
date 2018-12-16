@@ -6,7 +6,7 @@
 class Unitterreinfantbazooka : public Unitterreinfant
 {
 public:
-    Unitterreinfantbazooka();
+    Unitterreinfantbazooka(int, int);
 };
 
 #endif // UNITTERREINFANTBAZOOKA_H

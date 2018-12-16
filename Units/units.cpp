@@ -5,9 +5,10 @@
 
 using namespace std;
 
-Unit::Unit()
+Unit::Unit(int x, int y)
 {
-    this->PV = 10;
+    this->posX = x;
+    this->posY = y;
 }
 
 void Unit::move()
@@ -43,4 +44,9 @@ void Unit::fusion()
 bool Unit::EtreEnVie()
 {
 
+}
+
+int Unit::getposx()
+{
+    return this->posX;
 }

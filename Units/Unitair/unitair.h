@@ -8,7 +8,7 @@ class Unitair : public Unit
 {
 public:
     //Méthode
-    Unitair();
+    Unitair(int, int);
 };
 
 #endif // UNITAIR_H

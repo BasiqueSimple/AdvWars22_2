@@ -37,7 +37,6 @@ SOURCES += \
     Units/Unitair/unitair.cpp \
     Units/Unitair/unitairbcopter.cpp \
     Units/Unitair/unitairbomber.cpp \
-    Units/Unitair/unitaitfighter.cpp \
     Units/Unitterreinfant/unitterreinfant.cpp \
     Units/Unitterreinfant/unitterreinfantbazooka.cpp \
     Units/Unitterreinfant/unitterreinfantinfant.cpp \
@@ -63,7 +62,8 @@ SOURCES += \
     Terrains/pont.cpp \
     Terrains/plage.cpp \
     Terrains/reef.cpp \
-    Terrains/pipe.cpp
+    Terrains/pipe.cpp \
+    Units/Unitair/unitairfighter.cpp
 
 
 HEADERS += \
@@ -661,8 +661,7 @@ DISTFILES += \
     Advance Wars By Web 2.1_files/yellowcometport.gif \
     Advance Wars By Web 2.1_files/line.png \
     Advance Wars By Web 2.1_files/awbw_minify.css \
-    Advance Wars By Web 2.1_files/overlib_mini_minify.js.téléchargé \
-    map.txt
+    Advance Wars By Web 2.1_files/overlib_mini_minify.js.téléchargé
 
 RESOURCES += \
     hey.qrc

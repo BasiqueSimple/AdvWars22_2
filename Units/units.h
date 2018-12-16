@@ -7,6 +7,8 @@
 
 class Unit : public Activable
 {
+public:
+    int getposx();
 protected:
     //Attributs
     int PV;
@@ -18,7 +20,7 @@ protected:
     int posY;
 
     //Méthodes
-    Unit();
+    Unit(int,int);
     void move();
     void attendre();
     void attaquer();

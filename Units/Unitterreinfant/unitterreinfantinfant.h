@@ -6,7 +6,7 @@
 class Unitterreinfantinfant : public Unitterreinfant
 {
 public:
-    Unitterreinfantinfant();
+    Unitterreinfantinfant(int, int);
 };
 
 

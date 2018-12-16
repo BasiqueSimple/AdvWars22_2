@@ -2,7 +2,7 @@
 #define GAME_H
 #include "activable.h"
 #include <iostream>
-#include <array>
+#include <Units/units.h>
 
 using namespace std;
 
@@ -12,7 +12,7 @@ public:
     Game();
     void what_in(int x, int y);
 private:
-    std::array<Activable,30> activables;
+    std::vector<Unit*> activables;
     std::tuple<int,int> conv_coord(int x, int y);
     void start_game();
 };

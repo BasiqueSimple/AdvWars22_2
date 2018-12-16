@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Unitterreinfant::Unitterreinfant()
+Unitterreinfant::Unitterreinfant(int x, int y): Unit(x, y)
 {
 
 }

@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Unitterrenoinfantantiair::Unitterrenoinfantantiair()
+Unitterrenoinfantantiair::Unitterrenoinfantantiair(int x, int y): Unitterrenoinfant (x, y)
 {
     this->MoveType ="T";
     this->Cout =8000;

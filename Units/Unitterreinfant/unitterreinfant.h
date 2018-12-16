@@ -8,7 +8,7 @@ class Unitterreinfant : public Unit
 {
 public:
     //Méthode
-    Unitterreinfant();
+    Unitterreinfant(int, int);
     void capturer();
 };
 

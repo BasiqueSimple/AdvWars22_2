@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Unitair::Unitair()
+Unitair::Unitair(int x,int y): Unit(x, y)
 {
     this->MoveType ="A";
 }

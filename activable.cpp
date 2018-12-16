@@ -3,7 +3,6 @@
 
 
 void Activable::activate(){
-    //A voir
 }
 
 Activable::~Activable()

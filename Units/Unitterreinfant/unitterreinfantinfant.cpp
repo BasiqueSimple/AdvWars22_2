@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Unitterreinfantinfant::Unitterreinfantinfant()
+Unitterreinfantinfant::Unitterreinfantinfant(int x, int y): Unitterreinfant (x, y)
 {
     this->MoveType ="F";
     this->Cout =1000;

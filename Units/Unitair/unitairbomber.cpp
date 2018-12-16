@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Unitairbomber::Unitairbomber()
+Unitairbomber::Unitairbomber(int x, int y): Unitair(x, y)
 {
     this->Cout =22000;
     this->MovePoint =7;

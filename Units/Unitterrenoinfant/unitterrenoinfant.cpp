@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Unitterrenoinfant::Unitterrenoinfant()
+Unitterrenoinfant::Unitterrenoinfant(int x, int y): Unit(x, y)
 {
 
 }

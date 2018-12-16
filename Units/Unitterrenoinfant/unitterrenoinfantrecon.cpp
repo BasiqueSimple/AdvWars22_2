@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Unitterrenoinfantrecon::Unitterrenoinfantrecon()
+Unitterrenoinfantrecon::Unitterrenoinfantrecon(int x, int y): Unitterrenoinfant (x, y)
 {
     this->MoveType ="W";
     this->Cout =4000;

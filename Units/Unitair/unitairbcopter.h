@@ -6,7 +6,8 @@
 class Unitairbcopter : public Unitair
 {
 public:
-    Unitairbcopter();
+    Unitairbcopter(int, int);
+    void activate();
 };
 
 

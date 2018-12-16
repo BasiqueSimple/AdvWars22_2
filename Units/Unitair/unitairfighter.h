@@ -6,7 +6,7 @@
 class Unitairfighter : public Unitair
 {
 public:
-    Unitairfighter();
+    Unitairfighter(int, int);
 };
 
 

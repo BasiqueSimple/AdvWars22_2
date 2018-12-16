@@ -8,7 +8,7 @@ class Unitterrenoinfant : public Unit
 {
 public:
     //Méthode
-    Unitterrenoinfant();
+    Unitterrenoinfant(int, int);
 };
 
 

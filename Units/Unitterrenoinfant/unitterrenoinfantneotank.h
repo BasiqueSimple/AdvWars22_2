@@ -7,7 +7,7 @@
 class Unitterrenoinfantneotank : public Unitterrenoinfant
 {
 public:
-    Unitterrenoinfantneotank();
+    Unitterrenoinfantneotank(int, int);
 };
 
 #endif // UNITTERRENOINFANTNEOTANK_H

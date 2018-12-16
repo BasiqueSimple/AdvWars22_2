@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Unitterrenoinfantmegatank::Unitterrenoinfantmegatank()
+Unitterrenoinfantmegatank::Unitterrenoinfantmegatank(int x, int y): Unitterrenoinfant (x, y)
 {
     this->MoveType ="T";
     this->Cout =28000;

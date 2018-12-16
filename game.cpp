@@ -1,11 +1,17 @@
 #include "game.h"
 #include <tuple>
+#include <array>
 #include <iostream>
-#include "activable.h"
+#include <vector>
+#include <Units/Unitair/unitairbcopter.h>
 
 using namespace std;
 
-Game::Game(){
+Game::Game()
+{
+    std::vector<Unit*> activables;
+    this->activables = activables;
+    this->start_game();
 }
 
 tuple<int,int> Game::conv_coord(int x, int y){
@@ -17,13 +23,11 @@ tuple<int,int> Game::conv_coord(int x, int y){
 
 void Game::what_in(int x, int y){
     tie(x, y) = conv_coord(x, y);
-/*    for(int a=0;a<this->activables.size();++a){
-        if(this->activables[a].posX==x){
-            this->Unit(activables[a]).activate();
-        }
-    }*/
+    if(this->activables[0]->getposx()==x){
+            this->activables[0]->activate();
+    }
 }
 
 void Game::start_game(){
-    //this->clickables[0]= new Joueur();
+    this->activables.push_back(new Unitairbcopter(3,3));
 }
