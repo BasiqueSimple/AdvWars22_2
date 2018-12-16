@@ -8,5 +8,6 @@ Unitterrenoinfantantiair::Unitterrenoinfantantiair(int x, int y, std::string tea
     this->Cout =8000;
     this->MovePoint =6;
     this->setTeam(team);
-  //image depend de l'équipe (couleur ?)
+    std::string path = ":/ImageUnit/" + team + "anti-air";
+    this->setImg(*new QPixmap(QString::fromStdString(path)));
 }

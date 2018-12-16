@@ -30,7 +30,6 @@ SOURCES += \
     imageholder.cpp \
     main.cpp \
     mainwindow.cpp \
-    map.cpp \
     menubox.cpp \
     ui.cpp \
     Units/units.cpp \
@@ -74,28 +73,24 @@ HEADERS += \
     game.h \
     ia.h \
     imageholder.h \
-    map.h \
     menubox.h \
     ui.h \
     game.h \
     ia.h \
     imageholder.h \
     mainwindow.h \
-    map.h \
     menubox.h \
     ui.h \
     game.h \
     ia.h \
     imageholder.h \
     mainwindow.h \
-    map.h \
     menubox.h \
     ui.h \
     game.h \
     ia.h \
     imageholder.h \
     mainwindow.h \
-    map.h \
     menubox.h \
     ui.h \
     Test/buildings.h \
@@ -103,7 +98,6 @@ HEADERS += \
     ia.h \
     imageholder.h \
     mainwindow.h \
-    map.h \
     menubox.h \
     ui.h \
     Units/units.h \

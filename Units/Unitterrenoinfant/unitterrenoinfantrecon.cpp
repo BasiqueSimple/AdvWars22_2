@@ -8,5 +8,6 @@ Unitterrenoinfantrecon::Unitterrenoinfantrecon(int x, int y, std::string team): 
     this->Cout =4000;
     this->MovePoint =8;
     this->setTeam(team);
-  //image depend de l'équipe (couleur ?)
+    std::string path = ":/ImageUnit/" + team + "recon";
+    this->setImg(*new QPixmap(QString::fromStdString(path)));
 }

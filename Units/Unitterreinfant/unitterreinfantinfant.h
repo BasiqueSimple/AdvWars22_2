@@ -2,6 +2,7 @@
 #define UNITTERREINFANTINFANT_H
 
 #include "unitterreinfant.h"
+#include <QPixmap>
 
 class Unitterreinfantinfant : public Unitterreinfant
 {

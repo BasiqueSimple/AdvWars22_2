@@ -8,5 +8,6 @@ Unitterrenoinfanttank::Unitterrenoinfanttank(int x, int y, std::string team): Un
     this->Cout =7000;
     this->MovePoint =6;
     this->setTeam(team);
-  //image depend de l'équipe (couleur ?)
+    std::string path = ":/ImageUnit/" + team + "tank";
+    this->setImg(*new QPixmap(QString::fromStdString(path)));
 }

@@ -20,7 +20,7 @@ protected:
     int posX;
     int posY;
     std::string Team;
-
+    void setImg(QPixmap img);
 public:
     //Méthodes
     Unit(int,int);
@@ -33,7 +33,9 @@ public:
     void activate();
     std:: string getMoveType();
     int getPV();
-    int getposx();
+    QPixmap getimg();
+private:
+    QPixmap img;
 };
 
 int calculerdamage(Unit, Unit);

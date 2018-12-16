@@ -2,13 +2,13 @@
 #include "imageholder.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "onmap.h"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <QPainter>
 #include <QMouseEvent>
 #include <sstream>
-#include <map>
 
 using namespace std;
 
@@ -105,6 +105,12 @@ void MainWindow::paintEvent(QPaintEvent *event){
                 painter.drawPixmap(size_img*c,size_img*l,size_img,size_img,*terrain[tableau[l][c]]);
            }
        }
+    for(int i = 0; i < this->game.getunits().size(); ++i)
+    {
+        int x = this->game.getunits()[i]->getposx();
+        int y = this->game.getunits()[i]->getposy();
+        painter.drawPixmap(size_img*x, size_img*y,size_img, size_img, this->game.getunits()[i]->getimg());
+    }
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event){
@@ -143,34 +149,42 @@ void MainWindow::ShowContextMenu(const QPoint& pos)
 
 void MainWindow::create_infant(){
     this->game.create_infant();
+    this->repaint();
 }
 
 void MainWindow::create_bazoo(){
     this->game.create_bazoo();
+    this->repaint();
 }
 
 void MainWindow::create_recon(){
     this->game.create_recon();
+    this->repaint();
 }
 
 void MainWindow::create_aa(){
     this->game.create_aa();
+    this->repaint();
 }
 
 void MainWindow::create_tank(){
     this->game.create_tank();
+    this->repaint();
 }
 
 void MainWindow::create_mdtank(){
     this->game.create_mdtank();
+    this->repaint();
 }
 
 void MainWindow::create_megatank(){
     this->game.create_megatank();
+    this->repaint();
 }
 
 void MainWindow::create_neotank(){
     this->game.create_neotank();
+    this->repaint();
 }
 
 

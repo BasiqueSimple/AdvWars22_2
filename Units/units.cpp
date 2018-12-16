@@ -52,3 +52,11 @@ void Unit::activate()
 {
     cout << this->getTeam() << endl;
 }
+
+void Unit::setImg(QPixmap img){
+    this->img=img;
+}
+
+QPixmap Unit::getimg(){
+    return this->img;
+}

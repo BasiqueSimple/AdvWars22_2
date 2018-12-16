@@ -5,6 +5,8 @@
 #include <iostream>
 #include <Units/units.h>
 #include <vector>
+#include <Batiments/batiments.h>
+
 
 using namespace std;
 
@@ -21,8 +23,10 @@ public:
     void create_mdtank();
     void create_megatank();
     void create_neotank();
+    vector<Unit *> getunits();
 private:
-    std::vector<Activable*> activables;
+    std::vector<Unit*> units;
+    std::vector<Batiment*> batiments;
     std::vector<Joueur*> joueurs;
     std::tuple<int,int> conv_coord(int x, int y);
     Joueur* joueur_actuel;
