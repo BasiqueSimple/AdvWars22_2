@@ -4,7 +4,7 @@
 # include <QPainter>
 #include "onmap.h"
 
-class Terrain : OnMap
+class Terrain : public OnMap
 {
 protected:
     int PointDefense;
@@ -16,6 +16,7 @@ public:
     Terrain(int, int);
     void modifierConsommationMovePoint(int);
     int getPointDefense();
+    int getMP();
 };
 
 

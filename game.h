@@ -25,6 +25,7 @@ public:
     void create_megatank();
     void create_neotank();
     vector<Unit *> getunits();
+    void joueur_suivant();
 private:
     std::vector<Terrain*> terrains;
     std::vector<Unit*> units;

@@ -33,8 +33,6 @@ protected:
     std::string MoveType;
     int Cout;
     int MovePoint;
-    int posX;
-    int posY;
     std::string Team;
     void setImg(QPixmap img);
 public:
@@ -48,12 +46,14 @@ public:
     virtual void etrerepare(Terrain, Joueur);
     void fusion(Unit);
     bool EtreEnVie();
-    void activate();
+    void activate(vector<Terrain*>);
     std:: string getMoveType();
     int getPV();
     QPixmap getimg();
+    int getMP();
 private:
     QPixmap img;
+    vector<tuple<int,int>> where(int posx, int posy, int PM, vector<Terrain*>);
 };
 
 

@@ -38,7 +38,7 @@ bool Game::click_on(int x, int y){
     {
         if(this->units[i]->is_at(x,y)){
             if(this->units[i]->getTeam() == this->joueur_actuel->getTeam()){
-                this->units[i]->activate();
+                this->units[i]->activate(this->terrains);
                 this->dernier_active=this->units[i];
                 return false;
             }
@@ -50,7 +50,7 @@ bool Game::click_on(int x, int y){
 
     for(int i = 0; i < this->batiments.size(); ++i)
     {
-        if(OnMap::this->batiments[i]->OnMap::is_at(x,y))
+        if(this->batiments[i]->Activable::is_at(x,y))
         {
             if(this->batiments[i]->getTeam() == this->joueur_actuel->getTeam()){
                 this->batiments[i]->activate();
@@ -76,6 +76,16 @@ void Game::remunere(Joueur* j){
     j->gagne_argent(revenus);
 }
 
+void Game::joueur_suivant(){
+    if(this->joueur_actuel == joueurs[0]){
+        this->joueur_actuel = joueurs[1];
+    }
+    else {
+        this->joueur_actuel = joueurs[0];
+    }
+    this->remunere(this->joueur_actuel);
+}
+
 void Game::start_game(){
     this->joueurs = *new std::vector<Joueur*>;
     this->joueurs.push_back(new Joueur(0,"os",false));
@@ -94,43 +104,56 @@ void Game::start_game(){
 
     for (int v = 0 ; v < 26 ; v++)
        {
-            this->batiments.push_back(new Batimentville(villes[v][0],villes[v][1], "neutre"));
+            Batiment* bat = new Batimentville(villes[v][0],villes[v][1], "neutre");
+            this->batiments.push_back(bat);
+            this->terrains.push_back(bat);
        }
 
     int aeroports[2][2] = {{20,8},{0,8}};
 
     for (int v = 0 ; v < 2 ; v++)
        {
-            this->batiments.push_back(new Batimentaeroport(aeroports[v][0],aeroports[v][1], "neutre"));
+            Batiment* bat = new Batimentaeroport(aeroports[v][0],aeroports[v][1], "neutre");
+            this->batiments.push_back(bat);
+            this->terrains.push_back(bat);
        }
 
     int usines[2][2] = {{7,2},{13,14}};
 
     for (int v = 0 ; v < 2 ; v++)
        {
-            this->batiments.push_back(new Batimentusine(usines[v][0],usines[v][1], "neutre"));
+            Batiment *bat = new Batimentusine(usines[v][0],usines[v][1], "neutre");
+            this->batiments.push_back(bat);
+            this->terrains.push_back(bat);
        }
 
     //On cree les batiments OS
-
-    this->batiments.push_back(new Batimentville(4,14, "os"));
+    Batiment* bat = new Batimentville(4,14, "os");
+    this->batiments.push_back(bat);
+    this->terrains.push_back(bat);
 
     int usines2[2][2] = {{4,12},{5,13}};
 
     for (int v = 0 ; v < 2 ; v++)
        {
-            this->batiments.push_back(new Batimentusine(usines2[v][0],usines2[v][1], "os"));
+        Batiment * bat = new Batimentusine(usines2[v][0],usines2[v][1], "os");
+        this->batiments.push_back(bat);
+        this->terrains.push_back(bat);
        }
 
     //On cree les batiments BM
 
-    this->batiments.push_back(new Batimentville(16,2, "bm"));
+    bat = new Batimentville(16,2, "bm");
+    this->batiments.push_back(bat);
+    this->terrains.push_back(bat);
 
     int usines3[2][2] = {{16,4},{15,3}};
 
     for (int v = 0 ; v < 2 ; v++)
        {
-            this->batiments.push_back(new Batimentusine(usines3[v][0],usines3[v][1], "bm"));
+            bat = new Batimentusine(usines3[v][0],usines3[v][1], "bm");
+            this->batiments.push_back(bat);
+            this->terrains.push_back(bat);
        }
 
     //On cree les pipes
@@ -139,7 +162,7 @@ void Game::start_game(){
                        {0,3},{14,16},{15,16},{16,16},{17,16},{18,16},{19,16},{20,16},
                        {20,13},{20,14},{20,15}};
 
-    for (int v = 0 ; v < 2 ; v++)
+    for (int v = 0 ; v < 20 ; v++)
        {
             this->terrains.push_back(new Pipe(pipe[v][0],pipe[v][1]));
        }
@@ -152,7 +175,7 @@ void Game::start_game(){
                         {7,13},{9,14},{17,14},{1,15},{5,15},{7,15},{13,16},
                         {2,10},{6,10},{11,10},{16,10}};
 
-    for (int v = 0 ; v < 2 ; v++)
+    for (int v = 0 ; v < 40 ; v++)
        {
             this->terrains.push_back(new Foret(foret[v][0],foret[v][1]));
        }
@@ -171,7 +194,7 @@ void Game::start_game(){
     {18,14},{2,15},{3,15},{4,15},{6,15},{8,15},{9,15},{14,15},{16,15},{17,15},{18,15},{4,16},
      {5,16},{7,16},{12,16}};
 
-    for (int v = 0 ; v < 2 ; v++)
+    for (int v = 0 ; v < 112 ; v++)
        {
             this->terrains.push_back(new Plaine(plaine[v][0],plaine[v][1]));
        }
@@ -186,7 +209,7 @@ void Game::start_game(){
                            {9,13},{10,13},{11,13},{12,13},{19,13},{0,14},{16,14},{19,14},
                            {15,15},{3,16},{11,16}};
 
-    for (int v = 0 ; v < 2 ; v++)
+    for (int v = 0 ; v < 60 ; v++)
        {
             this->terrains.push_back(new Montagne(montagne[v][0],montagne[v][1]));
        }
@@ -201,7 +224,7 @@ void Game::start_game(){
                            {2,14},{3,14},{14,14},{15,14},{11,15},{12,15},{13,15},{8,16},
                            {9,16},{10,16}};
 
-    for (int v = 0 ; v < 2 ; v++)
+    for (int v = 0 ; v < 60 ; v++)
        {
             this->terrains.push_back(new Route(route[v][0],route[v][1]));
        }
@@ -210,7 +233,7 @@ void Game::start_game(){
 
     int plage[6][2] = {{18,0},{19,0},{20,1},{0,15},{1,16},{2,16}};
 
-    for (int v = 0 ; v < 2 ; v++)
+    for (int v = 0 ; v < 6 ; v++)
        {
             this->terrains.push_back(new Plage(plage[v][0],plage[v][1]));
        }
@@ -228,7 +251,7 @@ void Game::start_game(){
 
     int pont[4][2] = {{2,6},{2,7},{18,9},{18,10}};
 
-    for (int v = 0 ; v < 2 ; v++)
+    for (int v = 0 ; v < 4 ; v++)
        {
             this->terrains.push_back(new Pont(pont[v][0],pont[v][1]));
        }
@@ -239,7 +262,7 @@ void Game::start_game(){
                        {20,6},{18,7},{19,7},{20,7},{18,8},{18,11},{18,12},{19,12},
                        {20,12}};
 
-    for (int v = 0 ; v < 2 ; v++)
+    for (int v = 0 ; v < 18 ; v++)
        {
             this->terrains.push_back(new Riviere(riviere[v][0],riviere[v][1]));
        }

@@ -2,6 +2,7 @@
 #include <onmap.h>
 #include <string>
 #include <typeinfo.h>
+#include "Unitterreinfant/unitterreinfantinfant.h"
 
 
 
@@ -404,10 +405,96 @@ string Unit::getMoveType()
     return this->MoveType;
 }
 
-void Unit::activate()
+void Unit::activate(vector<Terrain*> terrains)
 {
-    cout << "J'aurais ete chaud bouger" << endl;
-    // INTEGRER FONCTION MOVE
+    cout<<"hey"<<endl;
+    vector<tuple<int,int>> cases_acces = this->where(this->getposx(), this->getposy(), Unitterreinfantinfant::MovePoint,terrains);
+    for(int i = 0; i<cases_acces.size(); ++i){
+        cout << get<0>(cases_acces[i]) << "," << get<1>(cases_acces[i]) << endl;
+    }
+}
+
+int Unit::getMP(){
+    return this->MovePoint;
+}
+
+vector<tuple<int,int>> Unit::where(int posx, int posy, int MP, vector<Terrain*> terrains){
+    vector<tuple<int,int>> * cases_acces = new vector<tuple<int,int>>;
+
+    //Vers le nord
+    cout<<"north"<<endl;
+    int nextx = posx;
+    int nexty = posy-1;
+    for(int i=0;i<terrains.size();++i){
+        if(terrains[i]->is_at(nextx,nexty)){
+            cout<<MP<<endl;
+            if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
+                cases_acces->push_back(make_tuple(nextx,nexty));
+                vector<tuple<int,int>> newcases = this->where(nextx,nexty,MP-terrains[i]->getMP(),terrains);
+                vector<tuple<int,int>> res;
+                res.reserve(cases_acces->size() + newcases.size());
+                res.insert(res.end(),newcases.begin(),newcases.end());
+                res.insert(res.end(),cases_acces->begin(),cases_acces->end());
+            }
+        }
+    }
+
+    //Vers le sud
+    cout<<"south"<<endl;
+    nextx = posx;
+    nexty = posy+1;
+    for(int i=0;i<terrains.size();++i){
+        if(terrains[i]->is_at(nextx,nexty)){
+            cout<<MP<<endl;
+            if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
+                cases_acces->push_back(make_tuple(nextx,nexty));
+                vector<tuple<int,int>> newcases = this->where(nextx,nexty,MP-terrains[i]->getMP(),terrains);
+                vector<tuple<int,int>> res;
+                res.reserve(cases_acces->size() + newcases.size());
+                res.insert(res.end(),newcases.begin(),newcases.end());
+                res.insert(res.end(),cases_acces->begin(),cases_acces->end());
+            }
+        }
+    }
+
+    //Vers l'ouest
+    cout<<"west"<<endl;
+    nextx = posx-1;
+    nexty = posy;
+    for(int i=0;i<terrains.size();++i){
+        if(terrains[i]->is_at(nextx,nexty)){
+            cout<<MP<<endl;
+            if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
+                cases_acces->push_back(make_tuple(nextx,nexty));
+                vector<tuple<int,int>> newcases = this->where(nextx,nexty,MP-terrains[i]->getMP(),terrains);
+                vector<tuple<int,int>> res;
+                res.reserve(cases_acces->size() + newcases.size());
+                res.insert(res.end(),newcases.begin(),newcases.end());
+                res.insert(res.end(),cases_acces->begin(),cases_acces->end());
+            }
+        }
+    }
+
+    //Vers l'est
+    cout<<"east"<<endl;
+    nextx = posx+1;
+    nexty = posy;
+    for(int i=0;i<terrains.size();++i){
+        if(terrains[i]->is_at(nextx,nexty)){
+            cout<<MP<<endl;
+            if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
+                cases_acces->push_back(make_tuple(nextx,nexty));
+                vector<tuple<int,int>> newcases = this->where(nextx,nexty,MP-terrains[i]->getMP(),terrains);
+                vector<tuple<int,int>> res;
+                res.reserve(cases_acces->size() + newcases.size());
+                res.insert(res.end(),newcases.begin(),newcases.end());
+                res.insert(res.end(),cases_acces->begin(),cases_acces->end());
+            }
+        }
+    }
+
+    return *cases_acces;
+
 }
 
 void Unit::setImg(QPixmap img){

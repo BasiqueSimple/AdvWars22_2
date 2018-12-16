@@ -22,6 +22,8 @@ public:
 
     void mousePressEvent(QMouseEvent *event);
 
+    void keyPressEvent(QKeyEvent *event);
+
     void ShowContextMenu(const QPoint &pos);
 
     void draw_units();

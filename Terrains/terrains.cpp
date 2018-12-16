@@ -17,3 +17,8 @@ int Terrain::getPointDefense()
 {
     return this->PointDefense;
 }
+
+int Terrain::getMP()
+{
+    return this->ConsommationMovePoint;
+}

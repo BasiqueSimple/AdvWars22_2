@@ -122,6 +122,16 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
     }
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *event){
+    switch ( event->key() )
+          {
+             case 83:
+                cout << "Next" << endl;
+                this->game.joueur_suivant();
+                break;
+          }
+}
+
 void MainWindow::ShowContextMenu(const QPoint& pos)
 {
     QPoint globalPos = this->mapToGlobal(pos);
