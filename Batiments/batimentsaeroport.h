@@ -8,7 +8,7 @@ class Batimentaeroport : public Batiment
 {
 public:
     //Méthode
-    Batimentaeroport();
+    Batimentaeroport(int, int, std::string);
     void construireUnit();
     void reparerUnitair();
 };

@@ -8,7 +8,7 @@ class Batimentville : public Batiment
 {
 public:
     //Méthode
-    Batimentville();
+    Batimentville(int, int, std::string);
     void GagnerArgent();
     void reparerUnit();
 };

@@ -3,7 +3,7 @@
 
 using namespace std;
 
-Batiment::Batiment()
+Batiment::Batiment(int x, int y) : Activable(x,y)
 {
     this->PointCapture = 20;
 }

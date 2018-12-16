@@ -63,7 +63,8 @@ SOURCES += \
     Terrains/plage.cpp \
     Terrains/reef.cpp \
     Terrains/pipe.cpp \
-    Units/Unitair/unitairfighter.cpp
+    Units/Unitair/unitairfighter.cpp \
+    onmap.cpp
 
 
 HEADERS += \
@@ -133,7 +134,8 @@ HEADERS += \
     Terrains/pont.h \
     Terrains/plage.h \
     Terrains/reef.h \
-    Terrains/pipe.h
+    Terrains/pipe.h \
+    onmap.h
 
 FORMS += \
         mainwindow.ui

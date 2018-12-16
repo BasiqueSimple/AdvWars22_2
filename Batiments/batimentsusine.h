@@ -8,7 +8,7 @@ class Batimentusine : public Batiment
 {
 public:
     //Méthode
-    Batimentusine();
+    Batimentusine(int, int, std::string);
     void GagnerArgent();
     void construireUnit();
     void reparerUnit();

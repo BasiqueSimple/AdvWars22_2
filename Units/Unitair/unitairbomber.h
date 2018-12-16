@@ -6,7 +6,7 @@
 class Unitairbomber : public Unitair
 {
 public:
-    Unitairbomber(int, int);
+    Unitairbomber(int, int, std::string);
 };
 
 

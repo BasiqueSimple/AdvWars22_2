@@ -1,13 +1,12 @@
 #include "units.h"
+#include <onmap.h>
 #include <string>
 
 
 using namespace std;
 
-Unit::Unit(int x, int y)
+Unit::Unit(int x, int y) : Activable (x, y)
 {
-    this->posX = x;
-    this->posY = y;
 }
 
 void Unit::move()
@@ -45,12 +44,7 @@ bool Unit::EtreEnVie()
 
 }
 
-int Unit::getposx()
-{
-    return this->posX;
-}
-
 void Unit::activate()
 {
-    cout << "AIE !" << endl;
+    cout << this->getTeam() << endl;
 }

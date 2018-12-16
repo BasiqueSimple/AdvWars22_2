@@ -110,5 +110,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
 void MainWindow::mousePressEvent(QMouseEvent *event){
     int x = event->x();
     int y = event->y();
-    this->game.what_in(x,y);
+    this->game.click_on(x,y);
 }
+
+
