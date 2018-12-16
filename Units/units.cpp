@@ -1,5 +1,4 @@
 #include "units.h"
-#include <QPainter>
 #include <string>
 
 
@@ -49,4 +48,9 @@ bool Unit::EtreEnVie()
 int Unit::getposx()
 {
     return this->posX;
+}
+
+void Unit::activate()
+{
+    cout << "AIE !" << endl;
 }

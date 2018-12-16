@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/terrain">
+    <qresource prefix="/">
         <file>doss/acidrainairport.gif</file>
         <file>doss/acidrainbase.gif</file>
         <file>doss/acidraincity.gif</file>
@@ -172,5 +172,47 @@
         <file>doss/yellowcomethq.gif</file>
         <file>doss/yellowcometlab.gif</file>
         <file>doss/yellowcometport.gif</file>
+        <file>ImageUnit/bmanti-air.gif</file>
+        <file>ImageUnit/bmapc.gif</file>
+        <file>ImageUnit/bmartillery.gif</file>
+        <file>ImageUnit/bmb-copter.gif</file>
+        <file>ImageUnit/bmbomber.gif</file>
+        <file>ImageUnit/bmfighter.gif</file>
+        <file>ImageUnit/bminfantry.gif</file>
+        <file>ImageUnit/bmmd-tank.gif</file>
+        <file>ImageUnit/bmmech.gif</file>
+        <file>ImageUnit/bmmegatank.gif</file>
+        <file>ImageUnit/bmneotank.gif</file>
+        <file>ImageUnit/bmrecon.gif</file>
+        <file>ImageUnit/bmtank.gif</file>
+        <file>ImageUnit/bmt-copter.gif</file>
+        <file>ImageUnit/geanti-air.gif</file>
+        <file>ImageUnit/geapc.gif</file>
+        <file>ImageUnit/geartillery.gif</file>
+        <file>ImageUnit/geb-copter.gif</file>
+        <file>ImageUnit/gebomber.gif</file>
+        <file>ImageUnit/gefighter.gif</file>
+        <file>ImageUnit/geinfantry.gif</file>
+        <file>ImageUnit/gemd.tank.gif</file>
+        <file>ImageUnit/gemech.gif</file>
+        <file>ImageUnit/gemegatank.gif</file>
+        <file>ImageUnit/geneotank.gif</file>
+        <file>ImageUnit/gerecon.gif</file>
+        <file>ImageUnit/getank.gif</file>
+        <file>ImageUnit/get-copter.gif</file>
+        <file>ImageUnit/osanti-air.gif</file>
+        <file>ImageUnit/osapc.gif</file>
+        <file>ImageUnit/osartillery.gif</file>
+        <file>ImageUnit/osb-copter.gif</file>
+        <file>ImageUnit/osbomber.gif</file>
+        <file>ImageUnit/osfighter.gif</file>
+        <file>ImageUnit/osinfantry.gif</file>
+        <file>ImageUnit/osmd-tank.gif</file>
+        <file>ImageUnit/osmech.gif</file>
+        <file>ImageUnit/osmegatank.gif</file>
+        <file>ImageUnit/osneotank.gif</file>
+        <file>ImageUnit/osrecon.gif</file>
+        <file>ImageUnit/ostank.gif</file>
+        <file>ImageUnit/ost-copter.gif</file>
     </qresource>
 </RCC>

@@ -2,7 +2,6 @@
 #define UNITS_H
 #include <iostream>
 #include <string>
-#include <QPainter>
 #include "./activable.h"
 
 class Unit : public Activable
@@ -15,10 +14,11 @@ protected:
     std::string MoveType;
     int Cout;
     int MovePoint;
-    QPixmap Image;
     int posX;
     int posY;
+    std::string Team;
 
+public:
     //Méthodes
     Unit(int,int);
     void move();
@@ -28,6 +28,7 @@ protected:
     void etrerepare();
     void fusion();
     bool EtreEnVie();
+    void activate();
 };
 
 #endif // UNITS_H
