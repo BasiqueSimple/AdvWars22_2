@@ -32,6 +32,21 @@ tuple<int,int> Game::conv_coord(int x, int y){
 bool Game::click_on(int x, int y){
     tie(x, y) = conv_coord(x, y);
     cout << x << "," << y << endl;
+
+    for(int i = 0; i < this->units.size(); ++i)
+    {
+        if(this->units[i]->is_at(x,y)){
+            if(this->units[i]->getTeam() == this->joueur_actuel->getTeam()){
+                this->units[i]->activate();
+                this->dernier_active=this->units[i];
+                return false;
+            }
+            else {
+                cout << "Ce n'est pas ton equipe." << endl;
+            }
+        }
+    }
+
     for(int i = 0; i < this->batiments.size(); ++i)
     {
         if(this->batiments[i]->is_at(x,y)){
@@ -48,10 +63,23 @@ bool Game::click_on(int x, int y){
     return false;
 }
 
+void Game::remunere(Joueur* j){
+    int revenus = 0;
+    for(int i = 0; i < this->batiments.size(); ++i)
+    {
+        if(this->batiments[i]->getTeam() == j->getTeam()){
+            revenus+=1000;
+        }
+    }
+    j->gagne_argent(revenus);
+}
+
 void Game::start_game(){
     this->joueurs = *new std::vector<Joueur*>;
     this->joueurs.push_back(new Joueur(0,"os",false));
     this->joueur_actuel = joueurs[0];
+
+    this->joueurs.push_back(new Joueur(1,"bm",true));
 
     this->batiments = *new std::vector<Batiment*>;
     this->units = *new std::vector<Unit*>;
@@ -101,64 +129,127 @@ void Game::start_game(){
        {
             this->batiments.push_back(new Batimentusine(usines3[v][0],usines3[v][1], "bm"));
        }
+
+    this->remunere(this->joueur_actuel);
+    cout << this->joueur_actuel->getargent() << endl;
 }
 
 vector<Unit*> Game::getunits(){
     return this->units;
 }
 
+bool Game::check_money(int Cout, Joueur* j){
+    if(Cout<=j->getargent()){
+        j->gagne_argent(-Cout);
+        cout << "Plus que " << j->getargent() << endl;
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
 void Game::create_infant(){
-    units.push_back(new Unitterreinfantinfant(this->dernier_active->getposx(),
-                                                   this->dernier_active->getposy(),
-                                                   this->joueur_actuel->getTeam()));
-    cout << "infant" << endl;
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitterreinfantinfant::Cout,j)){
+        units.push_back(new Unitterreinfantinfant(this->dernier_active->getposx(),
+                                                       this->dernier_active->getposy(),
+                                                       this->joueur_actuel->getTeam()));
+        cout << "infant" << endl;
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
+
 }
 
 void Game::create_bazoo(){
-    units.push_back(new Unitterreinfantbazooka(this->dernier_active->getposx(),
-                                                   this->dernier_active->getposy(),
-                                                   this->joueur_actuel->getTeam()));
-    cout << "baz" << endl;
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitterreinfantbazooka::Cout,j)){
+        units.push_back(new Unitterreinfantbazooka(this->dernier_active->getposx(),
+                                                       this->dernier_active->getposy(),
+                                                       this->joueur_actuel->getTeam()));
+        cout << "infant" << endl;
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
 }
 
 void Game::create_recon(){
-    units.push_back(new Unitterrenoinfantrecon(this->dernier_active->getposx(),
-                                                   this->dernier_active->getposy(),
-                                                   this->joueur_actuel->getTeam()));
-    cout << "reco" << endl;
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitterrenoinfantrecon::Cout,j)){
+        units.push_back(new Unitterrenoinfantrecon(this->dernier_active->getposx(),
+                                                       this->dernier_active->getposy(),
+                                                       this->joueur_actuel->getTeam()));
+        cout << "infant" << endl;
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
 }
 
 void Game::create_aa(){
-    units.push_back(new Unitterrenoinfantantiair(this->dernier_active->getposx(),
-                                                   this->dernier_active->getposy(),
-                                                   this->joueur_actuel->getTeam()));
-    cout << "aa" << endl;
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitterrenoinfantantiair::Cout,j)){
+        units.push_back(new Unitterrenoinfantantiair(this->dernier_active->getposx(),
+                                                       this->dernier_active->getposy(),
+                                                       this->joueur_actuel->getTeam()));
+        cout << "infant" << endl;
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
 }
 
 void Game::create_tank(){
-    units.push_back(new Unitterrenoinfanttank(this->dernier_active->getposx(),
-                                                   this->dernier_active->getposy(),
-                                                   this->joueur_actuel->getTeam()));
-    cout << "tank" << endl;
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitterrenoinfanttank::Cout,j)){
+        units.push_back(new Unitterrenoinfanttank(this->dernier_active->getposx(),
+                                                       this->dernier_active->getposy(),
+                                                       this->joueur_actuel->getTeam()));
+        cout << "infant" << endl;
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
 }
 
 void Game::create_mdtank(){
-    units.push_back(new Unitterrenoinfantmdtank(this->dernier_active->getposx(),
-                                                   this->dernier_active->getposy(),
-                                                   this->joueur_actuel->getTeam()));
-    cout << "md" << endl;
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitterrenoinfantmdtank::Cout,j)){
+        units.push_back(new Unitterrenoinfantmdtank(this->dernier_active->getposx(),
+                                                       this->dernier_active->getposy(),
+                                                       this->joueur_actuel->getTeam()));
+        cout << "infant" << endl;
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
 }
 
 void Game::create_megatank(){
-    units.push_back(new Unitterrenoinfantmegatank(this->dernier_active->getposx(),
-                                                   this->dernier_active->getposy(),
-                                                   this->joueur_actuel->getTeam()));
-    cout << "megat" << endl;
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitterrenoinfantmegatank::Cout,j)){
+        units.push_back(new Unitterrenoinfantmegatank(this->dernier_active->getposx(),
+                                                       this->dernier_active->getposy(),
+                                                       this->joueur_actuel->getTeam()));
+        cout << "infant" << endl;
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
 }
 
 void Game::create_neotank(){
-    units.push_back(new Unitterrenoinfantneotank(this->dernier_active->getposx(),
-                                                   this->dernier_active->getposy(),
-                                                   this->joueur_actuel->getTeam()));
-    cout << "neo" << endl;
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitterrenoinfantneotank::Cout,j)){
+        units.push_back(new Unitterrenoinfantneotank(this->dernier_active->getposx(),
+                                                       this->dernier_active->getposy(),
+                                                       this->joueur_actuel->getTeam()));
+        cout << "infant" << endl;
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
 }

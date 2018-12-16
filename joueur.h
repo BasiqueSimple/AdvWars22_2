@@ -8,9 +8,12 @@ class Joueur{
 public:
     Joueur(int, std::string, bool);
     std::string getTeam();
+    void gagne_argent(int);
+    int getargent();
 private:
     std::string team;
     int id;
+    int argent;
     bool est_IA;
 };
 

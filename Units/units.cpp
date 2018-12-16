@@ -50,7 +50,8 @@ string Unit::getMoveType()
 
 void Unit::activate()
 {
-    cout << this->getTeam() << endl;
+    cout << "J'aurais ete chaud bouger" << endl;
+    // INTEGRER FONCTION MOVE
 }
 
 void Unit::setImg(QPixmap img){

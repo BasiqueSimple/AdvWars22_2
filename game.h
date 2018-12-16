@@ -32,6 +32,8 @@ private:
     Joueur* joueur_actuel;
     Activable* dernier_active;
     void start_game();
+    void remunere(Joueur*);
+    bool check_money(int, Joueur *);
 };
 
 #endif // GAME_H
