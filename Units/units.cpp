@@ -1,7 +1,6 @@
 #include "units.h"
 #include <onmap.h>
 #include <string>
-#include <typeinfo.h>
 #include "Unitterreinfant/unitterreinfantinfant.h"
 
 

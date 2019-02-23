@@ -1,5 +1,4 @@
 #include "unitair.h"
-#include <typeinfo.h>
 
 using namespace std;
 

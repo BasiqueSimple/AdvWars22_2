@@ -1,5 +1,4 @@
 #include "unitterrenoinfant.h"
-#include <typeinfo.h>
 
 using namespace std;
 
