@@ -1,7 +1,7 @@
 #ifndef BATIMENTS_H
 #define BATIMENTS_H
 
-#include "./Terrains/terrains.h"
+#include "./Terrains/terrain.h"
 
 #include <activable.h>
 
@@ -11,7 +11,6 @@ public:
     //Attributs
     int PointCapture;
     int Cout;
-    std::string team;
 
 
     //Méthodes

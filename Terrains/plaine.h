@@ -2,7 +2,7 @@
 #define PLAINE_H
 
 
-#include "terrains.h"
+#include "terrain.h"
 
 class Plaine : public Terrain
 {

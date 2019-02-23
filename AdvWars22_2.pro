@@ -52,7 +52,6 @@ SOURCES += \
     Batiments/batimentsville.cpp \
     joueur.cpp \
     activable.cpp \
-    Terrains/terrains.cpp \
     Terrains/plaine.cpp \
     Terrains/montagne.cpp \
     Terrains/foret.cpp \
@@ -65,7 +64,9 @@ SOURCES += \
     Units/Unitair/unitairfighter.cpp \
     onmap.cpp\
 	damage.cpp \
-    combat.cpp
+    combat.cpp \
+    position.cpp \
+    Terrains/terrain.cpp
 
 
 HEADERS += \
@@ -121,7 +122,6 @@ HEADERS += \
     Units/Unitterrenoinfant/unitterrenoinfantantiair.h \
     joueur.h \
     activable.h \
-    Terrains/terrains.h \
     Terrains/plaine.h \
     Terrains/montagne.h \
     Terrains/foret.h \
@@ -132,7 +132,9 @@ HEADERS += \
     Terrains/reef.h \
     Terrains/pipe.h \
     damage.h \
-    combat.h
+    combat.h \
+    position.h \
+    Terrains/terrain.h
     onmap.h
 
 FORMS += \

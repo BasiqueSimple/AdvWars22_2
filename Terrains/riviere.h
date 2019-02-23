@@ -2,7 +2,7 @@
 #define RIVIERE_H
 
 
-#include "terrains.h"
+#include "terrain.h"
 
 class Riviere : public Terrain
 {

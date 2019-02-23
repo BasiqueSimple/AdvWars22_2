@@ -2,7 +2,7 @@
 #define PIPE_H
 
 
-#include "terrains.h"
+#include "terrain.h"
 
 class Pipe : public Terrain
 {

@@ -4,7 +4,7 @@
 #include <onmap.h>
 #include <string>
 #include "./activable.h"
-#include "./Terrains/terrains.h"
+#include "./Terrains/terrain.h"
 #include "./joueur.h"
 
 #include "./Terrains/plaine.h"

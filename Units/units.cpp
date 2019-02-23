@@ -425,7 +425,7 @@ vector<tuple<int,int>> Unit::where(int posx, int posy, int MP, vector<Terrain*> 
     int nextx = posx;
     int nexty = posy-1;
     for(int i=0;i<terrains.size();++i){
-        if(terrains[i]->is_at(nextx,nexty)){
+        if(terrains[i]->isAt(nextx,nexty)){
             cout<<MP<<endl;
             if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
                 cases_acces->push_back(make_tuple(nextx,nexty));
@@ -443,7 +443,7 @@ vector<tuple<int,int>> Unit::where(int posx, int posy, int MP, vector<Terrain*> 
     nextx = posx;
     nexty = posy+1;
     for(int i=0;i<terrains.size();++i){
-        if(terrains[i]->is_at(nextx,nexty)){
+        if(terrains[i]->isAt(nextx,nexty)){
             cout<<MP<<endl;
             if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
                 cases_acces->push_back(make_tuple(nextx,nexty));
@@ -461,7 +461,7 @@ vector<tuple<int,int>> Unit::where(int posx, int posy, int MP, vector<Terrain*> 
     nextx = posx-1;
     nexty = posy;
     for(int i=0;i<terrains.size();++i){
-        if(terrains[i]->is_at(nextx,nexty)){
+        if(terrains[i]->isAt(nextx,nexty)){
             cout<<MP<<endl;
             if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
                 cases_acces->push_back(make_tuple(nextx,nexty));
@@ -479,7 +479,7 @@ vector<tuple<int,int>> Unit::where(int posx, int posy, int MP, vector<Terrain*> 
     nextx = posx+1;
     nexty = posy;
     for(int i=0;i<terrains.size();++i){
-        if(terrains[i]->is_at(nextx,nexty)){
+        if(terrains[i]->isAt(nextx,nexty)){
             cout<<MP<<endl;
             if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
                 cases_acces->push_back(make_tuple(nextx,nexty));

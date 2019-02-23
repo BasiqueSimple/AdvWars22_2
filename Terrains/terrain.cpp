@@ -1,11 +1,11 @@
-#include "terrains.h"
+#include "terrain.h"
 
 
 using namespace std;
 
-Terrain::Terrain(int x, int y) : OnMap(x,y)
+Terrain::Terrain(int x, int y)
 {
-
+    this->pos = new Position(x,y);;
 }
 
 void Terrain::modifierConsommationMovePoint(int a)
@@ -21,4 +21,9 @@ int Terrain::getPointDefense()
 int Terrain::getMP()
 {
     return this->ConsommationMovePoint;
+}
+
+bool Terrain::isAt(int x, int y)
+{
+    return this->pos->isAt(x, y);
 }

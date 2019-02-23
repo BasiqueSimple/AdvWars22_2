@@ -1,7 +1,7 @@
 #ifndef MONTAGNE_H
 #define MONTAGNE_H
 
-#include "terrains.h"
+#include "terrain.h"
 
 class Montagne : public Terrain
 {

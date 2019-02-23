@@ -1,7 +1,7 @@
 #ifndef FORET_H
 #define FORET_H
 
-#include "terrains.h"
+#include "terrain.h"
 
 class Foret : public Terrain
 {

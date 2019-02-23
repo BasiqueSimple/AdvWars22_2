@@ -2,7 +2,7 @@
 #define REEF_H
 
 
-#include "terrains.h"
+#include "terrain.h"
 
 class Reef : public Terrain
 {

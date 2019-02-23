@@ -50,7 +50,7 @@ bool Game::click_on(int x, int y){
 
     for(int i = 0; i < this->batiments.size(); ++i)
     {
-        if(this->batiments[i]->Activable::is_at(x,y))
+        if(this->batiments[i]->isAt(x,y))
         {
             if(this->batiments[i]->getTeam() == this->joueur_actuel->getTeam()){
                 this->batiments[i]->activate();

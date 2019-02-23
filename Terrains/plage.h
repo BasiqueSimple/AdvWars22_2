@@ -2,7 +2,7 @@
 #define PLAGE_H
 
 
-#include "terrains.h"
+#include "terrain.h"
 
 class Plage : public Terrain
 {
