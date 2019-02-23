@@ -2,7 +2,6 @@
 #define TERRAINS_H
 
 # include <QPainter>
-#include "onmap.h"
 #include "position.h"
 
 class Terrain
@@ -20,6 +19,8 @@ public:
     int getPointDefense();
     int getMP();
     bool isAt(int, int);
+    int getPosX();
+    int getPosY();
 };
 
 

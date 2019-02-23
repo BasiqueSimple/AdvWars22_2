@@ -2,7 +2,6 @@
 #include "imageholder.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "onmap.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -107,8 +106,8 @@ void MainWindow::paintEvent(QPaintEvent *event){
        }
     for(int i = 0; i < this->game.getunits().size(); ++i)
     {
-        int x = this->game.getunits()[i]->getposx();
-        int y = this->game.getunits()[i]->getposy();
+        int x = this->game.getunits()[i]->getPosX();
+        int y = this->game.getunits()[i]->getPosY();
         painter.drawPixmap(size_img*x, size_img*y,size_img, size_img, this->game.getunits()[i]->getimg());
     }
 }

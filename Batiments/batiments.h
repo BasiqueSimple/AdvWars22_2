@@ -3,18 +3,19 @@
 
 #include "./Terrains/terrain.h"
 
-#include <activable.h>
-
-class Batiment : public Activable, public Terrain
+class Batiment : public Terrain
 {
+    std::string team;
 public:
     //Attributs
     int PointCapture;
     int Cout;
 
-
     //Méthodes
     Batiment(int,int);
+    void setTeam(std::string team);
+    std::string getTeam();
+    virtual void activate() = 0;
 };
 
 

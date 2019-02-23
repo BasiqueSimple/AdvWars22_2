@@ -14,6 +14,11 @@ void Batimentville::reparerUnit()
 
 }
 
+void Batimentville::activate()
+{
+
+}
+
 void Batimentville::GagnerArgent()
 {
 

@@ -11,6 +11,7 @@ public:
     Batimentville(int, int, std::string);
     void GagnerArgent();
     void reparerUnit();
+    void activate();
 };
 
 

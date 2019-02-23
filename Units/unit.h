@@ -1,12 +1,10 @@
 #ifndef UNITS_H
 #define UNITS_H
 #include <iostream>
-#include <onmap.h>
 #include <string>
-#include "./activable.h"
 #include "./Terrains/terrain.h"
 #include "./joueur.h"
-
+#include "position.h"
 #include "./Terrains/plaine.h"
 #include "./Terrains/montagne.h"
 #include "./Terrains/foret.h"
@@ -20,12 +18,7 @@
 #include "./Batiments/batimentsusine.h"
 #include "./Batiments/batimentsaeroport.h"
 
-
-
-
-
-
-class Unit : public Activable
+class Unit
 {
 protected:
     //Attributs
@@ -33,8 +26,9 @@ protected:
     std::string MoveType;
     int Cout;
     int MovePoint;
-    std::string Team;
+    std::string team;
     void setImg(QPixmap img);
+    Position *pos;
 public:
     //Méthodes
     Unit(int,int);
@@ -46,11 +40,16 @@ public:
     virtual void etrerepare(Terrain, Joueur);
     void fusion(Unit);
     bool EtreEnVie();
+    bool isAt(int,int);
     void activate(vector<Terrain*>);
     std:: string getMoveType();
     int getPV();
     QPixmap getimg();
     int getMP();
+    int getPosX();
+    int getPosY();
+    void setTeam(std::string team);
+    std::string getTeam();
 private:
     QPixmap img;
     vector<tuple<int,int>> where(int posx, int posy, int PM, vector<Terrain*>);

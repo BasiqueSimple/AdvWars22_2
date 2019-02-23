@@ -1,12 +1,12 @@
-#include "units.h"
-#include <onmap.h>
+#include "unit.h"
 #include <string>
 #include "Unitterreinfant/unitterreinfantinfant.h"
 
 
 
-Unit::Unit(int x, int y) : Activable (x, y)
+Unit::Unit(int x, int y)
 {
+    this->pos = new Position(x,y);
 }
 
 void Unit::mouvementspossibles(Terrain terrain)
@@ -399,6 +399,11 @@ bool Unit::EtreEnVie()
     return this->PV > 0;
 }
 
+bool Unit::isAt(int x, int y)
+{
+    return this->pos->isAt(x,y);
+}
+
 string Unit::getMoveType()
 {
     return this->MoveType;
@@ -407,7 +412,7 @@ string Unit::getMoveType()
 void Unit::activate(vector<Terrain*> terrains)
 {
     cout<<"hey"<<endl;
-    vector<tuple<int,int>> cases_acces = this->where(this->getposx(), this->getposy(), Unitterreinfantinfant::MovePoint,terrains);
+    vector<tuple<int,int>> cases_acces = this->where(this->getPosX(), this->getPosY(), Unitterreinfantinfant::MovePoint,terrains);
     for(int i = 0; i<cases_acces.size(); ++i){
         cout << get<0>(cases_acces[i]) << "," << get<1>(cases_acces[i]) << endl;
     }
@@ -415,6 +420,25 @@ void Unit::activate(vector<Terrain*> terrains)
 
 int Unit::getMP(){
     return this->MovePoint;
+}
+
+int Unit::getPosX()
+{
+    return this->pos->getPosX();
+}
+
+int Unit::getPosY()
+{
+    return this->pos->getPosY();
+}
+
+void Unit::setTeam(std::string team)
+{
+    this->team=team;
+}
+
+std::string Unit::getTeam(){
+    return this->team;
 }
 
 vector<tuple<int,int>> Unit::where(int posx, int posy, int MP, vector<Terrain*> terrains){

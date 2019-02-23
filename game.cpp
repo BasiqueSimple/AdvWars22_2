@@ -15,7 +15,6 @@
 #include <Units/Unitterrenoinfant/unitterrenoinfantneotank.h>
 #include <Units/Unitterrenoinfant/unitterrenoinfantrecon.h>
 #include <Units/Unitterrenoinfant/unitterrenoinfanttank.h>
-#include "onmap.h"
 
 using namespace std;
 
@@ -36,10 +35,10 @@ bool Game::click_on(int x, int y){
 
     for(int i = 0; i < this->units.size(); ++i)
     {
-        if(this->units[i]->is_at(x,y)){
+        if(this->units[i]->isAt(x,y)){
             if(this->units[i]->getTeam() == this->joueur_actuel->getTeam()){
                 this->units[i]->activate(this->terrains);
-                this->dernier_active=this->units[i];
+                this->dernier_unit=this->units[i];
                 return false;
             }
             else {
@@ -54,7 +53,7 @@ bool Game::click_on(int x, int y){
         {
             if(this->batiments[i]->getTeam() == this->joueur_actuel->getTeam()){
                 this->batiments[i]->activate();
-                this->dernier_active=this->batiments[i];
+                this->dernier_batiment=this->batiments[i];
                 return true;
             }
             else {
@@ -289,8 +288,8 @@ bool Game::check_money(int Cout, Joueur* j){
 void Game::create_infant(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterreinfantinfant::Cout,j)){
-        units.push_back(new Unitterreinfantinfant(this->dernier_active->getposx(),
-                                                       this->dernier_active->getposy(),
+        units.push_back(new Unitterreinfantinfant(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -303,8 +302,8 @@ void Game::create_infant(){
 void Game::create_bazoo(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterreinfantbazooka::Cout,j)){
-        units.push_back(new Unitterreinfantbazooka(this->dernier_active->getposx(),
-                                                       this->dernier_active->getposy(),
+        units.push_back(new Unitterreinfantbazooka(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -316,8 +315,8 @@ void Game::create_bazoo(){
 void Game::create_recon(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantrecon::Cout,j)){
-        units.push_back(new Unitterrenoinfantrecon(this->dernier_active->getposx(),
-                                                       this->dernier_active->getposy(),
+        units.push_back(new Unitterrenoinfantrecon(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -329,8 +328,8 @@ void Game::create_recon(){
 void Game::create_aa(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantantiair::Cout,j)){
-        units.push_back(new Unitterrenoinfantantiair(this->dernier_active->getposx(),
-                                                       this->dernier_active->getposy(),
+        units.push_back(new Unitterrenoinfantantiair(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -342,8 +341,8 @@ void Game::create_aa(){
 void Game::create_tank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfanttank::Cout,j)){
-        units.push_back(new Unitterrenoinfanttank(this->dernier_active->getposx(),
-                                                       this->dernier_active->getposy(),
+        units.push_back(new Unitterrenoinfanttank(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -355,8 +354,8 @@ void Game::create_tank(){
 void Game::create_mdtank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantmdtank::Cout,j)){
-        units.push_back(new Unitterrenoinfantmdtank(this->dernier_active->getposx(),
-                                                       this->dernier_active->getposy(),
+        units.push_back(new Unitterrenoinfantmdtank(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -368,8 +367,8 @@ void Game::create_mdtank(){
 void Game::create_megatank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantmegatank::Cout,j)){
-        units.push_back(new Unitterrenoinfantmegatank(this->dernier_active->getposx(),
-                                                       this->dernier_active->getposy(),
+        units.push_back(new Unitterrenoinfantmegatank(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -381,8 +380,8 @@ void Game::create_megatank(){
 void Game::create_neotank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantneotank::Cout,j)){
-        units.push_back(new Unitterrenoinfantneotank(this->dernier_active->getposx(),
-                                                       this->dernier_active->getposy(),
+        units.push_back(new Unitterrenoinfantneotank(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }

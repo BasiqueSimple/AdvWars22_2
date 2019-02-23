@@ -18,3 +18,8 @@ void Batimentaeroport::reparerUnitair()
 {
 
 }
+
+void Batimentaeroport::activate()
+{
+
+}

@@ -32,7 +32,6 @@ SOURCES += \
     mainwindow.cpp \
     menubox.cpp \
     ui.cpp \
-    Units/units.cpp \
     Units/Unitair/unitair.cpp \
     Units/Unitair/unitairbcopter.cpp \
     Units/Unitair/unitairbomber.cpp \
@@ -51,7 +50,6 @@ SOURCES += \
     Batiments/batimentsusine.cpp \
     Batiments/batimentsville.cpp \
     joueur.cpp \
-    activable.cpp \
     Terrains/plaine.cpp \
     Terrains/montagne.cpp \
     Terrains/foret.cpp \
@@ -62,11 +60,11 @@ SOURCES += \
     Terrains/reef.cpp \
     Terrains/pipe.cpp \
     Units/Unitair/unitairfighter.cpp \
-    onmap.cpp\
 	damage.cpp \
     combat.cpp \
     position.cpp \
-    Terrains/terrain.cpp
+    Terrains/terrain.cpp \
+    Units/unit.cpp
 
 
 HEADERS += \
@@ -101,7 +99,6 @@ HEADERS += \
     mainwindow.h \
     menubox.h \
     ui.h \
-    Units/units.h \
     Units/Unitterreinfant/unitterreinfant.h \
     Units/Unitterreinfant/unitterreinfantinfant.h \
     Units/Unitterreinfant/unitterreinfantbazooka.h \
@@ -121,7 +118,6 @@ HEADERS += \
     Batiments/batimentsaeroport.h \
     Units/Unitterrenoinfant/unitterrenoinfantantiair.h \
     joueur.h \
-    activable.h \
     Terrains/plaine.h \
     Terrains/montagne.h \
     Terrains/foret.h \
@@ -134,8 +130,8 @@ HEADERS += \
     damage.h \
     combat.h \
     position.h \
-    Terrains/terrain.h
-    onmap.h
+    Terrains/terrain.h \
+    Units/unit.h
 
 FORMS += \
         mainwindow.ui

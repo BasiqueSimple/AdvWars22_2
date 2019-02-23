@@ -1,9 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
-#include "activable.h"
 #include "joueur.h"
 #include <iostream>
-#include <Units/units.h>
+#include <Units/unit.h>
 #include <vector>
 #include <Batiments/batiments.h>
 
@@ -33,7 +32,8 @@ private:
     std::vector<Joueur*> joueurs;
     std::tuple<int,int> conv_coord(int x, int y);
     Joueur* joueur_actuel;
-    Activable* dernier_active;
+    Batiment* dernier_batiment;
+    Unit* dernier_unit;
     void start_game();
     void remunere(Joueur*);
     bool check_money(int, Joueur *);

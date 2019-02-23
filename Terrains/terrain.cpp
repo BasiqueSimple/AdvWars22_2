@@ -27,3 +27,14 @@ bool Terrain::isAt(int x, int y)
 {
     return this->pos->isAt(x, y);
 }
+
+int Terrain::getPosX()
+{
+    return this->pos->getPosX();
+}
+
+int Terrain::getPosY()
+{
+    return this->pos->getPosY();
+}
+
