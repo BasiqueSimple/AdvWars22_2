@@ -1,10 +1,11 @@
 #include "unitair.h"
+#include <typeinfo>
 
 using namespace std;
 
 Unitair::Unitair(int x,int y): Unit(x, y)
 {
-    this->MoveType ="A";
+    this->MoveType ='A';
 }
 
 void Unitair::etrerepare(Terrain terrain, Joueur joueur)

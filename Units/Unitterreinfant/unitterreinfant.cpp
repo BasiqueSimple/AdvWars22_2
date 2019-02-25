@@ -1,4 +1,5 @@
 #include "unitterreinfant.h"
+#include <typeinfo>
 
 using namespace std;
 

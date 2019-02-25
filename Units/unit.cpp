@@ -1,6 +1,7 @@
 #include "unit.h"
 #include <string>
 #include "Unitterreinfant/unitterreinfantinfant.h"
+#include <typeinfo>
 
 
 
@@ -9,33 +10,32 @@ Unit::Unit(int x, int y)
     this->pos = new Position(x,y);
 }
 
-void Unit::mouvementspossibles(Terrain terrain)
+/*void Unit::mouvementspossibles(Terrain terrain)
 {
     int movepointrestant = this->MovePoint;
-
+*/
     //Associe la bonne ConsommationMovePoint en fonction du terrain et de la unit
-
+int ptconso(Terrain* terrain, char MoveType) {
     int ConsommationMovePoint;
-    if (typeid(terrain) == typeid(Plaine))
-    {
+    if (dynamic_cast<Plaine*>(terrain)){
         cout << "ca fonctionne !" << endl;
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
         {
            ConsommationMovePoint = 1;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
            ConsommationMovePoint = 1;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
            ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
            ConsommationMovePoint = 2 ;
         }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
            ConsommationMovePoint = 1 ;
         }
@@ -44,26 +44,26 @@ void Unit::mouvementspossibles(Terrain terrain)
            cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
     }
-    else if (typeid(terrain) == typeid(Montagne))
+    else if (dynamic_cast<Montagne*>(terrain))
     {
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
         {
             ConsommationMovePoint = 2 ;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
             ConsommationMovePoint = 0;
             //0 quand on ne peut pas aller dessus
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
             ConsommationMovePoint = 1 ;
         }
@@ -72,25 +72,25 @@ void Unit::mouvementspossibles(Terrain terrain)
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (typeid(terrain) == typeid(Foret))
+    else if (dynamic_cast<Foret*>(terrain))
      {
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
             ConsommationMovePoint = 2 ;
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
             ConsommationMovePoint = 3 ;
         }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
             ConsommationMovePoint = 1 ;
         }
@@ -99,25 +99,25 @@ void Unit::mouvementspossibles(Terrain terrain)
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
     }
-    else if (typeid(terrain) == typeid(Riviere))
+    else if (dynamic_cast<Riviere*>(terrain))
     {
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
         {
             ConsommationMovePoint = 2 ;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
             ConsommationMovePoint = 1 ;
         }
@@ -126,25 +126,25 @@ void Unit::mouvementspossibles(Terrain terrain)
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (typeid(terrain) == typeid(Route))
+    else if (dynamic_cast<Route*>(terrain))
      {
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
              ConsommationMovePoint = 1 ;
         }
@@ -153,25 +153,25 @@ void Unit::mouvementspossibles(Terrain terrain)
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (typeid(terrain) == typeid(Pont))
+    else if (dynamic_cast<Pont*>(terrain))
      {
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
             ConsommationMovePoint = 1 ;
         }
@@ -180,25 +180,25 @@ void Unit::mouvementspossibles(Terrain terrain)
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (typeid(terrain) == typeid(Plage))
+    else if (dynamic_cast<Plage*>(terrain))
      {
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
             ConsommationMovePoint = 1 ;
         }
@@ -207,25 +207,25 @@ void Unit::mouvementspossibles(Terrain terrain)
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (typeid(terrain) == typeid(Reef))
+    else if (dynamic_cast<Reef*>(terrain))
      {
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
             ConsommationMovePoint = 1 ;
         }
@@ -234,25 +234,25 @@ void Unit::mouvementspossibles(Terrain terrain)
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (typeid(terrain) == typeid(Batimentville))
+    else if (dynamic_cast<Batimentville*>(terrain))
      {
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
            ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
            ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
            ConsommationMovePoint = 1 ;
         }
@@ -261,52 +261,25 @@ void Unit::mouvementspossibles(Terrain terrain)
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (typeid(terrain) == typeid(Batimentusine))
+    else if (dynamic_cast<Batimentusine*>(terrain))
      {
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
         {
            ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
             ConsommationMovePoint = 1 ;
         }
-        else if (this->getMoveType() == "A")
-        {
-            ConsommationMovePoint = 1 ;
-        }
-        else
-        {
-            cout << "Votre unit possède un type de mouvement inconnu" << endl;
-        }
-     }
-    else if (typeid(terrain) == typeid(Batimentaeroport))
-     {
-        if (this->getMoveType() == "F")
-        {
-            ConsommationMovePoint = 1 ;
-        }
-        else if (this->getMoveType() == "B")
-        {
-            ConsommationMovePoint = 1 ;
-        }
-        else if (this->getMoveType() == "T")
-        {
-            ConsommationMovePoint = 1 ;
-        }
-        else if (this->getMoveType() == "W")
-        {
-            ConsommationMovePoint = 1 ;
-        }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
             ConsommationMovePoint = 1 ;
         }
@@ -315,25 +288,52 @@ void Unit::mouvementspossibles(Terrain terrain)
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (typeid(terrain) == typeid(Pipe))
+    else if (dynamic_cast<Batimentaeroport*>(terrain))
      {
-        if (this->getMoveType() == "F")
+        if (MoveType == 'F')
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (MoveType == 'B')
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (MoveType == 'T')
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (MoveType == 'W')
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else if (MoveType == 'A')
+        {
+            ConsommationMovePoint = 1 ;
+        }
+        else
+        {
+            cout << "Votre unit possède un type de mouvement inconnu" << endl;
+        }
+     }
+    else if (dynamic_cast<Pipe*>(terrain))
+     {
+        if (MoveType == 'F')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "B")
+        else if (MoveType == 'B')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "T")
+        else if (MoveType == 'T')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "W")
+        else if (MoveType == 'W')
         {
             ConsommationMovePoint = 0;
         }
-        else if (this->getMoveType() == "A")
+        else if (MoveType == 'A')
         {
             ConsommationMovePoint = 0;
         }
@@ -346,10 +346,7 @@ void Unit::mouvementspossibles(Terrain terrain)
      {
         cout << "Ce terrain est inconnu" << endl;
      }
-
-    movepointrestant -= ConsommationMovePoint;
-    //faire bouger la unit
-    // renvoyer movepointrestant pour faire une boucle ailleurs ?
+    return ConsommationMovePoint;
 }
 
 void Unit::attendre()
@@ -404,7 +401,7 @@ bool Unit::isAt(int x, int y)
     return this->pos->isAt(x,y);
 }
 
-string Unit::getMoveType()
+char Unit::getMoveType()
 {
     return this->MoveType;
 }
@@ -531,4 +528,50 @@ QPixmap Unit::getimg(){
 Unit::~Unit()
 {
 
+}
+
+Terrain* get_terrain_apd_case(tuple<int,int> i, vector<Terrain*> terrains){
+    int posx = get<0>(i);
+    int posy = get<1>(i);
+    for (Terrain* j : terrains){
+        if (j->isAt(posx,posy)){
+            return j;
+        }
+    }
+}
+
+bool Unit::peut_dessus(Unit unit, tuple<int,int> i, vector<Terrain*> terrains){
+    Terrain* terrain = get_terrain_apd_case(i, terrains);
+    char MoveType = unit.getMoveType();
+    int ptconsomation = ptconso(terrain, MoveType);
+    int MP = unit.getMP();
+    if (ptconsomation>MP){
+        cout << "tu n'as pas assez de MP pour aller sur la case (" << get<0>(i) << " , " << get<1>(i) << ")" << endl;
+        return 1;
+    }
+    else {
+        cout << "tu peux aller sur la case ( " << get<0>(i) << " , " << get<1>(i) << " )" << endl;
+        //colorier case
+        mvts_possibles(unit, get<0>(i), get<1>(i), terrains);
+        return 0;
+    }
+}
+
+void Unit::mvts_possibles(Unit unit, int posx, int posy, vector<Terrain*> terrains){
+    vector<tuple<int,int>> cases_possibles;
+    if (posx-1>0){ //on n'est pas à l'extrême gauche de la map
+        cases_possibles.push_back(make_tuple(posx-1,posy));
+        if (posx+1<LONG_MAX){ // on n'est pas à l'extrême droite de la map
+            cases_possibles.push_back(make_tuple(posx+1, posy));
+        }
+    }
+    if (posy-1>0){ //on n'est pas à tout en haut de la map
+        cases_possibles.push_back(make_tuple(posx,posy-1));
+        if (posy+1<LONG_MAX){ // on n'est pas tout en bas de la map
+            cases_possibles.push_back(make_tuple(posx, posy+1));
+        }
+    }
+    for (tuple<int,int> i : cases_possibles){
+        peut_dessus(unit, i, terrains);
+    }
 }

@@ -23,7 +23,7 @@ class Unit
 protected:
     //Attributs
     int PV;
-    std::string MoveType;
+    char MoveType;
     int Cout;
     int MovePoint;
     std::string team;
@@ -35,6 +35,9 @@ public:
     ~Unit();
     void move(Terrain);
     void mouvementspossibles(Terrain);
+    bool peut_dessus(Unit, tuple<int,int>, vector<Terrain*>);
+    void mvts_possibles(Unit, int, int, vector<Terrain*>);
+    int ptconso(Terrain*, char);
     void attendre();
     void recevoirdegat(int);
     virtual void etrerepare(Terrain, Joueur);
@@ -42,7 +45,8 @@ public:
     bool EtreEnVie();
     bool isAt(int,int);
     void activate(vector<Terrain*>);
-    std:: string getMoveType();
+    Terrain* get_terrain_apd_case(tuple<int,int>, vector<Terrain*>);
+    char getMoveType();
     int getPV();
     QPixmap getimg();
     int getMP();
