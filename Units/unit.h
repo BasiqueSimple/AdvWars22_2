@@ -56,7 +56,7 @@ public:
     std::string getTeam();
 private:
     QPixmap img;
-    vector<tuple<int,int>> where(int posx, int posy, int PM, vector<Terrain*>);
+    vector<tuple<int,int>> where(int posx, int posy, int PM, std::vector<std::tuple<int,int>> * cases_acces);
 };
 
 

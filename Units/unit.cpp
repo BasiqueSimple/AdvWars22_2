@@ -438,83 +438,50 @@ std::string Unit::getTeam(){
     return this->team;
 }
 
-vector<tuple<int,int>> Unit::where(int posx, int posy, int MP, vector<Terrain*> terrains){
-    vector<tuple<int,int>> * cases_acces = new vector<tuple<int,int>>;
+std::vector<std::tuple<int,int>> * Unit::where(int posx, int posy, int MP, std::vector<std::tuple<int,int>> * cases_acces)
+{
 
     //Vers le nord
     cout<<"north"<<endl;
     int nextx = posx;
     int nexty = posy-1;
-    for(int i=0;i<terrains.size();++i){
-        if(terrains[i]->isAt(nextx,nexty)){
-            cout<<MP<<endl;
-            if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
-                cases_acces->push_back(make_tuple(nextx,nexty));
-                vector<tuple<int,int>> newcases = this->where(nextx,nexty,MP-terrains[i]->getMP(),terrains);
-                vector<tuple<int,int>> res;
-                res.reserve(cases_acces->size() + newcases.size());
-                res.insert(res.end(),newcases.begin(),newcases.end());
-                res.insert(res.end(),cases_acces->begin(),cases_acces->end());
-            }
-        }
+    cout << nextx << ", " << nexty << endl;
+    cases_acces->push_back(make_tuple(nextx,nexty));
+    if (MP > 1) {
+        this->where(nextx, nexty, MP-1, cases_acces);
     }
 
     //Vers le sud
     cout<<"south"<<endl;
     nextx = posx;
     nexty = posy+1;
-    for(int i=0;i<terrains.size();++i){
-        if(terrains[i]->isAt(nextx,nexty)){
-            cout<<MP<<endl;
-            if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
-                cases_acces->push_back(make_tuple(nextx,nexty));
-                vector<tuple<int,int>> newcases = this->where(nextx,nexty,MP-terrains[i]->getMP(),terrains);
-                vector<tuple<int,int>> res;
-                res.reserve(cases_acces->size() + newcases.size());
-                res.insert(res.end(),newcases.begin(),newcases.end());
-                res.insert(res.end(),cases_acces->begin(),cases_acces->end());
-            }
-        }
+    cout << nextx << ", " << nexty << endl;
+    cases_acces->push_back(make_tuple(nextx,nexty));
+    if (MP > 1) {
+        this->where(nextx, nexty, MP-1, cases_acces);
     }
 
     //Vers l'ouest
     cout<<"west"<<endl;
     nextx = posx-1;
     nexty = posy;
-    for(int i=0;i<terrains.size();++i){
-        if(terrains[i]->isAt(nextx,nexty)){
-            cout<<MP<<endl;
-            if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
-                cases_acces->push_back(make_tuple(nextx,nexty));
-                vector<tuple<int,int>> newcases = this->where(nextx,nexty,MP-terrains[i]->getMP(),terrains);
-                vector<tuple<int,int>> res;
-                res.reserve(cases_acces->size() + newcases.size());
-                res.insert(res.end(),newcases.begin(),newcases.end());
-                res.insert(res.end(),cases_acces->begin(),cases_acces->end());
-            }
-        }
+    cout << nextx << ", " << nexty << endl;
+    cases_acces->push_back(make_tuple(nextx,nexty));
+    if (MP > 1) {
+        this->where(nextx, nexty, MP-1, cases_acces);
     }
 
     //Vers l'est
     cout<<"east"<<endl;
     nextx = posx+1;
     nexty = posy;
-    for(int i=0;i<terrains.size();++i){
-        if(terrains[i]->isAt(nextx,nexty)){
-            cout<<MP<<endl;
-            if(terrains[i]->getMP()!=0 && terrains[i]->getMP()<MP){
-                cases_acces->push_back(make_tuple(nextx,nexty));
-                vector<tuple<int,int>> newcases = this->where(nextx,nexty,MP-terrains[i]->getMP(),terrains);
-                vector<tuple<int,int>> res;
-                res.reserve(cases_acces->size() + newcases.size());
-                res.insert(res.end(),newcases.begin(),newcases.end());
-                res.insert(res.end(),cases_acces->begin(),cases_acces->end());
-            }
-        }
+    cout << nextx << ", " << nexty << endl;
+    cases_acces->push_back(make_tuple(nextx,nexty));
+    if (MP > 1) {
+        this->where(nextx, nexty, MP-1, cases_acces);
     }
 
-    return *cases_acces;
-
+    return cases_acces;
 }
 
 void Unit::setImg(QPixmap img){
