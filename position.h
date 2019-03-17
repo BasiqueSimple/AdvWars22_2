@@ -11,6 +11,8 @@ public:
     int getPosX();
     int getPosY();
     bool isAt(int, int);
+    void setPosY(int y);
+    void setPosX(int x);
 };
 
 #endif // POSITION_H

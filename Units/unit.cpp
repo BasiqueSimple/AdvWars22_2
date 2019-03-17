@@ -10,6 +10,7 @@
 Unit::Unit(int x, int y)
 {
     this->pos = new Position(x,y);
+    this->casesAcces = new vector<Terrain*>;
 }
 
 /*void Unit::mouvementspossibles(Terrain terrain)
@@ -351,6 +352,7 @@ int ptconso(Terrain* terrain, char MoveType) {
     return ConsommationMovePoint;
 }
 */
+
 void Unit::attendre()
 {
     //passer un tour
@@ -414,8 +416,7 @@ char Unit::getMoveType()
 
 void Unit::activate()
 {
-    vector<Terrain*> * cases_acces = new vector<Terrain*>;
-    this->setCasesAcces(this->where(this->getPosX(), this->getPosY(), Unitterreinfantinfant::MovePoint, this->game, cases_acces));
+    this->setCasesAcces(this->where(this->getPosX(), this->getPosY(), Unitterreinfantinfant::MovePoint, this->game, this->casesAcces));
     this->game->setHighlighted(this->casesAcces);
     for(vector<Terrain*>::iterator it = this->casesAcces->begin(); it != this->casesAcces->end(); ++it){
         cout << (*it)->getPosX() << "," << (*it)->getPosY() << endl;
@@ -454,10 +455,8 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
 {
 
     //Vers le nord
-    cout<<"north"<<endl;
     int nextx = posx;
     int nexty = posy-1;
-    cout << nextx << ", " << nexty << endl;
     if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
         if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
             cases_acces->push_back(game->get_terrain_at(nextx, nexty));
@@ -468,10 +467,8 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
     }
 
     //Vers le sud
-    cout<<"south"<<endl;
     nextx = posx;
     nexty = posy+1;
-    cout << nextx << ", " << nexty << endl;
     if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
         if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
             cases_acces->push_back(game->get_terrain_at(nextx, nexty));
@@ -482,10 +479,8 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
     }
 
     //Vers l'ouest
-    cout<<"west"<<endl;
     nextx = posx-1;
     nexty = posy;
-    cout << nextx << ", " << nexty << endl;
     if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
         if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
             cases_acces->push_back(game->get_terrain_at(nextx, nexty));
@@ -496,10 +491,8 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
     }
 
     //Vers l'est
-    cout<<"east"<<endl;
     nextx = posx+1;
     nexty = posy;
-    cout << nextx << ", " << nexty << endl;
     if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
         if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
             cases_acces->push_back(game->get_terrain_at(nextx, nexty));
@@ -523,6 +516,14 @@ QPixmap Unit::getimg(){
 Unit::~Unit()
 {
 
+}
+
+void Unit::move(int x, int y)
+{
+    this->pos->setPosX(x);
+    this->pos->setPosY(y);
+    this->setCasesAcces(new vector<Terrain*>); //Attention fuite de memoire
+    cout << "cases reset" << endl;
 }
 
 /*

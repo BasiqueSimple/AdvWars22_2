@@ -11,9 +11,19 @@ int Position::getPosX()
     return this->x;
 }
 
+void Position::setPosX(int x)
+{
+    this->x = x;
+}
+
 int Position::getPosY()
 {
     return this->y;
+}
+
+void Position::setPosY(int y)
+{
+    this->y = y;
 }
 
 bool Position::isAt(int x, int y)

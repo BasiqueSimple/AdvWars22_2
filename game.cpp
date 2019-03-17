@@ -34,6 +34,17 @@ bool Game::click_on(int x, int y){
     tie(x, y) = conv_coord(x, y);
     cout << x << "," << y << endl;
 
+    if(!this->highlighted->empty()){
+        for(vector<Terrain*>::iterator it = this->highlighted->begin(); it != this->highlighted->end(); ++it){
+            if((*it)->isAt(x,y)){
+                this->dernier_unit->move((*it)->getPosX(),(*it)->getPosY());
+                break;
+            }
+        }
+        this->highlighted->clear();
+        return false;
+    }
+
     for(unsigned int i = 0; i < this->units.size(); ++i)
     {
         if(this->units[i]->isAt(x,y)){
@@ -62,6 +73,8 @@ bool Game::click_on(int x, int y){
             }
         }
     }
+
+
     return false;
 }
 

@@ -37,7 +37,7 @@ public:
     //Méthodes
     Unit(int,int);
     ~Unit();
-    void move(Terrain);
+    void move(int, int);
     void mouvementspossibles(Terrain);
     bool peut_dessus(Unit, int, int, vector<Terrain*>);
     void mvts_possibles(Unit, int, int, vector<Terrain*>);
