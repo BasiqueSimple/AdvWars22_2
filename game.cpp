@@ -21,6 +21,7 @@ using namespace std;
 Game::Game()
 {
     this->start_game();
+    this->setHighlighted(new vector<Terrain*>);
 }
 
 tuple<int,int> Game::conv_coord(int x, int y){
