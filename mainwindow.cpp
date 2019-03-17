@@ -97,18 +97,25 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
     this->resize(width,height);
 
-    for (int l = 0 ; l < 17 ; l++)
+    for (unsigned int l = 0 ; l < 17 ; l++)
        {
         for (int c = 0 ; c < 21 ; c++)
            {
                 painter.drawPixmap(size_img*c,size_img*l,size_img,size_img,*terrain[tableau[l][c]]);
            }
        }
-    for(int i = 0; i < this->game.getunits().size(); ++i)
+    for(unsigned int i = 0; i < this->game.getunits().size(); ++i)
     {
         int x = this->game.getunits()[i]->getPosX();
         int y = this->game.getunits()[i]->getPosY();
         painter.drawPixmap(size_img*x, size_img*y,size_img, size_img, this->game.getunits()[i]->getimg());
+    }
+    for(vector<Terrain*>::iterator it = this->game.getHighlited()->begin(); it != this->game.getHighlited()->end(); ++it)
+    {
+        int x = (*it)->getPosX();
+        int y = (*it)->getPosY();
+        QRect rect = QRect(x*size_img,y*size_img,size_img,size_img);
+        painter.drawRect(rect);
     }
 }
 
@@ -119,6 +126,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
         QPoint pos = *new QPoint(x,y);
         this->ShowContextMenu(pos);
     }
+    this->repaint();
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event){

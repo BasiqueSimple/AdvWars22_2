@@ -3,10 +3,11 @@
 
 using namespace std;
 
-Unitterreinfantinfant::Unitterreinfantinfant(int x, int y, std::string team): Unitterreinfant (x, y)
+Unitterreinfantinfant::Unitterreinfantinfant(int x, int y, Game * game, std::string team): Unitterreinfant (x, y)
 {
     this->MoveType = 'F';
     this->setTeam(team);
     std::string path = ":/ImageUnit/" + team + "infantry";
     this->setImg(*new QPixmap(QString::fromStdString(path)));
+    this->setGame(game);
 }

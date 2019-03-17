@@ -33,11 +33,11 @@ bool Game::click_on(int x, int y){
     tie(x, y) = conv_coord(x, y);
     cout << x << "," << y << endl;
 
-    for(int i = 0; i < this->units.size(); ++i)
+    for(unsigned int i = 0; i < this->units.size(); ++i)
     {
         if(this->units[i]->isAt(x,y)){
             if(this->units[i]->getTeam() == this->joueur_actuel->getTeam()){
-                this->units[i]->activate(this->terrains);
+                this->units[i]->activate();
                 this->dernier_unit=this->units[i];
                 return false;
             }
@@ -47,7 +47,7 @@ bool Game::click_on(int x, int y){
         }
     }
 
-    for(int i = 0; i < this->batiments.size(); ++i)
+    for(unsigned int i = 0; i < this->batiments.size(); ++i)
     {
         if(this->batiments[i]->isAt(x,y))
         {
@@ -66,7 +66,7 @@ bool Game::click_on(int x, int y){
 
 void Game::remunere(Joueur* j){
     int revenus = 0;
-    for(int i = 0; i < this->batiments.size(); ++i)
+    for(unsigned int i = 0; i < this->batiments.size(); ++i)
     {
         if(this->batiments[i]->getTeam() == j->getTeam()){
             revenus+=1000;
@@ -83,6 +83,21 @@ void Game::joueur_suivant(){
         this->joueur_actuel = joueurs[0];
     }
     this->remunere(this->joueur_actuel);
+}
+
+Terrain * Game::get_terrain_at(int x, int y)
+{
+    for(vector<Terrain*>::iterator it = this->terrains.begin(); it != this->terrains.end(); ++it){
+        if((*it)->isAt(x,y)){
+            return *it;
+        }
+    }
+    return 0;
+}
+
+void Game::setHighlighted(vector<Terrain *> *casesAcces)
+{
+    this->highlighted = casesAcces;
 }
 
 void Game::start_game(){
@@ -274,6 +289,11 @@ vector<Unit*> Game::getunits(){
     return this->units;
 }
 
+vector<Terrain *>* Game::getHighlited()
+{
+    return this->highlighted;
+}
+
 bool Game::check_money(int Cout, Joueur* j){
     if(Cout<=j->getargent()){
         j->gagne_argent(-Cout);
@@ -290,6 +310,7 @@ void Game::create_infant(){
     if(this->check_money(Unitterreinfantinfant::Cout,j)){
         units.push_back(new Unitterreinfantinfant(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),
+                                                       this,
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -303,7 +324,7 @@ void Game::create_bazoo(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterreinfantbazooka::Cout,j)){
         units.push_back(new Unitterreinfantbazooka(this->dernier_batiment->getPosX(),
-                                                       this->dernier_batiment->getPosY(),
+                                                       this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -316,7 +337,7 @@ void Game::create_recon(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantrecon::Cout,j)){
         units.push_back(new Unitterrenoinfantrecon(this->dernier_batiment->getPosX(),
-                                                       this->dernier_batiment->getPosY(),
+                                                       this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -329,7 +350,7 @@ void Game::create_aa(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantantiair::Cout,j)){
         units.push_back(new Unitterrenoinfantantiair(this->dernier_batiment->getPosX(),
-                                                       this->dernier_batiment->getPosY(),
+                                                       this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -342,7 +363,7 @@ void Game::create_tank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfanttank::Cout,j)){
         units.push_back(new Unitterrenoinfanttank(this->dernier_batiment->getPosX(),
-                                                       this->dernier_batiment->getPosY(),
+                                                       this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -355,7 +376,7 @@ void Game::create_mdtank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantmdtank::Cout,j)){
         units.push_back(new Unitterrenoinfantmdtank(this->dernier_batiment->getPosX(),
-                                                       this->dernier_batiment->getPosY(),
+                                                       this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -368,7 +389,7 @@ void Game::create_megatank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantmegatank::Cout,j)){
         units.push_back(new Unitterrenoinfantmegatank(this->dernier_batiment->getPosX(),
-                                                       this->dernier_batiment->getPosY(),
+                                                       this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }
@@ -381,7 +402,7 @@ void Game::create_neotank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantneotank::Cout,j)){
         units.push_back(new Unitterrenoinfantneotank(this->dernier_batiment->getPosX(),
-                                                       this->dernier_batiment->getPosY(),
+                                                       this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
         cout << "infant" << endl;
     }

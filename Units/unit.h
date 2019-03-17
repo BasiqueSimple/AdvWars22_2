@@ -18,6 +18,8 @@
 #include "./Batiments/batimentsusine.h"
 #include "./Batiments/batimentsaeroport.h"
 
+class Game;
+
 class Unit
 {
 protected:
@@ -29,13 +31,15 @@ protected:
     std::string team;
     void setImg(QPixmap img);
     Position *pos;
+    Game * game;
+    vector<Terrain*>* casesAcces;
 public:
     //Méthodes
     Unit(int,int);
     ~Unit();
     void move(Terrain);
     void mouvementspossibles(Terrain);
-    bool peut_dessus(Unit, tuple<int,int>, vector<Terrain*>);
+    bool peut_dessus(Unit, int, int, vector<Terrain*>);
     void mvts_possibles(Unit, int, int, vector<Terrain*>);
     int ptconso(Terrain*, char);
     void attendre();
@@ -44,8 +48,7 @@ public:
     void fusion(Unit);
     bool EtreEnVie();
     bool isAt(int,int);
-    void activate(vector<Terrain*>);
-    Terrain* get_terrain_apd_case(tuple<int,int>, vector<Terrain*>);
+    void activate();
     char getMoveType();
     int getPV();
     QPixmap getimg();
@@ -53,10 +56,12 @@ public:
     int getPosX();
     int getPosY();
     void setTeam(std::string team);
+    void setGame(Game*);
     std::string getTeam();
 private:
     QPixmap img;
-    vector<tuple<int,int>> where(int posx, int posy, int PM, std::vector<std::tuple<int,int>> * cases_acces);
+    vector<Terrain*> * where(int posx, int posy, int PM, Game * game, vector<Terrain*> * cases_acces);
+    void setCasesAcces(vector<Terrain *> *cases_acces);
 };
 
 

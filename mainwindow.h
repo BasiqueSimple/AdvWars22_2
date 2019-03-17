@@ -26,7 +26,6 @@ public:
 
     void ShowContextMenu(const QPoint &pos);
 
-    void draw_units();
 public slots:
     void create_infant();
     void create_bazoo();

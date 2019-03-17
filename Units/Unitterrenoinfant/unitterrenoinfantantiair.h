@@ -8,7 +8,7 @@ class Unitterrenoinfantantiair : public Unitterrenoinfant
 public:
     static const int Cout =8000;
     static const int MovePoint =6;
-    Unitterrenoinfantantiair(int, int, std::string);
+    Unitterrenoinfantantiair(int, int, Game*, std::string);
 };
 
 #endif // UNITTERRENOINFANTAINTIAIR_H

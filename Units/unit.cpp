@@ -1,8 +1,10 @@
 #include "unit.h"
 #include <string>
 #include "Unitterreinfant/unitterreinfantinfant.h"
+#include "game.h"
 #include <typeinfo>
-
+#define dimx 21
+#define dimy 17
 
 
 Unit::Unit(int x, int y)
@@ -13,7 +15,7 @@ Unit::Unit(int x, int y)
 /*void Unit::mouvementspossibles(Terrain terrain)
 {
     int movepointrestant = this->MovePoint;
-*/
+
     //Associe la bonne ConsommationMovePoint en fonction du terrain et de la unit
 int ptconso(Terrain* terrain, char MoveType) {
     int ConsommationMovePoint;
@@ -348,7 +350,7 @@ int ptconso(Terrain* terrain, char MoveType) {
      }
     return ConsommationMovePoint;
 }
-
+*/
 void Unit::attendre()
 {
     //passer un tour
@@ -367,6 +369,10 @@ void Unit::recevoirdegat(int a)
 void Unit::etrerepare(Terrain, Joueur)
 {
 
+}
+
+void Unit::setCasesAcces(vector<Terrain*> * cases_acces){
+    this->casesAcces = cases_acces;
 }
 
 void Unit::fusion(Unit celuiquejerejoins)
@@ -406,12 +412,13 @@ char Unit::getMoveType()
     return this->MoveType;
 }
 
-void Unit::activate(vector<Terrain*> terrains)
+void Unit::activate()
 {
-    cout<<"hey"<<endl;
-    vector<tuple<int,int>> cases_acces = this->where(this->getPosX(), this->getPosY(), Unitterreinfantinfant::MovePoint,terrains);
-    for(int i = 0; i<cases_acces.size(); ++i){
-        cout << get<0>(cases_acces[i]) << "," << get<1>(cases_acces[i]) << endl;
+    vector<Terrain*> * cases_acces = new vector<Terrain*>;
+    this->setCasesAcces(this->where(this->getPosX(), this->getPosY(), Unitterreinfantinfant::MovePoint, this->game, cases_acces));
+    this->game->setHighlighted(this->casesAcces);
+    for(vector<Terrain*>::iterator it = this->casesAcces->begin(); it != this->casesAcces->end(); ++it){
+        cout << (*it)->getPosX() << "," << (*it)->getPosY() << endl;
     }
 }
 
@@ -434,11 +441,16 @@ void Unit::setTeam(std::string team)
     this->team=team;
 }
 
+void Unit::setGame(Game * game)
+{
+    this->game = game;
+}
+
 std::string Unit::getTeam(){
     return this->team;
 }
 
-std::vector<std::tuple<int,int>> * Unit::where(int posx, int posy, int MP, std::vector<std::tuple<int,int>> * cases_acces)
+vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<Terrain*> * cases_acces)
 {
 
     //Vers le nord
@@ -446,9 +458,13 @@ std::vector<std::tuple<int,int>> * Unit::where(int posx, int posy, int MP, std::
     int nextx = posx;
     int nexty = posy-1;
     cout << nextx << ", " << nexty << endl;
-    cases_acces->push_back(make_tuple(nextx,nexty));
-    if (MP > 1) {
-        this->where(nextx, nexty, MP-1, cases_acces);
+    if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
+        if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
+            cases_acces->push_back(game->get_terrain_at(nextx, nexty));
+        }
+        if (MP > 1) {
+            this->where(nextx, nexty, MP-1, game, cases_acces);
+        }
     }
 
     //Vers le sud
@@ -456,9 +472,13 @@ std::vector<std::tuple<int,int>> * Unit::where(int posx, int posy, int MP, std::
     nextx = posx;
     nexty = posy+1;
     cout << nextx << ", " << nexty << endl;
-    cases_acces->push_back(make_tuple(nextx,nexty));
-    if (MP > 1) {
-        this->where(nextx, nexty, MP-1, cases_acces);
+    if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
+        if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
+            cases_acces->push_back(game->get_terrain_at(nextx, nexty));
+        }
+        if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
+            this->where(nextx, nexty, MP-1, game, cases_acces);
+        }
     }
 
     //Vers l'ouest
@@ -466,9 +486,13 @@ std::vector<std::tuple<int,int>> * Unit::where(int posx, int posy, int MP, std::
     nextx = posx-1;
     nexty = posy;
     cout << nextx << ", " << nexty << endl;
-    cases_acces->push_back(make_tuple(nextx,nexty));
-    if (MP > 1) {
-        this->where(nextx, nexty, MP-1, cases_acces);
+    if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
+        if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
+            cases_acces->push_back(game->get_terrain_at(nextx, nexty));
+        }
+        if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
+            this->where(nextx, nexty, MP-1, game, cases_acces);
+        }
     }
 
     //Vers l'est
@@ -476,9 +500,13 @@ std::vector<std::tuple<int,int>> * Unit::where(int posx, int posy, int MP, std::
     nextx = posx+1;
     nexty = posy;
     cout << nextx << ", " << nexty << endl;
-    cases_acces->push_back(make_tuple(nextx,nexty));
-    if (MP > 1) {
-        this->where(nextx, nexty, MP-1, cases_acces);
+    if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
+        if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
+            cases_acces->push_back(game->get_terrain_at(nextx, nexty));
+        }
+        if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
+            this->where(nextx, nexty, MP-1, game, cases_acces);
+        }
     }
 
     return cases_acces;
@@ -497,32 +525,24 @@ Unit::~Unit()
 
 }
 
-Terrain* get_terrain_apd_case(tuple<int,int> i, vector<Terrain*> terrains){
-    int posx = get<0>(i);
-    int posy = get<1>(i);
-    for (Terrain* j : terrains){
-        if (j->isAt(posx,posy)){
-            return j;
-        }
-    }
-}
-
-bool Unit::peut_dessus(Unit unit, tuple<int,int> i, vector<Terrain*> terrains){
-    Terrain* terrain = get_terrain_apd_case(i, terrains);
+/*
+bool Unit::peut_dessus(Unit unit, int posx,int posy, vector<Terrain*> terrains){
+    Terrain* terrain = this->game->get_terrain_at(posx,posy);
     char MoveType = unit.getMoveType();
     int ptconsomation = ptconso(terrain, MoveType);
     int MP = unit.getMP();
     if (ptconsomation>MP){
-        cout << "tu n'as pas assez de MP pour aller sur la case (" << get<0>(i) << " , " << get<1>(i) << ")" << endl;
+        cout << "tu n'as pas assez de MP pour aller sur la case (" << posx << " , " << posy << ")" << endl;
         return 1;
     }
     else {
-        cout << "tu peux aller sur la case ( " << get<0>(i) << " , " << get<1>(i) << " )" << endl;
+        cout << "tu peux aller sur la case ( " << posx << " , " << posy << " )" << endl;
         //colorier case
-        mvts_possibles(unit, get<0>(i), get<1>(i), terrains);
+        mvts_possibles(unit, posx, posy, terrains);
         return 0;
     }
 }
+
 
 void Unit::mvts_possibles(Unit unit, int posx, int posy, vector<Terrain*> terrains){
     vector<tuple<int,int>> cases_possibles;
@@ -542,3 +562,4 @@ void Unit::mvts_possibles(Unit unit, int posx, int posy, vector<Terrain*> terrai
         peut_dessus(unit, i, terrains);
     }
 }
+*/

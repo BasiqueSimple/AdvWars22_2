@@ -24,8 +24,12 @@ public:
     void create_megatank();
     void create_neotank();
     vector<Unit *> getunits();
+    vector<Terrain *> * getHighlited();
     void joueur_suivant();
+    Terrain * get_terrain_at(int, int);
+    void setHighlighted(vector<Terrain*>*);
 private:
+    std::vector<Terrain*> * highlighted;
     std::vector<Terrain*> terrains;
     std::vector<Unit*> units;
     std::vector<Batiment*> batiments;
