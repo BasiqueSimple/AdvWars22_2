@@ -59,13 +59,13 @@ bool Game::click_on(int x, int y){
         }
     }
 
-    for(unsigned int i = 0; i < this->batiments.size(); ++i)
+    for(vector<Batiment*>::iterator it = this->batiments->begin(); it != this->batiments->end(); ++it)
     {
-        if(this->batiments[i]->isAt(x,y))
+        if((*it)->isAt(x,y))
         {
-            if(this->batiments[i]->getTeam() == this->joueur_actuel->getTeam()){
-                this->batiments[i]->activate();
-                this->dernier_batiment=this->batiments[i];
+            if((*it)->getTeam() == this->joueur_actuel->getTeam()){
+                (*it)->activate();
+                this->dernier_batiment=*it;
                 return true;
             }
             else {
@@ -80,9 +80,9 @@ bool Game::click_on(int x, int y){
 
 void Game::remunere(Joueur* j){
     int revenus = 0;
-    for(unsigned int i = 0; i < this->batiments.size(); ++i)
+    for(vector<Batiment*>::iterator it = this->batiments->begin(); it != this->batiments->end(); ++it)
     {
-        if(this->batiments[i]->getTeam() == j->getTeam()){
+        if((*it)->getTeam() == j->getTeam()){
             revenus+=1000;
         }
     }
@@ -98,7 +98,20 @@ void Game::joueur_suivant(){
     }
     this->remunere(this->joueur_actuel);
     for(vector<Unit*>::iterator it = this->units.begin(); it != this->units.end(); ++it){
-        (*it)->resetMP();
+        if( (*it)->getTeam() == this->joueur_actuel->getTeam() ){
+            (*it)->resetMP();
+            int x = (*it)->getPosX();
+            int y = (*it)->getPosY();
+            if( this->get_batiment_at(x,y) )
+            {
+                Batiment * batiment = this->get_batiment_at(x,y);
+                if( batiment->getTeam() != this->joueur_actuel->getTeam() )
+                {
+                    batiment->reducePointCapture((*it)->getPV(), this->joueur_actuel->getTeam());
+                    cout << "plus que " << batiment->getPointCapture() << " points" << endl;
+                }
+            }
+        }
     }
 }
 
@@ -112,9 +125,24 @@ Terrain * Game::get_terrain_at(int x, int y)
     return 0;
 }
 
+Batiment *Game::get_batiment_at(int x, int y)
+{
+    for(vector<Batiment*>::iterator it = this->batiments->begin(); it != this->batiments->end(); ++it){
+        if((*it)->isAt(x,y)){
+            return *it;
+        }
+    }
+    return 0;
+}
+
 void Game::setHighlighted(vector<Terrain *> *casesAcces)
 {
     this->highlighted = casesAcces;
+}
+
+std::vector<Batiment *> * Game::getBatiments() const
+{
+    return batiments;
 }
 
 void Game::start_game(){
@@ -125,7 +153,7 @@ void Game::start_game(){
     this->terrains = *new std::vector<Terrain*>;
     this->joueurs.push_back(new Joueur(1,"bm",true));
 
-    this->batiments = *new std::vector<Batiment*>;
+    this->batiments = new std::vector<Batiment*>;
     this->units = *new std::vector<Unit*>;
 
     //On cree les batiments neutres
@@ -136,7 +164,7 @@ void Game::start_game(){
     for (int v = 0 ; v < 26 ; v++)
        {
             Batiment* bat = new Batimentville(villes[v][0],villes[v][1], "neutre");
-            this->batiments.push_back(bat);
+            this->batiments->push_back(bat);
             this->terrains.push_back(bat);
        }
 
@@ -145,7 +173,7 @@ void Game::start_game(){
     for (int v = 0 ; v < 2 ; v++)
        {
             Batiment* bat = new Batimentaeroport(aeroports[v][0],aeroports[v][1], "neutre");
-            this->batiments.push_back(bat);
+            this->batiments->push_back(bat);
             this->terrains.push_back(bat);
        }
 
@@ -154,13 +182,13 @@ void Game::start_game(){
     for (int v = 0 ; v < 2 ; v++)
        {
             Batiment *bat = new Batimentusine(usines[v][0],usines[v][1], "neutre");
-            this->batiments.push_back(bat);
+            this->batiments->push_back(bat);
             this->terrains.push_back(bat);
        }
 
     //On cree les batiments OS
     Batiment* bat = new Batimentville(4,14, "os");
-    this->batiments.push_back(bat);
+    this->batiments->push_back(bat);
     this->terrains.push_back(bat);
 
     int usines2[2][2] = {{4,12},{5,13}};
@@ -168,14 +196,14 @@ void Game::start_game(){
     for (int v = 0 ; v < 2 ; v++)
        {
         Batiment * bat = new Batimentusine(usines2[v][0],usines2[v][1], "os");
-        this->batiments.push_back(bat);
+        this->batiments->push_back(bat);
         this->terrains.push_back(bat);
        }
 
     //On cree les batiments BM
 
     bat = new Batimentville(16,2, "bm");
-    this->batiments.push_back(bat);
+    this->batiments->push_back(bat);
     this->terrains.push_back(bat);
 
     int usines3[2][2] = {{16,4},{15,3}};
@@ -183,7 +211,7 @@ void Game::start_game(){
     for (int v = 0 ; v < 2 ; v++)
        {
             bat = new Batimentusine(usines3[v][0],usines3[v][1], "bm");
-            this->batiments.push_back(bat);
+            this->batiments->push_back(bat);
             this->terrains.push_back(bat);
        }
 

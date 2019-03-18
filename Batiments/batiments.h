@@ -6,9 +6,9 @@
 class Batiment : public Terrain
 {
     std::string team;
+    int PointCapture;
 public:
     //Attributs
-    int PointCapture;
     int Cout;
 
     //Méthodes
@@ -16,6 +16,9 @@ public:
     void setTeam(std::string team);
     std::string getTeam();
     virtual void activate() = 0;
+    int getPointCapture() const;
+    void setPointCapture(int value);
+    void reducePointCapture(int value, std::string);
 };
 
 

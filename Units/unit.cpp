@@ -12,6 +12,7 @@ Unit::Unit(int x, int y)
 {
     this->pos = new Position(x,y);
     this->casesAcces = new vector<Terrain*>;
+    this->PV = 10;
 }
 
 /*void Unit::mouvementspossibles(Terrain terrain)
@@ -424,9 +425,6 @@ void Unit::activate()
 {
     this->setCasesAcces(this->where(this->getPosX(), this->getPosY(), this->MovePoint, this->game, this->casesAcces));
     this->game->setHighlighted(this->casesAcces);
-    for(vector<Terrain*>::iterator it = this->casesAcces->begin(); it != this->casesAcces->end(); ++it){
-        cout << (*it)->getPosX() << "," << (*it)->getPosY() << endl;
-    }
 }
 
 int Unit::getMP(){
@@ -465,7 +463,6 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
         int nexty = posy-1;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
             if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
-                cout<<"add "<<nextx<<";"<<nexty<<endl;
                 cases_acces->push_back(game->get_terrain_at(nextx, nexty));
             }
             if (MP > 1) {
@@ -478,7 +475,6 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
         nexty = posy+1;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
             if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
-                cout<<"add "<<nextx<<";"<<nexty<<endl;
                 cases_acces->push_back(game->get_terrain_at(nextx, nexty));
             }
             if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
@@ -491,7 +487,6 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
         nexty = posy;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
             if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
-                cout<<"add "<<nextx<<";"<<nexty<<endl;
                 cases_acces->push_back(game->get_terrain_at(nextx, nexty));
             }
             if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
@@ -504,7 +499,6 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
         nexty = posy;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
             if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
-                cout<<"add "<<nextx<<";"<<nexty<<endl;
                 cases_acces->push_back(game->get_terrain_at(nextx, nexty));
             }
             if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
@@ -534,7 +528,7 @@ void Unit::move(int x, int y)
     this->pos->setPosX(x);
     this->pos->setPosY(y);
     this->casesAcces->clear();
-    this->MovePoint = 0; //A changer -> pouvoir jouer ses MP en deux coups au même tour de jeu
+    this->MovePoint = 0;
 }
 
 /*

@@ -27,12 +27,15 @@ public:
     vector<Terrain *> * getHighlited();
     void joueur_suivant();
     Terrain * get_terrain_at(int, int);
+    Batiment * get_batiment_at(int, int);
     void setHighlighted(vector<Terrain*>*);
+    std::vector<Batiment *> * getBatiments() const;
+
 private:
     std::vector<Terrain*> * highlighted;
     std::vector<Terrain*> terrains;
     std::vector<Unit*> units;
-    std::vector<Batiment*> batiments;
+    std::vector<Batiment*> * batiments;
     std::vector<Joueur*> joueurs;
     std::tuple<int,int> conv_coord(int x, int y);
     Joueur* joueur_actuel;

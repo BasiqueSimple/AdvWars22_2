@@ -104,12 +104,26 @@ void MainWindow::paintEvent(QPaintEvent *event){
                 painter.drawPixmap(size_img*c,size_img*l,size_img,size_img,*terrain[tableau[l][c]]);
            }
        }
+
+    for(vector<Batiment*>::iterator it = this->game.getBatiments()->begin(); it != this->game.getBatiments()->end(); ++it)
+    {
+        int x = (*it)->getPosX();
+        int y = (*it)->getPosY();
+        if( (*it)->getTeam() == "os" ){
+            painter.drawPixmap(size_img*x,size_img*y,size_img,size_img,*terrain[38]);
+        }
+        else if( (*it)->getTeam() == "bm" ){
+            painter.drawPixmap(size_img*x,size_img*y,size_img,size_img,*terrain[43]);
+        }
+    }
+
     for(unsigned int i = 0; i < this->game.getunits().size(); ++i)
     {
         int x = this->game.getunits()[i]->getPosX();
         int y = this->game.getunits()[i]->getPosY();
         painter.drawPixmap(size_img*x, size_img*y,size_img, size_img, this->game.getunits()[i]->getimg());
     }
+
     for(vector<Terrain*>::iterator it = this->game.getHighlited()->begin(); it != this->game.getHighlited()->end(); ++it)
     {
         int x = (*it)->getPosX();
@@ -135,6 +149,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
              case 83:
                 cout << "Next" << endl;
                 this->game.joueur_suivant();
+                this->repaint();
                 break;
           }
 }
