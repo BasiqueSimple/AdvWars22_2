@@ -459,6 +459,7 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
     int nexty = posy-1;
     if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
         if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
+            cout<<"add "<<nextx<<";"<<nexty<<endl;
             cases_acces->push_back(game->get_terrain_at(nextx, nexty));
         }
         if (MP > 1) {
@@ -471,6 +472,7 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
     nexty = posy+1;
     if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
         if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
+            cout<<"add "<<nextx<<";"<<nexty<<endl;
             cases_acces->push_back(game->get_terrain_at(nextx, nexty));
         }
         if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
@@ -483,6 +485,7 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
     nexty = posy;
     if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
         if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
+            cout<<"add "<<nextx<<";"<<nexty<<endl;
             cases_acces->push_back(game->get_terrain_at(nextx, nexty));
         }
         if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
@@ -495,6 +498,7 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
     nexty = posy;
     if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
         if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
+            cout<<"add "<<nextx<<";"<<nexty<<endl;
             cases_acces->push_back(game->get_terrain_at(nextx, nexty));
         }
         if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
@@ -522,7 +526,7 @@ void Unit::move(int x, int y)
 {
     this->pos->setPosX(x);
     this->pos->setPosY(y);
-    this->setCasesAcces(new vector<Terrain*>); //Attention fuite de memoire
+    this->casesAcces->clear(); //Attention fuite de memoire
     cout << "cases reset" << endl;
 }
 
