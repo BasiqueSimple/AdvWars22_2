@@ -91,17 +91,24 @@ void MainWindow::paintEvent(QPaintEvent *event){
                                   {2,1,21,15,42,1,1,1,1,3,1,1,1,35,15,20,2,3,1,2,101},
                                   {29,3,1,1,1,3,1,3,1,1,34,15,15,20,1,2,1,1,1,34,101},
                                   {33,29,29,2,1,1,1,34,15,15,20,2,1,3,110,102,102,102,102,102,106}};
-   int width = 1000;
-   int size_img = width/21;
-   int height = size_img*17;
+    int width = 1000;
+    int size_img = width/21;
+    int height = size_img*17;
 
     this->resize(width,height);
 
-    for (unsigned int l = 0 ; l < 17 ; l++)
+    int bigger_pics[] = {2,34,35,39,42,47,43,38};
+
+    for (unsigned int l = 0 ; l < 17 ; l++ )
        {
         for (int c = 0 ; c < 21 ; c++)
            {
-                painter.drawPixmap(size_img*c,size_img*l,size_img,size_img,*terrain[tableau[l][c]]);
+                if ( std::find(std::begin(bigger_pics), std::end(bigger_pics), tableau[l][c] ) != std::end(bigger_pics) ){
+                    painter.drawPixmap(size_img*c,size_img*l-16,size_img,size_img+16,*terrain[tableau[l][c]]);
+                }
+                else{
+                    painter.drawPixmap(size_img*c,size_img*l,size_img,size_img,*terrain[tableau[l][c]]);
+                }
            }
        }
 
@@ -110,10 +117,10 @@ void MainWindow::paintEvent(QPaintEvent *event){
         int x = (*it)->getPosX();
         int y = (*it)->getPosY();
         if( (*it)->getTeam() == "os" ){
-            painter.drawPixmap(size_img*x,size_img*y,size_img,size_img,*terrain[38]);
+            painter.drawPixmap(size_img*x,size_img*y-16,size_img,size_img+16,*terrain[38]);
         }
         else if( (*it)->getTeam() == "bm" ){
-            painter.drawPixmap(size_img*x,size_img*y,size_img,size_img,*terrain[43]);
+            painter.drawPixmap(size_img*x,size_img*y-16,size_img,size_img+16,*terrain[43]);
         }
     }
 
