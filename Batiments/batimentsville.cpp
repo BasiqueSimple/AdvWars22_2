@@ -14,9 +14,22 @@ void Batimentville::reparerUnit()
 
 }
 
-void Batimentville::activate()
+bool Batimentville::activate()
 {
+    return false;
+}
 
+void Batimentville::setImage(string)
+{
+    if( this->getTeam() == "os" ){
+        this->Image = 38;
+    }
+    else if( this->getTeam() == "bm" ){
+        this->Image = 43;
+    }
+    else{
+        this->Image = 34;
+    }
 }
 
 void Batimentville::GagnerArgent()

@@ -57,7 +57,6 @@ void MainWindow::paintEvent(QPaintEvent *event){
        terrain[35]=ih->neutralbase;
        terrain[36]=ih->neutralairport;
        terrain[39]=ih->orangestarbase;
-       terrain[42]=ih->orangestarhq;
        terrain[101]=ih->vpipe;
        terrain[102]=ih->hpipe;
        terrain[104]=ih->espipe;
@@ -67,7 +66,6 @@ void MainWindow::paintEvent(QPaintEvent *event){
        terrain[109]=ih->spipeend;
        terrain[110]=ih->wpipeend;
        terrain[44]=ih->bluemoonbase;
-       terrain[47]=ih->bluemoonhq;
        terrain[45]=ih->bluemoonairport;
        terrain[43]=ih->bluemooncity;
        terrain[40]=ih->orangestarairport;
@@ -76,7 +74,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
        int tableau[17][21] = {{104,102,102,102,102,102,108,3,1,2,18,15,15,34,1,1,1,2,30,30,33},
                                   {101,34,1,1,1,2,1,18,15,15,34,1,1,3,1,3,1,1,1,3,30},
-                                  {101,2,1,3,2,18,15,35,1,1,1,3,1,1,1,1,47,15,19,1,2},
+                                  {101,2,1,3,2,18,15,35,1,1,1,3,1,1,1,1,43,15,19,1,2},
                                   {109,2,34,15,15,34,1,1,2,2,2,2,2,3,1,44,23,1,21,19,1},
                                   {4,4,8,3,1,1,1,2,2,2,2,34,2,1,34,25,44,1,3,21,34},
                                   {2,34,5,1,1,1,2,2,34,2,2,2,2,3,1,16,1,1,1,1,3},
@@ -88,7 +86,7 @@ void MainWindow::paintEvent(QPaintEvent *event){
                                   {3,1,1,1,1,16,1,3,2,2,2,2,34,2,2,1,1,1,5,34,2},
                                   {34,19,3,1,39,23,34,1,2,34,2,2,2,2,1,1,1,3,10,4,4},
                                   {1,21,19,1,25,39,1,3,2,2,2,2,2,1,1,34,15,15,34,2,107},
-                                  {2,1,21,15,42,1,1,1,1,3,1,1,1,35,15,20,2,3,1,2,101},
+                                  {2,1,21,15,38,1,1,1,1,3,1,1,1,35,15,20,2,3,1,2,101},
                                   {29,3,1,1,1,3,1,3,1,1,34,15,15,20,1,2,1,1,1,34,101},
                                   {33,29,29,2,1,1,1,34,15,15,20,2,1,3,110,102,102,102,102,102,106}};
     int width = 1000;
@@ -97,7 +95,9 @@ void MainWindow::paintEvent(QPaintEvent *event){
 
     this->resize(width,height);
 
-    int bigger_pics[] = {2,34,35,39,42,47,43,38};
+    int bigger_pics[] = {2,34,43,38};
+
+    int big_pics[] = {36,40,45};
 
     for (unsigned int l = 0 ; l < 17 ; l++ )
        {
@@ -105,6 +105,12 @@ void MainWindow::paintEvent(QPaintEvent *event){
            {
                 if ( std::find(std::begin(bigger_pics), std::end(bigger_pics), tableau[l][c] ) != std::end(bigger_pics) ){
                     painter.drawPixmap(size_img*c,size_img*l-16,size_img,size_img+16,*terrain[tableau[l][c]]);
+                }
+                else if ( std::find(std::begin(big_pics), std::end(big_pics), tableau[l][c] ) != std::end(big_pics) ){
+                    painter.drawPixmap(size_img*c,size_img*l-6,size_img,size_img+6,*terrain[tableau[l][c]]);
+                }
+                else if ( tableau[l][c] == 35 ){
+                    painter.drawPixmap(size_img*c,size_img*l-29,size_img,size_img+29,*terrain[tableau[l][c]]);
                 }
                 else{
                     painter.drawPixmap(size_img*c,size_img*l,size_img,size_img,*terrain[tableau[l][c]]);
@@ -117,10 +123,32 @@ void MainWindow::paintEvent(QPaintEvent *event){
         int x = (*it)->getPosX();
         int y = (*it)->getPosY();
         if( (*it)->getTeam() == "os" ){
-            painter.drawPixmap(size_img*x,size_img*y-16,size_img,size_img+16,*terrain[38]);
+            if ( std::find(std::begin(bigger_pics), std::end(bigger_pics), (*it)->getImage() ) != std::end(bigger_pics) ){
+                painter.drawPixmap(size_img*x,size_img*y-16,size_img,size_img+16,*terrain[(*it)->getImage()]);
+            }
+            else if ( std::find(std::begin(big_pics), std::end(big_pics), (*it)->getImage() ) != std::end(big_pics) ){
+                painter.drawPixmap(size_img*x,size_img*y-6,size_img,size_img+6,*terrain[(*it)->getImage()]);
+            }
+            else if ( (*it)->getImage() == 39 ){
+                painter.drawPixmap(size_img*x,size_img*y-29,size_img,size_img+29,*terrain[(*it)->getImage()]);
+            }
+            else{
+                painter.drawPixmap(size_img*x,size_img*y,size_img,size_img,*terrain[(*it)->getImage()]);
+            }
         }
         else if( (*it)->getTeam() == "bm" ){
-            painter.drawPixmap(size_img*x,size_img*y-16,size_img,size_img+16,*terrain[43]);
+            if ( std::find(std::begin(bigger_pics), std::end(bigger_pics), (*it)->getImage() ) != std::end(bigger_pics) ){
+                painter.drawPixmap(size_img*x,size_img*y-16,size_img,size_img+16,*terrain[(*it)->getImage()]);
+            }
+            else if ( std::find(std::begin(big_pics), std::end(big_pics), (*it)->getImage() ) != std::end(big_pics) ){
+                painter.drawPixmap(size_img*x,size_img*y-6,size_img,size_img+6,*terrain[(*it)->getImage()]);
+            }
+            else if ( (*it)->getImage() == 44 ){
+                painter.drawPixmap(size_img*x,size_img*y-29,size_img,size_img+29,*terrain[(*it)->getImage()]);
+            }
+            else{
+                painter.drawPixmap(size_img*x,size_img*y,size_img,size_img,*terrain[(*it)->getImage()]);
+            }
         }
     }
 

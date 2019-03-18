@@ -6,7 +6,6 @@ Unitairbcopter::Unitairbcopter(int x, int y, Game * game, std::string team): Uni
 {
     this->MoveType='A';
     this->Cout =9000;
-    this->MovePoint =6;
     this->setTeam(team);
     this->setGame(game);
 }

@@ -11,7 +11,8 @@ public:
     Batimentaeroport(int, int, std::string);
     void construireUnit();
     void reparerUnitair();
-    void activate();
+    bool activate();
+    void setImage(std::string);
 };
 
 #endif // BATIMENTSAEROPORT_H

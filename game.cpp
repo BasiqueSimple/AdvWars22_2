@@ -64,9 +64,10 @@ bool Game::click_on(int x, int y){
         if((*it)->isAt(x,y))
         {
             if((*it)->getTeam() == this->joueur_actuel->getTeam()){
-                (*it)->activate();
-                this->dernier_batiment=*it;
-                return true;
+                if( (*it)->activate()){
+                    this->dernier_batiment=*it;
+                    return true;
+                }
             }
             else {
                 cout << "Ce n'est pas ton equipe." << endl;
@@ -96,7 +97,6 @@ void Game::joueur_suivant(){
     else {
         this->joueur_actuel = joueurs[0];
     }
-    this->remunere(this->joueur_actuel);
     for(vector<Unit*>::iterator it = this->units.begin(); it != this->units.end(); ++it){
         if( (*it)->getTeam() == this->joueur_actuel->getTeam() ){
             (*it)->resetMP();
@@ -113,6 +113,9 @@ void Game::joueur_suivant(){
             }
         }
     }
+    this->remunere(this->joueur_actuel);
+    cout << "Joueur " << this->joueur_actuel->getTeam() << " à toi de jouer !" <<endl;
+    cout << "Tu as " << this->joueur_actuel->getargent() << " d'argent." <<endl;
 }
 
 Terrain * Game::get_terrain_at(int x, int y)
@@ -357,7 +360,6 @@ void Game::create_infant(){
                                                        this->dernier_batiment->getPosY(),
                                                        this,
                                                        this->joueur_actuel->getTeam()));
-        cout << "infant" << endl;
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -371,7 +373,6 @@ void Game::create_bazoo(){
         units.push_back(new Unitterreinfantbazooka(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
-        cout << "infant" << endl;
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -384,7 +385,6 @@ void Game::create_recon(){
         units.push_back(new Unitterrenoinfantrecon(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
-        cout << "infant" << endl;
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -397,7 +397,6 @@ void Game::create_aa(){
         units.push_back(new Unitterrenoinfantantiair(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
-        cout << "infant" << endl;
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -410,7 +409,6 @@ void Game::create_tank(){
         units.push_back(new Unitterrenoinfanttank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
-        cout << "infant" << endl;
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -423,7 +421,6 @@ void Game::create_mdtank(){
         units.push_back(new Unitterrenoinfantmdtank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
-        cout << "infant" << endl;
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -436,7 +433,6 @@ void Game::create_megatank(){
         units.push_back(new Unitterrenoinfantmegatank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
-        cout << "infant" << endl;
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -449,7 +445,6 @@ void Game::create_neotank(){
         units.push_back(new Unitterrenoinfantneotank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
-        cout << "infant" << endl;
     }
     else {
         cout << "t'as pas de thunes" << endl;

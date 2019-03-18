@@ -10,7 +10,7 @@ protected:
     Position *pos;
     int PointDefense;
     int ConsommationMovePoint;
-    QPixmap Image;
+    int Image;
 
 
 public:

@@ -29,8 +29,18 @@ Batiment::Batiment(int x, int y) : Terrain (x, y)
 void Batiment::setTeam(std::string team)
 {
     this->team=team;
+    this->setImage(team);
 }
 
 std::string Batiment::getTeam(){
     return this->team;
+}
+
+void Batiment::setImage(string)
+{
+
+}
+
+int Batiment::getImage(){
+    return this->Image;
 }

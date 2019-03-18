@@ -19,7 +19,20 @@ void Batimentaeroport::reparerUnitair()
 
 }
 
-void Batimentaeroport::activate()
+bool Batimentaeroport::activate()
 {
+    return true;
+}
 
+void Batimentaeroport::setImage(string team)
+{
+    if( this->getTeam() == "os" ){
+        this->Image = 40;
+    }
+    else if( this->getTeam() == "bm" ){
+        this->Image = 45;
+    }
+    else{
+        this->Image = 36;
+    }
 }

@@ -24,7 +24,20 @@ void Batimentusine::GagnerArgent()
 
 }
 
-void Batimentusine::activate()
+bool Batimentusine::activate()
 {
+    return true;
+}
 
+void Batimentusine::setImage(string)
+{
+    if( this->getTeam() == "os" ){
+        this->Image = 39;
+    }
+    else if( this->getTeam() == "bm" ){
+        this->Image = 44;
+    }
+    else{
+        this->Image = 35;
+    }
 }

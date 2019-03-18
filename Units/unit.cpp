@@ -13,6 +13,7 @@ Unit::Unit(int x, int y)
     this->pos = new Position(x,y);
     this->casesAcces = new vector<Terrain*>;
     this->PV = 10;
+    this->MovePoint = 0;
 }
 
 /*void Unit::mouvementspossibles(Terrain terrain)
