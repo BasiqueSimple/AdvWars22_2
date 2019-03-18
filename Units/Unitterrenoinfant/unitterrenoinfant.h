@@ -12,6 +12,7 @@ public:
     //Méthode
     Unitterrenoinfant(int, int);
     void etrerepare(Terrain, Joueur);
+    virtual void resetMP();
 };
 
 

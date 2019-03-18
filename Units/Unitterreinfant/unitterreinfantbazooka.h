@@ -7,8 +7,8 @@ class Unitterreinfantbazooka : public Unitterreinfant
 {
 public:
     static const int Cout =3000;
-    static const int MovePoint =2;
     Unitterreinfantbazooka(int, int, Game*, std::string);
+    void resetMP();
 };
 
 #endif // UNITTERREINFANTBAZOOKA_H

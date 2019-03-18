@@ -10,3 +10,8 @@ Unitairbomber::Unitairbomber(int x, int y, Game * game, std::string team): Unita
     this->setTeam(team);
     this->setGame(game);
 }
+
+void Unitairbomber::resetMP()
+{
+    this->MovePoint = 7;
+}

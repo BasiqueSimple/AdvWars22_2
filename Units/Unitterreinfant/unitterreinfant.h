@@ -13,6 +13,7 @@ public:
     Unitterreinfant(int, int);
     void capturer();
     void etrerepare(Terrain, Joueur);
+    void resetMP();
 };
 
 #endif // UNITTERREINFANT_H

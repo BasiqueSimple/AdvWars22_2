@@ -18,3 +18,9 @@ void Unitterrenoinfant::etrerepare(Terrain terrain, Joueur joueur)
         }
     }
 }
+
+void Unitterrenoinfant::resetMP()
+{
+
+}
+

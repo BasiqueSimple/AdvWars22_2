@@ -10,3 +10,8 @@ Unitairfighter::Unitairfighter(int x, int y, Game * game, std::string team): Uni
     this->setTeam(team);
     this->setGame(game);
 }
+
+void Unitairfighter::resetMP()
+{
+    this->MovePoint = 9;
+}

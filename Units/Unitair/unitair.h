@@ -10,6 +10,7 @@ public:
     //Méthode
     Unitair(int, int);
     void etrerepare(Terrain, Joueur);
+    virtual void resetMP();
 };
 
 #endif // UNITAIR_H

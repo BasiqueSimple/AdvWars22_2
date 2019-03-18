@@ -19,3 +19,8 @@ void Unitair::etrerepare(Terrain terrain, Joueur joueur)
         }
     }
 }
+
+void Unitair::resetMP()
+{
+
+}

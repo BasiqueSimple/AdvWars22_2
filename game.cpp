@@ -97,6 +97,9 @@ void Game::joueur_suivant(){
         this->joueur_actuel = joueurs[0];
     }
     this->remunere(this->joueur_actuel);
+    for(vector<Unit*>::iterator it = this->units.begin(); it != this->units.end(); ++it){
+        (*it)->resetMP();
+    }
 }
 
 Terrain * Game::get_terrain_at(int x, int y)

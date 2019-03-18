@@ -45,6 +45,7 @@ public:
     void attendre();
     void recevoirdegat(int);
     virtual void etrerepare(Terrain, Joueur);
+    virtual void resetMP();
     void fusion(Unit);
     bool EtreEnVie();
     bool isAt(int,int);

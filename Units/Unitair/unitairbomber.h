@@ -7,6 +7,7 @@ class Unitairbomber : public Unitair
 {
 public:
     Unitairbomber(int, int, Game*, std::string);
+    void resetMP();
 };
 
 
