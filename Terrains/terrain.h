@@ -9,16 +9,13 @@ class Terrain
 protected:
     Position *pos;
     int PointDefense;
-    int ConsommationMovePoint;
     int Image;
     std::string type;
 
 
 public:
     Terrain(int, int);
-    void modifierConsommationMovePoint(int);
     int getPointDefense();
-    int getMP();
     bool isAt(int, int);
     std::string getTerrainType();
     int getPosX();

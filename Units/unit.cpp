@@ -21,7 +21,7 @@ int Unit::ptconso(Terrain* terrain) {
     int ConsommationMovePoint;
     char MoveType = this->getMoveType();
     if (TerrainType=="plaine"){
-        cout << "c'est une plaine !" << endl;
+        //ConsommationMovePoint=F1 B1 T1 W2 A1
         if (MoveType == 'F')
         {
            ConsommationMovePoint = 1;
@@ -49,7 +49,7 @@ int Unit::ptconso(Terrain* terrain) {
     }
     else if (TerrainType=="montagne")
     {
-        cout << "c'est une montagne !" << endl;
+        //ConsommationMovePoint=F2 B1 T- W- A1
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 2 ;
@@ -77,8 +77,7 @@ int Unit::ptconso(Terrain* terrain) {
         }
      }
     else if (TerrainType=="foret")
-     {
-        cout << "c'est une foret !" << endl;
+     {//ConsommationMovePoint=F1 B1 T2 W3 A1
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -106,7 +105,7 @@ int Unit::ptconso(Terrain* terrain) {
     }
     else if (TerrainType=="riviere")
     {
-        cout << "c'est une rivière !" << endl;
+        //ConsommationMovePoint=F2 B1 T- W- A1
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 2 ;
@@ -134,7 +133,6 @@ int Unit::ptconso(Terrain* terrain) {
      }
     else if (TerrainType=="route")
      {
-        cout << "c'est une route !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -162,7 +160,6 @@ int Unit::ptconso(Terrain* terrain) {
      }
     else if (TerrainType=="pont")
      {
-        cout << "c'est un pont !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -190,7 +187,6 @@ int Unit::ptconso(Terrain* terrain) {
      }
     else if (TerrainType=="plage")
      {
-        cout << "c'est une plage !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -218,7 +214,7 @@ int Unit::ptconso(Terrain* terrain) {
      }
     else if (TerrainType=="reef")
      {
-        cout << "c'est un reef !" << endl;
+        //ConsommationMovePoint=F- B- T- W- A1
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 0;
@@ -246,7 +242,6 @@ int Unit::ptconso(Terrain* terrain) {
      }
     else if (TerrainType=="ville")
      {
-        cout << "c'est une ville !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -274,7 +269,6 @@ int Unit::ptconso(Terrain* terrain) {
      }
     else if (TerrainType=="usine")
      {
-        cout << "c'est une usine !" << endl;
         if (MoveType == 'F')
         {
            ConsommationMovePoint = 1 ;
@@ -302,7 +296,6 @@ int Unit::ptconso(Terrain* terrain) {
      }
     else if (TerrainType=="aeroport")
      {
-        cout << "c'est un aeroport !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -329,8 +322,7 @@ int Unit::ptconso(Terrain* terrain) {
         }
      }
     else if (TerrainType=="pipe")
-     {
-        cout << "c'est un pipe !" << endl;
+     {    //ConsommationMovePoint=Tjr interdit -
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 0;
@@ -464,81 +456,53 @@ std::string Unit::getTeam(){
 }
 
 vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<Terrain*> * cases_acces) {
-    //if( MP != 0 ){
         //Vers le nord
-        cout << "nord" << endl;
         int nextx = posx;
         int nexty = posy-1;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
             Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
-            if(find(cases_acces->begin(), cases_acces->end(), ptTerrain) == cases_acces->end()) { //Vérifie si la case n'est pas déjà dans les cases accessibles
-                int MovePointNecessaires = this->ptconso(ptTerrain);
-                cout << "MP Nécessaires" << MovePointNecessaires <<endl;
-                cout << "MP dispo" << MP << endl;
-                if (MP >= MovePointNecessaires){
-                    cases_acces->push_back(ptTerrain);
-                    //MP -= MovePointNecessaires;
-                    cout << "j'ai consommé des MP ==> MP = " << MP << endl;
-                    this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
-                }
+            int MovePointNecessaires = this->ptconso(ptTerrain);
+            if (MP >= MovePointNecessaires && MovePointNecessaires !=0){
+                cases_acces->push_back(ptTerrain);
+                this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
             }
         }
 
         //Vers le sud
-        cout << "sud" << endl;
         nextx = posx;
         nexty = posy+1;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
             Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
-            if(find(cases_acces->begin(), cases_acces->end(), ptTerrain) == cases_acces->end()) { //Vérifie si la case n'est pas déjà dans les cases accessibles
-                int MovePointNecessaires = this->ptconso(ptTerrain);
-                cout << "MP Nécessaires" << MovePointNecessaires <<endl;
-                cout << "MP dispo" << MP << endl;
-                if (MP >= MovePointNecessaires && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
-                    cases_acces->push_back(ptTerrain);
-                    //MP -= MovePointNecessaires;
-                    this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
+            int MovePointNecessaires = this->ptconso(ptTerrain);
+            if (MP >= MovePointNecessaires && MovePointNecessaires !=0 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
+                cases_acces->push_back(ptTerrain);
+                this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
                 }
-            }
         }
 
         //Vers l'ouest
-        cout << "ouest" << endl;
         nextx = posx-1;
         nexty = posy;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
             Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
-            if(find(cases_acces->begin(), cases_acces->end(), ptTerrain) == cases_acces->end()) { //Vérifie si la case n'est pas déjà dans les cases accessibles
                 int MovePointNecessaires = this->ptconso(ptTerrain);
-                cout << "MP Nécessaires" << MovePointNecessaires <<endl;
-                cout << "MP dispo" << MP << endl;
-                if (MP >= MovePointNecessaires  && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
+                if (MP >= MovePointNecessaires && MovePointNecessaires !=0 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
                     cases_acces->push_back(ptTerrain);
-                    //MP -= MovePointNecessaires;
                     this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
                 }
-            }
         }
 
         //Vers l'est
-        cout << "est" << endl;
         nextx = posx+1;
         nexty = posy;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
             Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
-            if(find(cases_acces->begin(), cases_acces->end(), ptTerrain) == cases_acces->end()) { //Vérifie si la case n'est pas déjà dans les cases accessibles
-                int MovePointNecessaires = this->ptconso(ptTerrain);
-                cout << "MP Nécessaires" << MovePointNecessaires <<endl;
-                cout << "MP dispo" << MP << endl;
-                if (MP >= MovePointNecessaires && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
-                    cases_acces->push_back(ptTerrain);
-                    //MP -= MovePointNecessaires;
-                    this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
+            int MovePointNecessaires = this->ptconso(ptTerrain);
+            if (MP >= MovePointNecessaires && MovePointNecessaires !=0 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
+                cases_acces->push_back(ptTerrain);
+                this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
                 }
-            }
         }
-    //}
-
     return cases_acces;
 }
 

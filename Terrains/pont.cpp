@@ -6,6 +6,5 @@ using namespace std;
 Pont::Pont(int x, int y) : Terrain (x, y)
 {
     this->PointDefense=0;
-    this->ConsommationMovePoint=1;
     this->type="pont";
 }
