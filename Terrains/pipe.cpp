@@ -8,4 +8,5 @@ Pipe::Pipe(int x, int y) : Terrain (x, y)
     this->PointDefense=0;
     //this->ConsommationMovePoint=Tjr interdit -
     this->ConsommationMovePoint=0;
+    this->type="pipe";
 }

@@ -16,15 +16,12 @@ Unit::Unit(int x, int y)
     this->MovePoint = 0;
 }
 
-/*void Unit::mouvementspossibles(Terrain terrain)
-{
-    int movepointrestant = this->MovePoint;
-
-    //Associe la bonne ConsommationMovePoint en fonction du terrain et de la unit
-int ptconso(Terrain* terrain, char MoveType) {
+int Unit::ptconso(Terrain* terrain) {
+    std::string TerrainType = terrain->getTerrainType();
     int ConsommationMovePoint;
-    if (dynamic_cast<Plaine*>(terrain)){
-        cout << "ca fonctionne !" << endl;
+    char MoveType = this->getMoveType();
+    if (TerrainType=="plaine"){
+        cout << "c'est une plaine !" << endl;
         if (MoveType == 'F')
         {
            ConsommationMovePoint = 1;
@@ -50,8 +47,9 @@ int ptconso(Terrain* terrain, char MoveType) {
            cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
     }
-    else if (dynamic_cast<Montagne*>(terrain))
+    else if (TerrainType=="montagne")
     {
+        cout << "c'est une montagne !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 2 ;
@@ -78,8 +76,9 @@ int ptconso(Terrain* terrain, char MoveType) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (dynamic_cast<Foret*>(terrain))
+    else if (TerrainType=="foret")
      {
+        cout << "c'est une foret !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -105,8 +104,9 @@ int ptconso(Terrain* terrain, char MoveType) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
     }
-    else if (dynamic_cast<Riviere*>(terrain))
+    else if (TerrainType=="riviere")
     {
+        cout << "c'est une rivière !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 2 ;
@@ -132,8 +132,9 @@ int ptconso(Terrain* terrain, char MoveType) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (dynamic_cast<Route*>(terrain))
+    else if (TerrainType=="route")
      {
+        cout << "c'est une route !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -159,8 +160,9 @@ int ptconso(Terrain* terrain, char MoveType) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (dynamic_cast<Pont*>(terrain))
+    else if (TerrainType=="pont")
      {
+        cout << "c'est un pont !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -186,8 +188,9 @@ int ptconso(Terrain* terrain, char MoveType) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (dynamic_cast<Plage*>(terrain))
+    else if (TerrainType=="plage")
      {
+        cout << "c'est une plage !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -213,8 +216,9 @@ int ptconso(Terrain* terrain, char MoveType) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (dynamic_cast<Reef*>(terrain))
+    else if (TerrainType=="reef")
      {
+        cout << "c'est un reef !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 0;
@@ -240,8 +244,9 @@ int ptconso(Terrain* terrain, char MoveType) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (dynamic_cast<Batimentville*>(terrain))
+    else if (TerrainType=="ville")
      {
+        cout << "c'est une ville !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -267,8 +272,9 @@ int ptconso(Terrain* terrain, char MoveType) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (dynamic_cast<Batimentusine*>(terrain))
+    else if (TerrainType=="usine")
      {
+        cout << "c'est une usine !" << endl;
         if (MoveType == 'F')
         {
            ConsommationMovePoint = 1 ;
@@ -294,8 +300,9 @@ int ptconso(Terrain* terrain, char MoveType) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (dynamic_cast<Batimentaeroport*>(terrain))
+    else if (TerrainType=="aeroport")
      {
+        cout << "c'est un aeroport !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 1 ;
@@ -321,8 +328,9 @@ int ptconso(Terrain* terrain, char MoveType) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (dynamic_cast<Pipe*>(terrain))
+    else if (TerrainType=="pipe")
      {
+        cout << "c'est un pipe !" << endl;
         if (MoveType == 'F')
         {
             ConsommationMovePoint = 0;
@@ -354,7 +362,6 @@ int ptconso(Terrain* terrain, char MoveType) {
      }
     return ConsommationMovePoint;
 }
-*/
 
 void Unit::attendre()
 {
@@ -456,60 +463,85 @@ std::string Unit::getTeam(){
     return this->team;
 }
 
-vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<Terrain*> * cases_acces)
-{
-    if( MP != 0 ){
+vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<Terrain*> * cases_acces) {
+    //if( MP != 0 ){
         //Vers le nord
+        cout << "nord" << endl;
         int nextx = posx;
         int nexty = posy-1;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
-            if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
-                cases_acces->push_back(game->get_terrain_at(nextx, nexty));
-            }
-            if (MP > 1) {
-                this->where(nextx, nexty, MP-1, game, cases_acces);
+            Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
+            if(find(cases_acces->begin(), cases_acces->end(), ptTerrain) == cases_acces->end()) { //Vérifie si la case n'est pas déjà dans les cases accessibles
+                int MovePointNecessaires = this->ptconso(ptTerrain);
+                cout << "MP Nécessaires" << MovePointNecessaires <<endl;
+                cout << "MP dispo" << MP << endl;
+                if (MP >= MovePointNecessaires){
+                    cases_acces->push_back(ptTerrain);
+                    //MP -= MovePointNecessaires;
+                    cout << "j'ai consommé des MP ==> MP = " << MP << endl;
+                    this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
+                }
             }
         }
 
         //Vers le sud
+        cout << "sud" << endl;
         nextx = posx;
         nexty = posy+1;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
-            if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
-                cases_acces->push_back(game->get_terrain_at(nextx, nexty));
-            }
-            if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
-                this->where(nextx, nexty, MP-1, game, cases_acces);
+            Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
+            if(find(cases_acces->begin(), cases_acces->end(), ptTerrain) == cases_acces->end()) { //Vérifie si la case n'est pas déjà dans les cases accessibles
+                int MovePointNecessaires = this->ptconso(ptTerrain);
+                cout << "MP Nécessaires" << MovePointNecessaires <<endl;
+                cout << "MP dispo" << MP << endl;
+                if (MP >= MovePointNecessaires && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
+                    cases_acces->push_back(ptTerrain);
+                    //MP -= MovePointNecessaires;
+                    this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
+                }
             }
         }
 
         //Vers l'ouest
+        cout << "ouest" << endl;
         nextx = posx-1;
         nexty = posy;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
-            if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
-                cases_acces->push_back(game->get_terrain_at(nextx, nexty));
-            }
-            if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
-                this->where(nextx, nexty, MP-1, game, cases_acces);
+            Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
+            if(find(cases_acces->begin(), cases_acces->end(), ptTerrain) == cases_acces->end()) { //Vérifie si la case n'est pas déjà dans les cases accessibles
+                int MovePointNecessaires = this->ptconso(ptTerrain);
+                cout << "MP Nécessaires" << MovePointNecessaires <<endl;
+                cout << "MP dispo" << MP << endl;
+                if (MP >= MovePointNecessaires  && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
+                    cases_acces->push_back(ptTerrain);
+                    //MP -= MovePointNecessaires;
+                    this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
+                }
             }
         }
 
         //Vers l'est
+        cout << "est" << endl;
         nextx = posx+1;
         nexty = posy;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
-            if(find(cases_acces->begin(), cases_acces->end(), game->get_terrain_at(nextx, nexty)) == cases_acces->end()) {
-                cases_acces->push_back(game->get_terrain_at(nextx, nexty));
-            }
-            if (MP > 1 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0) {
-                this->where(nextx, nexty, MP-1, game, cases_acces);
+            Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
+            if(find(cases_acces->begin(), cases_acces->end(), ptTerrain) == cases_acces->end()) { //Vérifie si la case n'est pas déjà dans les cases accessibles
+                int MovePointNecessaires = this->ptconso(ptTerrain);
+                cout << "MP Nécessaires" << MovePointNecessaires <<endl;
+                cout << "MP dispo" << MP << endl;
+                if (MP >= MovePointNecessaires && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
+                    cases_acces->push_back(ptTerrain);
+                    //MP -= MovePointNecessaires;
+                    this->where(nextx, nexty, MP-MovePointNecessaires, game, cases_acces);
+                }
             }
         }
-    }
+    //}
 
     return cases_acces;
 }
+
 
 void Unit::setImg(QPixmap img){
     this->img=img;

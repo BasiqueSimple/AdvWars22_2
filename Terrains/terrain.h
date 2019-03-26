@@ -11,6 +11,7 @@ protected:
     int PointDefense;
     int ConsommationMovePoint;
     int Image;
+    std::string type;
 
 
 public:
@@ -19,6 +20,7 @@ public:
     int getPointDefense();
     int getMP();
     bool isAt(int, int);
+    std::string getTerrainType();
     int getPosX();
     int getPosY();
 };

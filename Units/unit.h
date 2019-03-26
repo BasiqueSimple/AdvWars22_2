@@ -41,7 +41,7 @@ public:
     void mouvementspossibles(Terrain);
     bool peut_dessus(Unit, int, int, vector<Terrain*>);
     void mvts_possibles(Unit, int, int, vector<Terrain*>);
-    int ptconso(Terrain*, char);
+    int ptconso(Terrain*);
     void attendre();
     void recevoirdegat(int);
     virtual void etrerepare(Terrain, Joueur);

@@ -38,3 +38,6 @@ int Terrain::getPosY()
     return this->pos->getPosY();
 }
 
+std::string Terrain::getTerrainType() {
+    return this->type;
+}

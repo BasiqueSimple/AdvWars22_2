@@ -7,6 +7,7 @@ Batimentaeroport::Batimentaeroport(int x, int y, std::string team): Batiment (x,
     this->PointDefense=3;
     this->ConsommationMovePoint=1;
     this->setTeam(team);
+    this->type="aeroport";
 }
 
 void Batimentaeroport::construireUnit()
