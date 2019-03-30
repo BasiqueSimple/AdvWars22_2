@@ -33,10 +33,16 @@ protected:
     Position *pos;
     Game * game;
     vector<Terrain*>* casesAcces;
+    bool HasMoved;
+    bool tourNonFini;
 public:
     //Méthodes
     Unit(int,int);
     ~Unit();
+    bool getTourNonFini();
+    void setTourNonFini(bool vf);
+    bool getHasMoved();
+    void resetHasMoved();
     void move(int, int);
     void mouvementspossibles(Terrain);
     bool peut_dessus(Unit, int, int, vector<Terrain*>);
@@ -58,6 +64,7 @@ public:
     int getPosY();
     void setTeam(std::string team);
     void setGame(Game*);
+    void attaquer();
     std::string getTeam();
 private:
     QPixmap img;

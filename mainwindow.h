@@ -24,9 +24,13 @@ public:
 
     void keyPressEvent(QKeyEvent *event);
 
-    void ShowContextMenu(const QPoint &pos);
+    void ShowContextMenuCreate(const QPoint &pos);
+
+    void ShowContextMenuAttaquer(const QPoint &pos);
 
 public slots:
+    void attendre();
+    void attaquer();
     void create_infant();
     void create_bazoo();
     void create_recon();

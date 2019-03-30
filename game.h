@@ -14,7 +14,8 @@ using namespace std;
 class Game {
 public:
     Game();
-    bool click_on(int, int);
+    int click_on(int, int);
+    Unit* getDernierUnit();
     void create_infant();
     void create_bazoo();
     void create_aa();

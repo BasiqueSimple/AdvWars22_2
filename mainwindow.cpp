@@ -1,6 +1,8 @@
 #include "game.h"
 #include "imageholder.h"
 #include "mainwindow.h"
+#include <tuple>
+#include <vector>
 #include "ui_mainwindow.h"
 #include <iostream>
 #include <fstream>
@@ -171,9 +173,15 @@ void MainWindow::paintEvent(QPaintEvent *event){
 void MainWindow::mousePressEvent(QMouseEvent *event){
     int x = event->x();
     int y = event->y();
-    if(this->game.click_on(x,y)){
+    int clic = this->game.click_on(x,y);
+    if(clic==1){
         QPoint pos = *new QPoint(x,y);
-        this->ShowContextMenu(pos);
+        this->ShowContextMenuCreate(pos);
+    }
+    if (clic==3){
+        cout << "unit qui a deja bougé et entourée d'un ennemi" << endl;
+        QPoint pos = *new QPoint(x,y);
+        this->ShowContextMenuAttaquer(pos);
     }
     this->repaint();
 }
@@ -189,7 +197,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
           }
 }
 
-void MainWindow::ShowContextMenu(const QPoint& pos)
+void MainWindow::ShowContextMenuCreate(const QPoint& pos)
 {
     QPoint globalPos = this->mapToGlobal(pos);
 
@@ -212,6 +220,33 @@ void MainWindow::ShowContextMenu(const QPoint& pos)
     connect(megatank, SIGNAL(triggered()), this, SLOT(create_megatank()));
     connect(neotank, SIGNAL(triggered()), this, SLOT(create_neotank()));
     myMenu.exec(globalPos);
+}
+
+void MainWindow::ShowContextMenuAttaquer(const QPoint& pos)
+{
+    QPoint globalPos = this->mapToGlobal(pos);
+
+    QMenu myMenu;
+
+    QAction *attend = myMenu.addAction("Attendre");
+    QAction *attaque = myMenu.addAction("Attaquer");
+    connect(attend, SIGNAL(triggered()), this, SLOT(attendre()));
+    connect(attaque, SIGNAL(triggered()), this, SLOT(attaquer()));
+
+    myMenu.exec(globalPos);
+}
+
+void MainWindow::attendre(){
+    cout << "clic attendre" << endl;
+    Unit* unitpt = this->game.getDernierUnit();
+    unitpt->attendre();
+}
+
+void MainWindow::attaquer(){
+    cout << "clic attaquer" << endl;
+    Unit* unitpt = this->game.getDernierUnit();
+    unitpt->attaquer();
+
 }
 
 void MainWindow::create_infant(){

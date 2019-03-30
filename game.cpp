@@ -1,3 +1,6 @@
+#define dimx 21
+#define dimy 17
+
 #include "game.h"
 #include <tuple>
 #include <array>
@@ -30,7 +33,7 @@ tuple<int,int> Game::conv_coord(int x, int y){
     return make_tuple(x/size_img, y/size_img);
 }
 
-bool Game::click_on(int x, int y){
+int Game::click_on(int x, int y){
     tie(x, y) = conv_coord(x, y);
     cout << x << "," << y << endl;
 
@@ -42,16 +45,41 @@ bool Game::click_on(int x, int y){
             }
         }
         this->highlighted->clear();
-        return false;
+        return 0;
     }
 
     for(unsigned int i = 0; i < this->units.size(); ++i)
     {
         if(this->units[i]->isAt(x,y)){
             if(this->units[i]->getTeam() == this->joueur_actuel->getTeam()){
-                this->units[i]->activate();
-                this->dernier_unit=this->units[i];
-                return false;
+                if (this->units[i]->getHasMoved() && this->units[i]->getTourNonFini()){
+                    //return 2;
+                    cout << "unit qui a deja bougé" << endl;
+
+                    for(unsigned int j = 0; j < this->units.size(); ++j){
+                        if (x-1 >= 0 && this->units[j]->isAt(x-1,y)){
+                            if(this->units[j]->getTeam() != this->joueur_actuel->getTeam()){
+                                return 3;
+                            }
+                        } else if (y-1 >= 0 && this->units[j]->isAt(x,y-1)) {
+                            if(this->units[j]->getTeam() != this->joueur_actuel->getTeam()){
+                                return 3;
+                            }
+                        } else if (y+1 < dimy&& this->units[j]->isAt(x,y+1)) {
+                            if(this->units[j]->getTeam() != this->joueur_actuel->getTeam()){
+                                return 3;
+                            }
+                        } else if (x+1 < dimx && this->units[j]->isAt(x+1,y)) {
+                            if(this->units[j]->getTeam() != this->joueur_actuel->getTeam()){
+                                return 3;
+                            }
+                        }
+                    }
+                }else {
+                    this->units[i]->activate();
+                    this->dernier_unit=this->units[i];
+                    return 0;
+                }
             }
             else {
                 cout << "Ce n'est pas ton equipe." << endl;
@@ -66,7 +94,7 @@ bool Game::click_on(int x, int y){
             if((*it)->getTeam() == this->joueur_actuel->getTeam()){
                 if( (*it)->activate()){
                     this->dernier_batiment=*it;
-                    return true;
+                    return 1;
                 }
             }
             else {
@@ -76,7 +104,11 @@ bool Game::click_on(int x, int y){
     }
 
 
-    return false;
+    return 0;
+}
+
+Unit* Game::getDernierUnit(){
+    return this->dernier_unit;
 }
 
 void Game::remunere(Joueur* j){
@@ -100,6 +132,8 @@ void Game::joueur_suivant(){
     for(vector<Unit*>::iterator it = this->units.begin(); it != this->units.end(); ++it){
         if( (*it)->getTeam() == this->joueur_actuel->getTeam() ){
             (*it)->resetMP();
+            (*it)->resetHasMoved();
+            (*it)->setTourNonFini(true);
             int x = (*it)->getPosX();
             int y = (*it)->getPosY();
             if( this->get_batiment_at(x,y) )

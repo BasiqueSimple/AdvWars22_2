@@ -14,6 +14,11 @@ Unit::Unit(int x, int y)
     this->casesAcces = new vector<Terrain*>;
     this->PV = 10;
     this->MovePoint = 0;
+    this->HasMoved = false;
+}
+
+void Unit::resetHasMoved(){
+    this->HasMoved=false;
 }
 
 int Unit::ptconso(Terrain* terrain) {
@@ -357,7 +362,14 @@ int Unit::ptconso(Terrain* terrain) {
 
 void Unit::attendre()
 {
+    cout << "j'attends" << endl;
+    this->tourNonFini=false;
     //passer un tour
+}
+
+void Unit::attaquer(){
+    cout << "j'attaque" << endl ;
+    this->tourNonFini=false;
 }
 
 int Unit::getPV()
@@ -425,6 +437,10 @@ void Unit::activate()
 {
     this->setCasesAcces(this->where(this->getPosX(), this->getPosY(), this->MovePoint, this->game, this->casesAcces));
     this->game->setHighlighted(this->casesAcces);
+}
+
+bool Unit::getHasMoved(){
+    return this->HasMoved;
 }
 
 int Unit::getMP(){
@@ -526,6 +542,15 @@ void Unit::move(int x, int y)
     this->pos->setPosY(y);
     this->casesAcces->clear();
     this->MovePoint = 0;
+    this->HasMoved = true;
+}
+
+bool Unit::getTourNonFini(){
+    return this->tourNonFini;
+}
+
+void Unit::setTourNonFini(bool vf){
+    this->tourNonFini= vf;
 }
 
 /*
