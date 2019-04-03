@@ -179,7 +179,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
         this->ShowContextMenuCreate(pos);
     }
     if (clic==3){
-        cout << "unit qui a deja bougé et entourée d'un ennemi" << endl;
+        this->repaint();
         QPoint pos = *new QPoint(x,y);
         this->ShowContextMenuAttaquer(pos);
     }
@@ -237,16 +237,13 @@ void MainWindow::ShowContextMenuAttaquer(const QPoint& pos)
 }
 
 void MainWindow::attendre(){
-    cout << "clic attendre" << endl;
     Unit* unitpt = this->game.getDernierUnit();
     unitpt->attendre();
 }
 
 void MainWindow::attaquer(){
-    cout << "clic attaquer" << endl;
     Unit* unitpt = this->game.getDernierUnit();
     unitpt->attaquer();
-
 }
 
 void MainWindow::create_infant(){

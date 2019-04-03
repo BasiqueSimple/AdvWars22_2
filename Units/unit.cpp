@@ -23,7 +23,7 @@ void Unit::resetHasMoved(){
 
 int Unit::ptconso(Terrain* terrain) {
     std::string TerrainType = terrain->getTerrainType();
-    int ConsommationMovePoint;
+    int ConsommationMovePoint = 0;
     char MoveType = this->getMoveType();
     if (TerrainType=="plaine"){
         //ConsommationMovePoint=F1 B1 T1 W2 A1
@@ -552,42 +552,3 @@ bool Unit::getTourNonFini(){
 void Unit::setTourNonFini(bool vf){
     this->tourNonFini= vf;
 }
-
-/*
-bool Unit::peut_dessus(Unit unit, int posx,int posy, vector<Terrain*> terrains){
-    Terrain* terrain = this->game->get_terrain_at(posx,posy);
-    char MoveType = unit.getMoveType();
-    int ptconsomation = ptconso(terrain, MoveType);
-    int MP = unit.getMP();
-    if (ptconsomation>MP){
-        cout << "tu n'as pas assez de MP pour aller sur la case (" << posx << " , " << posy << ")" << endl;
-        return 1;
-    }
-    else {
-        cout << "tu peux aller sur la case ( " << posx << " , " << posy << " )" << endl;
-        //colorier case
-        mvts_possibles(unit, posx, posy, terrains);
-        return 0;
-    }
-}
-
-
-void Unit::mvts_possibles(Unit unit, int posx, int posy, vector<Terrain*> terrains){
-    vector<tuple<int,int>> cases_possibles;
-    if (posx-1>0){ //on n'est pas à l'extrême gauche de la map
-        cases_possibles.push_back(make_tuple(posx-1,posy));
-        if (posx+1<LONG_MAX){ // on n'est pas à l'extrême droite de la map
-            cases_possibles.push_back(make_tuple(posx+1, posy));
-        }
-    }
-    if (posy-1>0){ //on n'est pas à tout en haut de la map
-        cases_possibles.push_back(make_tuple(posx,posy-1));
-        if (posy+1<LONG_MAX){ // on n'est pas tout en bas de la map
-            cases_possibles.push_back(make_tuple(posx, posy+1));
-        }
-    }
-    for (tuple<int,int> i : cases_possibles){
-        peut_dessus(unit, i, terrains);
-    }
-}
-*/

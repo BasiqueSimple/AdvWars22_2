@@ -37,10 +37,15 @@ int Game::click_on(int x, int y){
     tie(x, y) = conv_coord(x, y);
     cout << x << "," << y << endl;
 
-    if(!this->highlighted->empty()){
+    if(!this->highlighted->empty()){ //Si c'est pour opérer un déplacement
         for(vector<Terrain*>::iterator it = this->highlighted->begin(); it != this->highlighted->end(); ++it){
             if((*it)->isAt(x,y)){
-                this->dernier_unit->move((*it)->getPosX(),(*it)->getPosY());
+                this->dernier_unit->move(x,y);
+                for(vector<Unit*>::iterator unit = this->units.begin(); unit != this->units.end(); ++unit){
+                    if(((*unit)->isAt(x-1,y) || (*unit)->isAt(x+1,y) || (*unit)->isAt(x,y-1) || (*unit)->isAt(x,y+1)) && (*unit)->getTeam() != this->joueur_actuel->getTeam()){
+                        return 3;
+                    }
+                }
                 break;
             }
         }
@@ -48,38 +53,16 @@ int Game::click_on(int x, int y){
         return 0;
     }
 
-    for(unsigned int i = 0; i < this->units.size(); ++i)
-    {
-        if(this->units[i]->isAt(x,y)){
-            if(this->units[i]->getTeam() == this->joueur_actuel->getTeam()){
-                if (this->units[i]->getHasMoved() && this->units[i]->getTourNonFini()){
-                    //return 2;
-                    cout << "unit qui a deja bougé" << endl;
-
-                    for(unsigned int j = 0; j < this->units.size(); ++j){
-                        if (x-1 >= 0 && this->units[j]->isAt(x-1,y)){
-                            if(this->units[j]->getTeam() != this->joueur_actuel->getTeam()){
-                                return 3;
-                            }
-                        } else if (y-1 >= 0 && this->units[j]->isAt(x,y-1)) {
-                            if(this->units[j]->getTeam() != this->joueur_actuel->getTeam()){
-                                return 3;
-                            }
-                        } else if (y+1 < dimy&& this->units[j]->isAt(x,y+1)) {
-                            if(this->units[j]->getTeam() != this->joueur_actuel->getTeam()){
-                                return 3;
-                            }
-                        } else if (x+1 < dimx && this->units[j]->isAt(x+1,y)) {
-                            if(this->units[j]->getTeam() != this->joueur_actuel->getTeam()){
-                                return 3;
-                            }
-                        }
-                    }
-                }else {
-                    this->units[i]->activate();
-                    this->dernier_unit=this->units[i];
-                    return 0;
+    for(vector<Unit*>::iterator it = this->units.begin(); it != this->units.end(); ++it){
+        if((*it)->isAt(x,y)){
+            if((*it)->getTeam() == this->joueur_actuel->getTeam()){ //Si c'est de sa propre équipe
+                if ((*it)->getHasMoved()){
+                    cout << "Tu t'es déjà déplacé" << endl;
+                } else {
+                    (*it)->activate();
+                    this->dernier_unit=*it;
                 }
+            return 0;
             }
             else {
                 cout << "Ce n'est pas ton equipe." << endl;
@@ -102,8 +85,6 @@ int Game::click_on(int x, int y){
             }
         }
     }
-
-
     return 0;
 }
 
