@@ -27,6 +27,10 @@ Game::Game()
     this->setHighlighted(new vector<Terrain*>);
 }
 
+Joueur* Game::getJoueur_actuel(){
+    return this->joueur_actuel;
+}
+
 tuple<int,int> Game::conv_coord(int x, int y){
     int width = 1000;
     int size_img = width/21;

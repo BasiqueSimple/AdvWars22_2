@@ -3,6 +3,10 @@
 
 using namespace std;
 
+bool Batiment::activate(){
+    return true;
+}
+
 int Batiment::getPointCapture() const
 {
     return PointCapture;

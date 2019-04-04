@@ -51,7 +51,7 @@ public:
     int ptconso(Terrain*);
     void attendre();
     void recevoirdegat(int);
-    virtual void etrerepare(Terrain, Joueur);
+    void etrerepare(Batiment);
     virtual void resetMP();
     void fusion(Unit);
     bool EtreEnVie();

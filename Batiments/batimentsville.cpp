@@ -14,10 +14,10 @@ void Batimentville::reparerUnit()
 
 }
 
-bool Batimentville::activate()
+/*bool Batimentville::activate()
 {
     return false;
-}
+}*/
 
 void Batimentville::setImage(string)
 {

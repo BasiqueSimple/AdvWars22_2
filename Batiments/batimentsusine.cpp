@@ -24,10 +24,10 @@ void Batimentusine::GagnerArgent()
 
 }
 
-bool Batimentusine::activate()
+/*bool Batimentusine::activate()
 {
     return true;
-}
+}*/
 
 void Batimentusine::setImage(string)
 {

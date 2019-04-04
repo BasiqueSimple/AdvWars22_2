@@ -15,7 +15,7 @@ public:
     Batiment(int,int);
     void setTeam(std::string team);
     std::string getTeam();
-    virtual bool activate() = 0;
+    bool activate();
     virtual void setImage(std::string);
     int getPointCapture() const;
     void setPointCapture(int value);

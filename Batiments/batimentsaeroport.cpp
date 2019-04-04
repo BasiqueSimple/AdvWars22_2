@@ -19,10 +19,10 @@ void Batimentaeroport::reparerUnitair()
 
 }
 
-bool Batimentaeroport::activate()
+/*bool Batimentaeroport::activate()
 {
     return true;
-}
+}*/
 
 void Batimentaeroport::setImage(string team)
 {

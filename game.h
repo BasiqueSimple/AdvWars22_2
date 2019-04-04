@@ -31,7 +31,8 @@ public:
     Batiment * get_batiment_at(int, int);
     void setHighlighted(vector<Terrain*>*);
     std::vector<Batiment *> * getBatiments() const;
-
+    Joueur* getJoueur_actuel();
+    bool check_money(int, Joueur *);
 private:
     std::vector<Terrain*> * highlighted;
     std::vector<Terrain*> terrains;
@@ -44,7 +45,6 @@ private:
     Unit* dernier_unit;
     void start_game();
     void remunere(Joueur*);
-    bool check_money(int, Joueur *);
 };
 
 #endif // GAME_H

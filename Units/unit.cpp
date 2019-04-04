@@ -383,8 +383,26 @@ void Unit::recevoirdegat(int a)
     this->PV = --a;
 }
 
-void Unit::etrerepare(Terrain, Joueur)
+void Unit::etrerepare(Batiment batiment)
 {
+    if (this->PV < 10 && this->game->check_money((int)round(this->Cout*0.9), this->game->getJoueur_actuel())){
+        if ((this->damageType==0 || this->damageType==4 ||this->damageType==5 || this->damageType==6 ||this->damageType==7 || this->damageType==8 || this->damageType==9 || this->damageType==10) && (batiment.getTerrainType()=="usine" || batiment.getTerrainType()=="ville") && (batiment.getTeam()== this->game->getJoueur_actuel()->getTeam())){
+            if (this->PV == 9){
+                this->PV +=1;
+            }
+            else {
+                this->PV +=2;
+            }
+        }
+        else if ((this->damageType==1 || this->damageType==2 ||this->damageType==3) && batiment.getTerrainType()=="aeroport" && batiment.getTeam()== this->game->getJoueur_actuel()->getTeam()) {
+            if (this->PV == 9){
+                this->PV +=1;
+            }
+            else {
+                this->PV +=2;
+            }
+        }
+    }
 
 }
 
