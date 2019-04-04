@@ -41,11 +41,11 @@ int Game::click_on(int x, int y){
         for(vector<Terrain*>::iterator it = this->highlighted->begin(); it != this->highlighted->end(); ++it){
             if((*it)->isAt(x,y)){
                 this->dernier_unit->move(x,y);
-                for(vector<Unit*>::iterator unit = this->units.begin(); unit != this->units.end(); ++unit){
+                /*for(vector<Unit*>::iterator unit = this->units.begin(); unit != this->units.end(); ++unit){
                     if(((*unit)->isAt(x-1,y) || (*unit)->isAt(x+1,y) || (*unit)->isAt(x,y-1) || (*unit)->isAt(x,y+1)) && (*unit)->getTeam() != this->joueur_actuel->getTeam()){
                         return 3;
                     }
-                }
+                }*/
                 break;
             }
         }
@@ -66,6 +66,12 @@ int Game::click_on(int x, int y){
             }
             else {
                 cout << "Ce n'est pas ton equipe." << endl;
+                int lastX = this->dernier_unit->getPosX();
+                int lastY = this->dernier_unit->getPosY();
+                if((x==lastX && (y==lastY-1 || y==lastY+1)) || (y==lastY && (x==lastX-1 || x==lastX+1))){
+                        this->dernier_unit=*it;
+                        return 3;
+                }
             }
         }
     }

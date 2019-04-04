@@ -227,7 +227,6 @@ void MainWindow::ShowContextMenuAttaquer(const QPoint& pos)
     QPoint globalPos = this->mapToGlobal(pos);
 
     QMenu myMenu;
-
     QAction *attend = myMenu.addAction("Attendre");
     QAction *attaque = myMenu.addAction("Attaquer");
     connect(attend, SIGNAL(triggered()), this, SLOT(attendre()));
@@ -243,7 +242,7 @@ void MainWindow::attendre(){
 
 void MainWindow::attaquer(){
     Unit* unitpt = this->game.getDernierUnit();
-    unitpt->attaquer();
+    //unitpt->attaquer();
 }
 
 void MainWindow::create_infant(){

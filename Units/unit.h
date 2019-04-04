@@ -26,6 +26,7 @@ protected:
     //Attributs
     int PV;
     char MoveType;
+    int damageType;
     int Cout;
     int MovePoint;
     std::string team;
@@ -64,8 +65,10 @@ public:
     int getPosY();
     void setTeam(std::string team);
     void setGame(Game*);
-    void attaquer();
+    void attaquer(Unit*, Terrain*);
     std::string getTeam();
+    int getDamageType() const;
+
 private:
     QPixmap img;
     vector<Terrain*> * where(int posx, int posy, int PM, Game * game, vector<Terrain*> * cases_acces);

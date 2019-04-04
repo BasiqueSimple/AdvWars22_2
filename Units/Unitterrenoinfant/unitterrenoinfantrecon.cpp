@@ -6,6 +6,7 @@ Unitterrenoinfantrecon::Unitterrenoinfantrecon(int x, int y, Game* game, std::st
 {
     this->MoveType ='W';
     this->setTeam(team);
+    this->damageType= 9;
     std::string path = ":/ImageUnit/" + team + "recon";
     this->setImg(*new QPixmap(QString::fromStdString(path)));
     this->setGame(game);

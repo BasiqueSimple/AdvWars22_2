@@ -7,6 +7,7 @@ Unitterreinfantinfant::Unitterreinfantinfant(int x, int y, Game * game, std::str
 {
     this->MoveType = 'F';
     this->setTeam(team);
+    this->damageType= 4;
     std::string path = ":/ImageUnit/" + team + "infantry";
     this->setImg(*new QPixmap(QString::fromStdString(path)));
     this->setGame(game);

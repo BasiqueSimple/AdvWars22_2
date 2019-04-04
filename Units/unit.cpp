@@ -4,6 +4,7 @@
 #include "game.h"
 #include <typeinfo>
 #include <cstdlib>
+#include <combat.h>
 #define dimx 21
 #define dimy 17
 
@@ -367,8 +368,8 @@ void Unit::attendre()
     //passer un tour
 }
 
-void Unit::attaquer(){
-    cout << "j'attaque" << endl ;
+void Unit::attaquer(Unit* unit, Terrain* terrain){
+    Combat::attaquer(this, unit, terrain, false);
     this->tourNonFini=false;
 }
 
@@ -522,6 +523,10 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
     return cases_acces;
 }
 
+int Unit::getDamageType() const
+{
+    return damageType;
+}
 
 void Unit::setImg(QPixmap img){
     this->img=img;
