@@ -384,27 +384,73 @@ void Unit::recevoirdegat(int a)
     this->PV -= a;
 }
 
+int Unit::getCout(){
+    return this->Cout;
+}
+
 void Unit::etrerepare(Batiment batiment)
 {
-    if (this->PV < 10 && this->game->check_money((int)round(this->Cout*0.9), this->game->getJoueur_actuel())){
-        if ((this->damageType==0 || this->damageType==4 ||this->damageType==5 || this->damageType==6 ||this->damageType==7 || this->damageType==8 || this->damageType==9 || this->damageType==10) && (batiment.getTerrainType()=="usine" || batiment.getTerrainType()=="ville") && (batiment.getTeam()== this->game->getJoueur_actuel()->getTeam())){
-            if (this->PV == 9){
-                this->PV +=1;
-            }
-            else {
-                this->PV +=2;
-            }
+    int prix = 0;
+    if ((batiment.getTerrainType()=="usine" || batiment.getTerrainType()=="ville") && (batiment.getTeam()== this->game->getJoueur_actuel()->getTeam())){
+        if (this->UnitType == 0){
+            prix = Unitterrenoinfantantiair::Cout;
         }
-        else if ((this->damageType==1 || this->damageType==2 ||this->damageType==3) && batiment.getTerrainType()=="aeroport" && batiment.getTeam()== this->game->getJoueur_actuel()->getTeam()) {
+        else if (this->UnitType == 4 ){
+            prix = Unitterreinfantinfant::Cout;
+        }
+        else if (this->UnitType == 5 ){
+            prix = Unitterrenoinfantmdtank::Cout;
+        }
+        else if (this->UnitType == 6 ){
+            prix = Unitterreinfantbazooka::Cout;
+        }
+        else if (this->UnitType == 7 ){
+            prix = Unitterrenoinfantmegatank::Cout;
+        }
+        else if (this->UnitType == 8 ){
+            prix = Unitterrenoinfantneotank::Cout;
+        }
+        else if (this->UnitType == 9 ){
+            prix = Unitterrenoinfantrecon::Cout;
+        }
+        else if (this->UnitType == 10 ){
+            prix = Unitterrenoinfanttank::Cout;
+        }
+        if (prix != 0 && this->PV < 10 && this->game->check_money((int)round(prix*0.9), this->game->getJoueur_actuel())){
+            cout << "Tu es une unité " << this->UnitType << " terrestre sur " << batiment.getTerrainType() << "et tu coutes " << prix << endl;
             if (this->PV == 9){
                 this->PV +=1;
+                cout << "Tu es passé de 9 à" << this->PV << "PV" << endl;
             }
             else {
                 this->PV +=2;
+                cout << "Tu es passé de moins de 9 à" << this->PV << "PV" << endl;
             }
         }
     }
-
+    else if (batiment.getTerrainType()=="aeroport" && batiment.getTeam()== this->game->getJoueur_actuel()->getTeam()) {
+        if (this->UnitType == 1){
+            prix = Unitairbcopter::Cout;
+         }
+        else if(this->UnitType == 2){
+            prix = Unitairbomber::Cout;
+        }
+        else if (this->UnitType == 3){
+            prix = Unitairfighter::Cout;
+        }
+        if (prix != 0 && this->PV < 10 && this->game->check_money((int)round(prix*0.9), this->game->getJoueur_actuel())){
+            cout << "dans le if fct.1" << endl;
+            cout << "Tu es une unité " << this->UnitType << " aerienne sur " << batiment.getTerrainType() << "et tu coutes " << prix << endl;
+            if (this->PV == 9){
+                this->PV +=1;
+                cout << "Tu es passé de 9 à" << this->PV << "PV" << endl;
+            }
+            else {
+                this->PV +=2;
+                cout << "Tu es passé de moins de 9 à" << this->PV << "PV" << endl;
+            }
+        }
+    }
 }
 
 void Unit::resetMP()
@@ -544,7 +590,7 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
 
 int Unit::getDamageType() const
 {
-    return damageType;
+    return UnitType;
 }
 
 void Unit::setImg(QPixmap img){

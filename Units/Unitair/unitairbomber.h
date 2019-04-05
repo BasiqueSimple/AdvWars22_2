@@ -6,6 +6,7 @@
 class Unitairbomber : public Unitair
 {
 public:
+    static int const Cout = 22000;
     Unitairbomber(int, int, Game*, std::string);
     void resetMP();
 };

@@ -147,6 +147,20 @@ void Game::joueur_suivant(){
     this->remunere(this->joueur_actuel);
     cout << "Joueur " << this->joueur_actuel->getTeam() << " à toi de jouer !" <<endl;
     cout << "Tu as " << this->joueur_actuel->getargent() << " d'argent." <<endl;
+    for(vector<Unit*>::iterator iter = this->units->begin(); iter != this->units->end(); ++iter){
+        if( (*iter)->getTeam() == this->joueur_actuel->getTeam() ){
+            int x = (*iter)->getPosX();
+            int y = (*iter)->getPosY();
+            if( this->get_batiment_at(x,y))
+            {
+                Batiment * batiment = this->get_batiment_at(x,y);
+                if( batiment->getTeam() == this->joueur_actuel->getTeam() )
+                {
+                    (*iter)->etrerepare(*batiment);
+                }
+            }
+        }
+    }
 }
 
 Terrain * Game::get_terrain_at(int x, int y)

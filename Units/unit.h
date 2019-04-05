@@ -26,7 +26,7 @@ protected:
     //Attributs
     int PV;
     char MoveType;
-    int damageType;
+    int UnitType;
     int Cout;
     int MovePoint;
     std::string team;
@@ -40,6 +40,7 @@ public:
     //Méthodes
     Unit(int,int);
     ~Unit();
+    virtual int getCout();
     bool getTourNonFini();
     void setTourNonFini(bool vf);
     bool getHasMoved();

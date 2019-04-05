@@ -5,8 +5,7 @@ using namespace std;
 Unitairbcopter::Unitairbcopter(int x, int y, Game * game, std::string team): Unitair (x,y)
 {
     this->MoveType='A';
-    this->damageType=1;
-    this->Cout =9000;
+    this->UnitType=1;
     this->setTeam(team);
     this->setGame(game);
 }

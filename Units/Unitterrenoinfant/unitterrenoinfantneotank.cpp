@@ -6,7 +6,7 @@ Unitterrenoinfantneotank::Unitterrenoinfantneotank(int x, int y, Game* game, std
 {
     this->MoveType ='T';
     this->setTeam(team);
-    this->damageType=8;
+    this->UnitType=8;
     std::string path = ":/ImageUnit/" + team + "neotank";
     this->setImg(*new QPixmap(QString::fromStdString(path)));
     this->setGame(game);
