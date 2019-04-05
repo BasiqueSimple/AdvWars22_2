@@ -17,14 +17,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
     void paintEvent(QPaintEvent *event);
-
     void mousePressEvent(QMouseEvent *event);
-
     void keyPressEvent(QKeyEvent *event);
-
-    void ShowContextMenuCreate(const QPoint &pos);
+    void ShowContextMenuCreateUsine(const QPoint &pos);
+    void ShowContextMenuCreateAeroport(const QPoint &pos);
 
     void ShowContextMenuAttaquer(const QPoint &pos);
 
@@ -39,6 +36,9 @@ public slots:
     void create_mdtank();
     void create_megatank();
     void create_neotank();
+    void create_bcopter();
+    void create_bomber();
+    void create_fighter();
 private:
     Ui::MainWindow *ui;
     Game game;

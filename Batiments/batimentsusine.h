@@ -12,7 +12,7 @@ public:
     void GagnerArgent();
     void construireUnit();
     void reparerUnit();
-    //bool activate();
+    bool activate();
     void setImage(std::string);
 };
 

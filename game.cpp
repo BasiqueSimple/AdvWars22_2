@@ -7,6 +7,8 @@
 #include <iostream>
 #include <vector>
 #include <Units/Unitair/unitairbcopter.h>
+#include <Units/Unitair/unitairfighter.h>
+#include <Units/Unitair/unitairbomber.h>
 #include <Batiments/batimentsaeroport.h>
 #include <Batiments/batimentsusine.h>
 #include <Batiments/batimentsville.h>
@@ -93,7 +95,12 @@ int Game::click_on(int x, int y){
             if((*it)->getTeam() == this->joueur_actuel->getTeam()){
                 if( (*it)->activate()){
                     this->dernier_batiment=*it;
-                    return 1;
+                    if ((*it)->getTerrainType() == "usine"){
+                        return 1;
+                    }
+                    else if ((*it)->getTerrainType() == "aeroport"){
+                        return 2;
+                    }
                 }
             }
             else {
@@ -428,6 +435,47 @@ void Game::create_bazoo(){
     if(this->check_money(Unitterreinfantbazooka::Cout,j)){
         units->push_back(new Unitterreinfantbazooka(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
+                                                       this->joueur_actuel->getTeam()));
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
+}
+
+void Game::create_bcopter(){
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitairbcopter::Cout,j)){
+        units->push_back(new Unitairbcopter(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
+                                                       this,
+                                                       this->joueur_actuel->getTeam()));
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
+
+}
+
+void Game::create_bomber(){
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitairbomber::Cout,j)){
+        units->push_back(new Unitairbomber(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
+                                                       this,
+                                                       this->joueur_actuel->getTeam()));
+    }
+    else {
+        cout << "t'as pas de thunes" << endl;
+    }
+
+}
+
+void Game::create_fighter(){
+    Joueur* j = this->joueur_actuel;
+    if(this->check_money(Unitairfighter::Cout,j)){
+        units->push_back(new Unitairfighter(this->dernier_batiment->getPosX(),
+                                                       this->dernier_batiment->getPosY(),
+                                                       this,
                                                        this->joueur_actuel->getTeam()));
     }
     else {

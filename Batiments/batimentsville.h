@@ -11,7 +11,7 @@ public:
     Batimentville(int, int, std::string);
     void GagnerArgent();
     void reparerUnit();
-   // bool activate();
+    bool activate();
     void setImage(std::string);
 };
 
