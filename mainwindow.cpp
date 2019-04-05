@@ -154,11 +154,11 @@ void MainWindow::paintEvent(QPaintEvent *event){
         }
     }
 
-    for(unsigned int i = 0; i < this->game.getunits().size(); ++i)
+    for(unsigned int i = 0; i < this->game.getunits()->size(); ++i)
     {
-        int x = this->game.getunits()[i]->getPosX();
-        int y = this->game.getunits()[i]->getPosY();
-        painter.drawPixmap(size_img*x, size_img*y,size_img, size_img, this->game.getunits()[i]->getimg());
+        int x = (*this->game.getunits())[i]->getPosX();
+        int y = (*this->game.getunits())[i]->getPosY();
+        painter.drawPixmap(size_img*x, size_img*y,size_img, size_img, (*this->game.getunits())[i]->getimg());
     }
 
     for(vector<Terrain*>::iterator it = this->game.getHighlited()->begin(); it != this->game.getHighlited()->end(); ++it)
@@ -241,8 +241,9 @@ void MainWindow::attendre(){
 }
 
 void MainWindow::attaquer(){
-    Unit* unitpt = this->game.getDernierUnit();
-    //unitpt->attaquer();
+    this->game.getDernier_bouge()->attaquer(this->game.getDernierUnit(), this->game.get_terrain_at(this->game.getDernierUnit()->getPosX(), this->game.getDernierUnit()->getPosY()));
+    this->game.checkUnits();
+    this->repaint();
 }
 
 void MainWindow::create_infant(){

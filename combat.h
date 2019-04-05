@@ -13,9 +13,9 @@ public :
         int pointdefense = (Damage::calculerpointdefense(defense, terrain));
 
         int degat = damages*pvAttack*(100-pvDefense*pointdefense)/1000;
-        cout << degat << " AOUCH" << endl;
         defense->recevoirdegat(degat);
-        if(!riposte){
+        cout << "AOUCH il ne me reste que " << defense->getPV() << endl;
+        if(!riposte && defense->getPV()>0){
             attaquer(defense, attack, terrain, true);
         }
     }

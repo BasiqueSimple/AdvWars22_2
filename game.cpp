@@ -37,6 +37,11 @@ tuple<int,int> Game::conv_coord(int x, int y){
     return make_tuple(x/size_img, y/size_img);
 }
 
+Unit *Game::getDernier_bouge() const
+{
+    return dernier_bouge;
+}
+
 int Game::click_on(int x, int y){
     tie(x, y) = conv_coord(x, y);
     cout << x << "," << y << endl;
@@ -45,6 +50,7 @@ int Game::click_on(int x, int y){
         for(vector<Terrain*>::iterator it = this->highlighted->begin(); it != this->highlighted->end(); ++it){
             if((*it)->isAt(x,y)){
                 this->dernier_unit->move(x,y);
+                this->dernier_bouge = this->dernier_unit;
                 /*for(vector<Unit*>::iterator unit = this->units.begin(); unit != this->units.end(); ++unit){
                     if(((*unit)->isAt(x-1,y) || (*unit)->isAt(x+1,y) || (*unit)->isAt(x,y-1) || (*unit)->isAt(x,y+1)) && (*unit)->getTeam() != this->joueur_actuel->getTeam()){
                         return 3;
@@ -57,7 +63,7 @@ int Game::click_on(int x, int y){
         return 0;
     }
 
-    for(vector<Unit*>::iterator it = this->units.begin(); it != this->units.end(); ++it){
+    for(vector<Unit*>::iterator it = this->units->begin(); it != this->units->end(); ++it){
         if((*it)->isAt(x,y)){
             if((*it)->getTeam() == this->joueur_actuel->getTeam()){ //Si c'est de sa propre équipe
                 if ((*it)->getHasMoved()){
@@ -120,7 +126,7 @@ void Game::joueur_suivant(){
     else {
         this->joueur_actuel = joueurs[0];
     }
-    for(vector<Unit*>::iterator it = this->units.begin(); it != this->units.end(); ++it){
+    for(vector<Unit*>::iterator it = this->units->begin(); it != this->units->end(); ++it){
         if( (*it)->getTeam() == this->joueur_actuel->getTeam() ){
             (*it)->resetMP();
             (*it)->resetHasMoved();
@@ -182,7 +188,7 @@ void Game::start_game(){
     this->joueurs.push_back(new Joueur(1,"bm",true));
 
     this->batiments = new std::vector<Batiment*>;
-    this->units = *new std::vector<Unit*>;
+    this->units = new std::vector<Unit*>;
 
     //On cree les batiments neutres
     int villes[26][2] = {{1,1},{4,10},{8,5},{2,3},{5,3},{8,10},{1,5},{6,7},{9,12},
@@ -358,7 +364,7 @@ void Game::start_game(){
     cout << this->joueur_actuel->getargent() << endl;
 }
 
-vector<Unit*> Game::getunits(){
+vector<Unit*> * Game::getunits(){
     return this->units;
 }
 
@@ -378,10 +384,21 @@ bool Game::check_money(int Cout, Joueur* j){
     }
 }
 
+void Game::checkUnits(){
+    for(vector<Unit*>::iterator it = this->getunits()->begin(); it != this->getunits()->end(); ++it){
+        if((*it)->getPV() <= 0){
+            //delete (*it); PROBLEME AVEC LES DESTRUCTORS
+            cout << "Je supprime" << endl;
+            this->getunits()->erase(it);
+            break;
+        }
+    }
+}
+
 void Game::create_infant(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterreinfantinfant::Cout,j)){
-        units.push_back(new Unitterreinfantinfant(this->dernier_batiment->getPosX(),
+        units->push_back(new Unitterreinfantinfant(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),
                                                        this,
                                                        this->joueur_actuel->getTeam()));
@@ -395,7 +412,7 @@ void Game::create_infant(){
 void Game::create_bazoo(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterreinfantbazooka::Cout,j)){
-        units.push_back(new Unitterreinfantbazooka(this->dernier_batiment->getPosX(),
+        units->push_back(new Unitterreinfantbazooka(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
     }
@@ -407,7 +424,7 @@ void Game::create_bazoo(){
 void Game::create_recon(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantrecon::Cout,j)){
-        units.push_back(new Unitterrenoinfantrecon(this->dernier_batiment->getPosX(),
+        units->push_back(new Unitterrenoinfantrecon(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
     }
@@ -419,7 +436,7 @@ void Game::create_recon(){
 void Game::create_aa(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantantiair::Cout,j)){
-        units.push_back(new Unitterrenoinfantantiair(this->dernier_batiment->getPosX(),
+        units->push_back(new Unitterrenoinfantantiair(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
     }
@@ -431,7 +448,7 @@ void Game::create_aa(){
 void Game::create_tank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfanttank::Cout,j)){
-        units.push_back(new Unitterrenoinfanttank(this->dernier_batiment->getPosX(),
+        units->push_back(new Unitterrenoinfanttank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
     }
@@ -443,7 +460,7 @@ void Game::create_tank(){
 void Game::create_mdtank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantmdtank::Cout,j)){
-        units.push_back(new Unitterrenoinfantmdtank(this->dernier_batiment->getPosX(),
+        units->push_back(new Unitterrenoinfantmdtank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
     }
@@ -455,7 +472,7 @@ void Game::create_mdtank(){
 void Game::create_megatank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantmegatank::Cout,j)){
-        units.push_back(new Unitterrenoinfantmegatank(this->dernier_batiment->getPosX(),
+        units->push_back(new Unitterrenoinfantmegatank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
     }
@@ -467,7 +484,7 @@ void Game::create_megatank(){
 void Game::create_neotank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantneotank::Cout,j)){
-        units.push_back(new Unitterrenoinfantneotank(this->dernier_batiment->getPosX(),
+        units->push_back(new Unitterrenoinfantneotank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
     }

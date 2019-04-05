@@ -24,7 +24,7 @@ public:
     void create_mdtank();
     void create_megatank();
     void create_neotank();
-    vector<Unit *> getunits();
+    vector<Unit *> *getunits();
     vector<Terrain *> * getHighlited();
     void joueur_suivant();
     Terrain * get_terrain_at(int, int);
@@ -33,16 +33,20 @@ public:
     std::vector<Batiment *> * getBatiments() const;
     Joueur* getJoueur_actuel();
     bool check_money(int, Joueur *);
+    Unit *getDernier_bouge() const;
+
+    void checkUnits();
 private:
     std::vector<Terrain*> * highlighted;
     std::vector<Terrain*> terrains;
-    std::vector<Unit*> units;
+    std::vector<Unit*> * units;
     std::vector<Batiment*> * batiments;
     std::vector<Joueur*> joueurs;
     std::tuple<int,int> conv_coord(int x, int y);
     Joueur* joueur_actuel;
     Batiment* dernier_batiment;
     Unit* dernier_unit;
+    Unit* dernier_bouge;
     void start_game();
     void remunere(Joueur*);
 };

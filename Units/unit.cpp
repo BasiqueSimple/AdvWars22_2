@@ -2,6 +2,7 @@
 #include <string>
 #include "Unitterreinfant/unitterreinfantinfant.h"
 #include "game.h"
+#include "math.h"
 #include <typeinfo>
 #include <cstdlib>
 #include <combat.h>
@@ -380,7 +381,7 @@ int Unit::getPV()
 
 void Unit::recevoirdegat(int a)
 {
-    this->PV = --a;
+    this->PV -= a;
 }
 
 void Unit::etrerepare(Batiment batiment)
@@ -554,8 +555,7 @@ QPixmap Unit::getimg(){
     return this->img;
 }
 
-Unit::~Unit()
-{
+Unit::~Unit(){
 
 }
 
