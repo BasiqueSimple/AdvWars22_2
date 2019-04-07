@@ -463,7 +463,7 @@ void Unit::setCasesAcces(vector<Terrain*> * cases_acces){
 
 void Unit::fusion(Unit* celuiquejerejoins)
 {
-    if (typeid (this) == typeid (celuiquejerejoins))
+    if (this->getUnitType() == celuiquejerejoins->getUnitType())
     {
         if (celuiquejerejoins->getPV() ==10)
         {
@@ -595,6 +595,11 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
 }
 
 int Unit::getDamageType() const
+{
+    return UnitType;
+}
+
+int Unit::getUnitType() const
 {
     return UnitType;
 }

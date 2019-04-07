@@ -69,6 +69,7 @@ public:
     void attaquer(Unit*, Terrain*);
     std::string getTeam();
     int getDamageType() const;
+    int getUnitType() const;
 
 private:
     QPixmap img;
