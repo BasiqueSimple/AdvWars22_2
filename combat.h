@@ -1,6 +1,7 @@
 #ifndef ATTAQUE_H
 #define ATTAQUE_H
 #include "damage.h"
+#include "math.h"
 
 class Combat
 {
@@ -12,9 +13,9 @@ public :
         int pvDefense = defense->getPV();
         int pointdefense = (Damage::calculerpointdefense(defense, terrain));
 
-        int degat = damages*pvAttack*(100-pvDefense*pointdefense)/1000;
+        int degat = round(damages*pvAttack*(100-pvDefense*pointdefense)/10000);
         defense->recevoirdegat(degat);
-        cout << "AOUCH il ne me reste que " << defense->getPV() << endl;
+        cout << "AOUCH j'ai pris " << degat << endl;
         if(!riposte && defense->getPV()>0){
             attaquer(defense, attack, terrain, true);
         }
