@@ -186,15 +186,20 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
         QPoint pos = *new QPoint(x,y);
         this->ShowContextMenuCreateUsine(pos);
     }
+    if (clic==2){
+        this->repaint();
+        QPoint pos = *new QPoint(x,y);
+        this->ShowContextMenuCreateAeroport(pos);
+    }
     if (clic==3){
         this->repaint();
         QPoint pos = *new QPoint(x,y);
         this->ShowContextMenuAttaquer(pos);
     }
-    if (clic==2){
+    if (clic==4){
         this->repaint();
         QPoint pos = *new QPoint(x,y);
-        this->ShowContextMenuCreateAeroport(pos);
+        this->ShowContextMenuFusionner(pos);
     }
     this->repaint();
 }
@@ -263,13 +268,32 @@ void MainWindow::ShowContextMenuAttaquer(const QPoint& pos)
     myMenu.exec(globalPos);
 }
 
+void MainWindow::ShowContextMenuFusionner(const QPoint& pos)
+{
+    QPoint globalPos = this->mapToGlobal(pos);
+
+    QMenu myMenu;
+    QAction *attend = myMenu.addAction("Attendre");
+    QAction *fusionne = myMenu.addAction("Fusionner");
+    connect(attend, SIGNAL(triggered()), this, SLOT(attendre()));
+    connect(fusionne, SIGNAL(triggered()), this, SLOT(fusionner()));
+
+    myMenu.exec(globalPos);
+}
+
 void MainWindow::attendre(){
-    Unit* unitpt = this->game.getDernierUnit();
+    Unit* unitpt = this->game.getDernier_bouge();
     unitpt->attendre();
 }
 
 void MainWindow::attaquer(){
     this->game.getDernier_bouge()->attaquer(this->game.getDernierUnit(), this->game.get_terrain_at(this->game.getDernierUnit()->getPosX(), this->game.getDernierUnit()->getPosY()));
+    this->game.checkUnits();
+    this->repaint();
+}
+
+void MainWindow::fusionner(){
+    this->game.getDernier_bouge()->fusion(this->game.getDernierUnit());
     this->game.checkUnits();
     this->repaint();
 }

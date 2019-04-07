@@ -35,14 +35,14 @@ protected:
     Game * game;
     vector<Terrain*>* casesAcces;
     bool HasMoved;
-    bool tourNonFini;
+    bool tourFini;
 public:
     //Méthodes
     Unit(int,int);
     ~Unit();
     virtual int getCout();
-    bool getTourNonFini();
-    void setTourNonFini(bool vf);
+    bool getTourFini();
+    void setTourFini(bool vf);
     bool getHasMoved();
     void resetHasMoved();
     void move(int, int);
@@ -54,7 +54,7 @@ public:
     void recevoirdegat(int);
     void etrerepare(Batiment);
     virtual void resetMP();
-    void fusion(Unit);
+    void fusion(Unit*);
     bool EtreEnVie();
     bool isAt(int,int);
     void activate();

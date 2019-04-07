@@ -365,13 +365,12 @@ int Unit::ptconso(Terrain* terrain) {
 void Unit::attendre()
 {
     cout << "j'attends" << endl;
-    this->tourNonFini=false;
-    //passer un tour
+    this->tourFini=true;
 }
 
 void Unit::attaquer(Unit* unit, Terrain* terrain){
     Combat::attaquer(this, unit, terrain, false);
-    this->tourNonFini=false;
+    this->tourFini=true;
 }
 
 int Unit::getPV()
@@ -462,25 +461,32 @@ void Unit::setCasesAcces(vector<Terrain*> * cases_acces){
     this->casesAcces = cases_acces;
 }
 
-void Unit::fusion(Unit celuiquejerejoins)
+void Unit::fusion(Unit* celuiquejerejoins)
 {
     if (typeid (this) == typeid (celuiquejerejoins))
     {
-        if ((celuiquejerejoins.PV)==10)
+        if (celuiquejerejoins->getPV() ==10)
         {
             cout << "Tu ne peux pas fusionner avec moi j'ai encore tous mes points de vie" <<endl;
         }
-        else
+        else if (celuiquejerejoins->getHasMoved())
         {
-            // int a = this->PV + celuiquejerejoins.PV;
-            //if (a > 10)
-            //{
-            //  a = 10;
-            //}
-            //creer un unit du même type dont PV = a
-            //detruire this
-            //detruire celuiquejerejoins
+            cout << "Tu ne peux pas fusionner avec moi j'ai déjà bougé" <<endl;
         }
+        else {
+            int a = this->getPV() + celuiquejerejoins->getPV();
+            if (a > 10)
+            {
+              a = 10;
+            }
+            celuiquejerejoins->PV = 10;
+            this->PV = 0;
+            this->setTourFini(true);
+            celuiquejerejoins->setTourFini(true);
+        }
+    }
+    else {
+        cout << "Deux unités du même type ne peuvent pas fusionner..." << endl;
     }
 }
 
@@ -614,10 +620,10 @@ void Unit::move(int x, int y)
     this->HasMoved = true;
 }
 
-bool Unit::getTourNonFini(){
-    return this->tourNonFini;
+bool Unit::getTourFini(){
+    return this->tourFini;
 }
 
-void Unit::setTourNonFini(bool vf){
-    this->tourNonFini= vf;
+void Unit::setTourFini(bool vf){
+    this->tourFini= vf;
 }

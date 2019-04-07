@@ -58,11 +58,6 @@ int Game::click_on(int x, int y){
             if((*it)->isAt(x,y)){
                 this->dernier_unit->move(x,y);
                 this->dernier_bouge = this->dernier_unit;
-                /*for(vector<Unit*>::iterator unit = this->units.begin(); unit != this->units.end(); ++unit){
-                    if(((*unit)->isAt(x-1,y) || (*unit)->isAt(x+1,y) || (*unit)->isAt(x,y-1) || (*unit)->isAt(x,y+1)) && (*unit)->getTeam() != this->joueur_actuel->getTeam()){
-                        return 3;
-                    }
-                }*/
                 break;
             }
         }
@@ -70,28 +65,33 @@ int Game::click_on(int x, int y){
         return 0;
     }
 
+
+    int lastX = this->dernier_bouge->getPosX();
+    int lastY = this->dernier_bouge->getPosY();
     for(vector<Unit*>::iterator it = this->units->begin(); it != this->units->end(); ++it){
         if((*it)->isAt(x,y)){
             if((*it)->getTeam() == this->joueur_actuel->getTeam()){ //Si c'est de sa propre équipe
-                if ((*it)->getHasMoved()){
-                    cout << "Tu t'es déjà déplacé" << endl;
-                } else {
+                if (((x==lastX && (y==lastY-1 || y==lastY+1)) || (y==lastY && (x==lastX-1 || x==lastX+1))) && !this->dernier_bouge->getTourFini() && this->dernier_bouge->getTeam() == this->joueur_actuel->getTeam()){
+                    this->dernier_unit=*it;
+                    return 4;
+
+                }
+                else {
                     (*it)->activate();
                     this->dernier_unit=*it;
+                    return 0;
                 }
-            return 0;
             }
-            else {
-                cout << "Ce n'est pas ton equipe." << endl;
-                int lastX = this->dernier_unit->getPosX();
-                int lastY = this->dernier_unit->getPosY();
-                if((x==lastX && (y==lastY-1 || y==lastY+1)) || (y==lastY && (x==lastX-1 || x==lastX+1))){
-                        this->dernier_unit=*it;
-                        return 3;
+            else if((x==lastX && (y==lastY-1 || y==lastY+1)) || (y==lastY && (x==lastX-1 || x==lastX+1))){
+                if(!this->dernier_bouge->getTourFini() && this->dernier_bouge->getTeam() == this->joueur_actuel->getTeam()){
+                    this->dernier_unit=*it;
+                    return 3;
                 }
             }
         }
     }
+
+
 
     for(vector<Batiment*>::iterator it = this->batiments->begin(); it != this->batiments->end(); ++it)
     {
@@ -142,7 +142,7 @@ void Game::joueur_suivant(){
         if( (*it)->getTeam() == this->joueur_actuel->getTeam() ){
             (*it)->resetMP();
             (*it)->resetHasMoved();
-            (*it)->setTourNonFini(true);
+            (*it)->setTourFini(false);
             int x = (*it)->getPosX();
             int y = (*it)->getPosY();
             if( this->get_batiment_at(x,y) )

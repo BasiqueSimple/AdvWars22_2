@@ -25,7 +25,10 @@ public:
 
     void ShowContextMenuAttaquer(const QPoint &pos);
 
+    void ShowContextMenuFusionner(const QPoint &pos);
+
 public slots:
+    void fusionner();
     void attendre();
     void attaquer();
     void create_infant();
