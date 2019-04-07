@@ -6,6 +6,8 @@ Unitairbomber::Unitairbomber(int x, int y, Game * game, std::string team): Unita
 {
     this->UnitType = 2;
     this->setTeam(team);
+    std::string path = ":/ImageUnit/" + team + "bomber";
+    this->setImg(*new QPixmap(QString::fromStdString(path)));
     this->setGame(game);
 }
 

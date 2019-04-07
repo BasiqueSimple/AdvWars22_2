@@ -6,6 +6,8 @@ Unitairfighter::Unitairfighter(int x, int y, Game * game, std::string team): Uni
 {
     this->UnitType=3;
     this->setTeam(team);
+    std::string path = ":/ImageUnit/" + team + "fighter";
+    this->setImg(*new QPixmap(QString::fromStdString(path)));
     this->setGame(game);
 }
 
