@@ -24,6 +24,9 @@ public:
     void create_mdtank();
     void create_megatank();
     void create_neotank();
+    void create_bcopter();
+    void create_bomber();
+    void create_fighter();
     vector<Unit *> *getunits();
     vector<Terrain *> * getHighlited();
     void joueur_suivant();

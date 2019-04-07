@@ -5,7 +5,7 @@ using namespace std;
 Unitterrenoinfantmdtank::Unitterrenoinfantmdtank(int x, int y, Game * game, std::string team): Unitterrenoinfant (x, y)
 {
     this->MoveType ='T';
-    this->damageType=5;
+    this->UnitType=5;
     this->setTeam(team);
     std::string path = ":/ImageUnit/" + team + "md-tank";
     this->setImg(*new QPixmap(QString::fromStdString(path)));

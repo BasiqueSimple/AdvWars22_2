@@ -176,12 +176,17 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
     int clic = this->game.click_on(x,y);
     if(clic==1){
         QPoint pos = *new QPoint(x,y);
-        this->ShowContextMenuCreate(pos);
+        this->ShowContextMenuCreateUsine(pos);
     }
     if (clic==3){
         this->repaint();
         QPoint pos = *new QPoint(x,y);
         this->ShowContextMenuAttaquer(pos);
+    }
+    if (clic==2){
+        this->repaint();
+        QPoint pos = *new QPoint(x,y);
+        this->ShowContextMenuCreateAeroport(pos);
     }
     this->repaint();
 }
@@ -197,7 +202,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
           }
 }
 
-void MainWindow::ShowContextMenuCreate(const QPoint& pos)
+void MainWindow::ShowContextMenuCreateUsine(const QPoint& pos)
 {
     QPoint globalPos = this->mapToGlobal(pos);
 
@@ -219,6 +224,21 @@ void MainWindow::ShowContextMenuCreate(const QPoint& pos)
     connect(mdtank, SIGNAL(triggered()), this, SLOT(create_mdtank()));
     connect(megatank, SIGNAL(triggered()), this, SLOT(create_megatank()));
     connect(neotank, SIGNAL(triggered()), this, SLOT(create_neotank()));
+    myMenu.exec(globalPos);
+}
+
+void MainWindow::ShowContextMenuCreateAeroport(const QPoint &pos)
+{
+    QPoint globalPos = this->mapToGlobal(pos);
+
+    QMenu myMenu;
+
+    QAction *bcopter = myMenu.addAction("bCopter-9000");
+    QAction *bomber = myMenu.addAction("Bomber-22000");
+    QAction *fighter = myMenu.addAction("Fighter-20000");
+    connect(bcopter, SIGNAL(triggered()), this, SLOT(create_bcopter()));
+    connect(bomber, SIGNAL(triggered()), this, SLOT(create_bomber()));
+    connect(fighter, SIGNAL(triggered()), this, SLOT(create_fighter()));
     myMenu.exec(globalPos);
 }
 
@@ -248,6 +268,21 @@ void MainWindow::attaquer(){
 
 void MainWindow::create_infant(){
     this->game.create_infant();
+    this->repaint();
+}
+
+void MainWindow::create_bcopter(){
+    this->game.create_bcopter();
+    this->repaint();
+}
+
+void MainWindow::create_bomber(){
+    this->game.create_bomber();
+    this->repaint();
+}
+
+void MainWindow::create_fighter(){
+    this->game.create_fighter();
     this->repaint();
 }
 
