@@ -1,6 +1,7 @@
 #include "game.h"
 #include "imageholder.h"
 #include "mainwindow.h"
+#include <QMessageBox>
 #include <tuple>
 #include <vector>
 #include "ui_mainwindow.h"
@@ -167,6 +168,13 @@ void MainWindow::paintEvent(QPaintEvent *event){
         int y = (*it)->getPosY();
         QRect rect = QRect(x*size_img,y*size_img,size_img,size_img);
         painter.drawRect(rect);
+    }
+
+    if(this->game.checkGameOver()){
+        QMessageBox *box = new QMessageBox;
+        QString go = QString::fromStdString("GAME OVER\nC'est "+this->game.getWinner()+" qui a gagné !");
+        box->setInformativeText(go);
+        box->show();
     }
 }
 

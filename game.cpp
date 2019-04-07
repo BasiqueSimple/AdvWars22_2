@@ -39,6 +39,11 @@ tuple<int,int> Game::conv_coord(int x, int y){
     return make_tuple(x/size_img, y/size_img);
 }
 
+std::string Game::getWinner() const
+{
+    return winner;
+}
+
 Unit *Game::getDernier_bouge() const
 {
     return dernier_bouge;
@@ -409,11 +414,42 @@ void Game::checkUnits(){
     for(vector<Unit*>::iterator it = this->getunits()->begin(); it != this->getunits()->end(); ++it){
         if((*it)->getPV() <= 0){
             //delete (*it); PROBLEME AVEC LES DESTRUCTORS
-            cout << "Je supprime" << endl;
             this->getunits()->erase(it);
             break;
         }
     }
+}
+
+bool Game::checkGameOver(){
+    int osUnitsCount = 0;
+    int bmUnitsCount = 0;
+    int osBuildingsCount = 0;
+    int bmBuildingsCount = 0;
+    for(vector<Unit*>::iterator it = this->getunits()->begin(); it != this->getunits()->end(); ++it){
+        if((*it)->getTeam() == "os"){
+            osUnitsCount++;
+        }
+        else if((*it)->getTeam() == "bm"){
+            bmUnitsCount++;
+        }
+    }
+    for(vector<Batiment*>::iterator it = this->batiments->begin(); it != this->batiments->end(); ++it){
+        if((*it)->getTeam() == "os" && ((*it)->getTerrainType() == "aeroport" || (*it)->getTerrainType() == "usine")){
+            osBuildingsCount++;
+        }
+        else if((*it)->getTeam() == "bm" && ((*it)->getTerrainType() == "aeroport" || (*it)->getTerrainType() == "usine")){
+            bmBuildingsCount++;
+        }
+    }
+    if(osUnitsCount == 0 && osBuildingsCount == 0){
+        this->winner = "bm";
+        return true;
+    }
+    else if(bmUnitsCount == 0 && bmBuildingsCount == 0){
+        this->winner = "os";
+        return true;
+    }
+    return false;
 }
 
 void Game::create_infant(){

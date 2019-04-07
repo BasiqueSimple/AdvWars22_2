@@ -39,6 +39,9 @@ public:
     Unit *getDernier_bouge() const;
 
     void checkUnits();
+    bool checkGameOver();
+    std::string getWinner() const;
+
 private:
     std::vector<Terrain*> * highlighted;
     std::vector<Terrain*> terrains;
@@ -47,6 +50,7 @@ private:
     std::vector<Joueur*> joueurs;
     std::tuple<int,int> conv_coord(int x, int y);
     Joueur* joueur_actuel;
+    std::string winner;
     Batiment* dernier_batiment;
     Unit* dernier_unit;
     Unit* dernier_bouge;
