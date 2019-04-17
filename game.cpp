@@ -54,6 +54,7 @@ int Game::click_on(int x, int y){
     cout << x << "," << y << endl;
 
     if(!this->highlighted->empty()){ //Si c'est pour opérer un déplacement
+        cout << "je suis dans le empty" << endl;
         for(vector<Terrain*>::iterator it = this->highlighted->begin(); it != this->highlighted->end(); ++it){
             if((*it)->isAt(x,y)){
                 this->dernier_unit->move(x,y);
@@ -65,14 +66,16 @@ int Game::click_on(int x, int y){
         return 0;
     }
 
-
-
     for(vector<Unit*>::iterator it = this->units->begin(); it != this->units->end(); ++it){
+        cout << "for" << endl;
+        int lastX = this->dernier_bouge->getPosX();
+        int lastY = this->dernier_bouge->getPosY();
         if((*it)->isAt(x,y)){
-            int lastX = this->dernier_bouge->getPosX();
-            int lastY = this->dernier_bouge->getPosY();
+            cout << "if 1" << endl;
             if((*it)->getTeam() == this->joueur_actuel->getTeam()){ //Si c'est de sa propre équipe
+                cout << "if 2" << endl;
                 if (((x==lastX && (y==lastY-1 || y==lastY+1)) || (y==lastY && (x==lastX-1 || x==lastX+1))) && !this->dernier_bouge->getTourFini() && this->dernier_bouge->getTeam() == this->joueur_actuel->getTeam()){
+                    cout << "ouiiiii " << endl;
                     this->dernier_unit=*it;
                     return 4;
 
@@ -454,10 +457,19 @@ bool Game::checkGameOver(){
 void Game::create_infant(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterreinfantinfant::Cout,j)){
+        int premiere_unit = 0;
+        if (units->empty()){
+            premiere_unit = 1;
+        }
         units->push_back(new Unitterreinfantinfant(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),
                                                        this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -466,11 +478,20 @@ void Game::create_infant(){
 }
 
 void Game::create_bazoo(){
+    int premiere_unit = 0;
+    if (units->empty()){
+        premiere_unit = 1;
+    }
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterreinfantbazooka::Cout,j)){
         units->push_back(new Unitterreinfantbazooka(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -480,10 +501,19 @@ void Game::create_bazoo(){
 void Game::create_bcopter(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitairbcopter::Cout,j)){
+        int premiere_unit = 0;
+        if (units->empty()){
+            premiere_unit = 1;
+        }
         units->push_back(new Unitairbcopter(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),
                                                        this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -494,10 +524,19 @@ void Game::create_bcopter(){
 void Game::create_bomber(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitairbomber::Cout,j)){
+        int premiere_unit = 0;
+        if (units->empty()){
+            premiere_unit = 1;
+        }
         units->push_back(new Unitairbomber(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),
                                                        this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -508,10 +547,19 @@ void Game::create_bomber(){
 void Game::create_fighter(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitairfighter::Cout,j)){
+        int premiere_unit = 0;
+        if (units->empty()){
+            premiere_unit = 1;
+        }
         units->push_back(new Unitairfighter(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),
                                                        this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -521,9 +569,18 @@ void Game::create_fighter(){
 void Game::create_recon(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantrecon::Cout,j)){
+        int premiere_unit = 0;
+        if (units->empty()){
+            premiere_unit = 1;
+        }
         units->push_back(new Unitterrenoinfantrecon(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -533,9 +590,18 @@ void Game::create_recon(){
 void Game::create_aa(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantantiair::Cout,j)){
+        int premiere_unit = 0;
+        if (units->empty()){
+            premiere_unit = 1;
+        }
         units->push_back(new Unitterrenoinfantantiair(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -545,9 +611,18 @@ void Game::create_aa(){
 void Game::create_tank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfanttank::Cout,j)){
+        int premiere_unit = 0;
+        if (units->empty()){
+            premiere_unit = 1;
+        }
         units->push_back(new Unitterrenoinfanttank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -557,9 +632,18 @@ void Game::create_tank(){
 void Game::create_mdtank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantmdtank::Cout,j)){
+        int premiere_unit = 0;
+        if (units->empty()){
+            premiere_unit = 1;
+        }
         units->push_back(new Unitterrenoinfantmdtank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -569,9 +653,18 @@ void Game::create_mdtank(){
 void Game::create_megatank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantmegatank::Cout,j)){
+        int premiere_unit = 0;
+        if (units->empty()){
+            premiere_unit = 1;
+        }
         units->push_back(new Unitterrenoinfantmegatank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
@@ -581,9 +674,18 @@ void Game::create_megatank(){
 void Game::create_neotank(){
     Joueur* j = this->joueur_actuel;
     if(this->check_money(Unitterrenoinfantneotank::Cout,j)){
+        int premiere_unit = 0;
+        if (units->empty()){
+            premiere_unit = 1;
+        }
         units->push_back(new Unitterrenoinfantneotank(this->dernier_batiment->getPosX(),
                                                        this->dernier_batiment->getPosY(),this,
                                                        this->joueur_actuel->getTeam()));
+        if (premiere_unit==1){
+            vector<Unit *> vector = this->units[0];
+            Unit * pt = vector[0];
+            this->dernier_bouge=pt;
+        }
     }
     else {
         cout << "t'as pas de thunes" << endl;
