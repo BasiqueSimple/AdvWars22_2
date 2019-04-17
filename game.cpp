@@ -66,10 +66,11 @@ int Game::click_on(int x, int y){
     }
 
 
-    int lastX = this->dernier_bouge->getPosX();
-    int lastY = this->dernier_bouge->getPosY();
+
     for(vector<Unit*>::iterator it = this->units->begin(); it != this->units->end(); ++it){
         if((*it)->isAt(x,y)){
+            int lastX = this->dernier_bouge->getPosX();
+            int lastY = this->dernier_bouge->getPosY();
             if((*it)->getTeam() == this->joueur_actuel->getTeam()){ //Si c'est de sa propre équipe
                 if (((x==lastX && (y==lastY-1 || y==lastY+1)) || (y==lastY && (x==lastX-1 || x==lastX+1))) && !this->dernier_bouge->getTourFini() && this->dernier_bouge->getTeam() == this->joueur_actuel->getTeam()){
                     this->dernier_unit=*it;
@@ -90,8 +91,6 @@ int Game::click_on(int x, int y){
             }
         }
     }
-
-
 
     for(vector<Batiment*>::iterator it = this->batiments->begin(); it != this->batiments->end(); ++it)
     {
