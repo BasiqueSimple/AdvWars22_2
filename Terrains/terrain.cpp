@@ -10,7 +10,7 @@ Terrain::Terrain(int x, int y)
 
 int Terrain::getPointDefense()
 {
-    return this->PointDefense;
+    return this->defensePoints;
 }
 
 bool Terrain::isAt(int x, int y)

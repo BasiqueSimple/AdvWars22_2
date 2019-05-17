@@ -5,6 +5,6 @@ using namespace std;
 
 Mountain::Mountain(int x, int y) : Terrain (x, y)
 {
-    this->PointDefense=4;
-    this->type="montagne";
+    this->defensePoints=4;
+    this->type="mountain";
 }

@@ -13,7 +13,7 @@ public:
     void construireUnit();
     void reparerUnit();
     bool activate();
-    void setImage(std::string);
+    void setImage();
 };
 
 

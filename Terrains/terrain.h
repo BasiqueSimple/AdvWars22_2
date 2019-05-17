@@ -8,7 +8,7 @@ class Terrain
 {
 protected:
     Position *pos;
-    int PointDefense;
+    int defensePoints;
     int Image;
     std::string type;
 

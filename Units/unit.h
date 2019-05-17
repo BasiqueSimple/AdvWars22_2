@@ -66,7 +66,7 @@ public:
     int getPosY();
     void setTeam(std::string team);
     void setGame(Game*);
-    void attaquer(Unit*, Terrain*);
+    void attack(Unit*, Terrain*);
     std::string getTeam();
     int getDamageType() const;
     int getUnitType() const;

@@ -5,6 +5,6 @@ using namespace std;
 
 Beach::Beach(int x, int y) : Terrain (x, y)
 {
-    this->PointDefense=0;
-    this->type="plage";
+    this->defensePoints=0;
+    this->type="beach";
 }

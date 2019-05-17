@@ -17,6 +17,7 @@
 #define AIRPORT 2
 #define ATTACK 3
 #define MERGE 4
+#define MOVE 5
 
 #define INFANTRY 0
 #define BAZOOKA 1
@@ -42,7 +43,24 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->game = new Game();
+
+    this->game = new Game(1000, "bm");
+
+    server = new QTcpServer();
+    if(! server->listen(QHostAddress::Any, 8123)) {
+        std::cout << "I am a client" << std::endl;
+        game->setThisPlayer("bm");
+        other = new QTcpSocket();
+        connect(other, SIGNAL(connected()), this, SLOT(onConnected()));
+        other->connectToHost("127.0.0.1", 8123);
+        connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+    } else {
+        std::cout << "I am the server" << std::endl;
+        game->setThisPlayer("os");
+        other = nullptr;
+    }
+
+    connect(server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
 }
 
 MainWindow::~MainWindow()
@@ -50,7 +68,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::paintEvent(QPaintEvent *event){
+void MainWindow::paintEvent(QPaintEvent *){
     QPainter painter(this);
 
     ImageHolder* ih = new ImageHolder();
@@ -179,14 +197,25 @@ void MainWindow::paintEvent(QPaintEvent *event){
         }
     }
 
+    QPen pen = QPen();
+    QFont font = QFont();
+    font.setPixelSize(25);
+    font.setBold(true);
+    painter.setFont(font);
     for(vector<Unit*>::iterator it = game->getUnits()->begin(); it != game->getUnits()->end(); ++it)
     {
         int x = (*it)->getPosX();
         int y = (*it)->getPosY();
         conv_coord(x, y);
+        if( (*it)->getTeam() == "bm" ) pen.setColor(Qt::blue);
+        else pen.setColor(Qt::red);
+        painter.setPen(pen);
         painter.drawPixmap(x, y,size_img, size_img, (*it)->getimg());
+        painter.drawText(x, y, QString::number((*it)->getPV()));
     }
 
+    pen.setColor(Qt::black);
+    painter.setPen(pen);
     for(vector<Terrain*>::iterator it = game->getHighlited()->begin(); it != game->getHighlited()->end(); ++it)
     {
         int x = (*it)->getPosX();
@@ -199,57 +228,88 @@ void MainWindow::paintEvent(QPaintEvent *event){
     int x = game->getSelectedCase()->getPosX();
     int y = game->getSelectedCase()->getPosY();
     conv_coord(x, y);
-    QPen pen = QPen();
-    if(game->getCurrentPlayer()->getTeam() == "bm") pen.setColor(Qt::blue);
+    if( game->getThisPlayer()->getTeam() == "bm" ) pen.setColor(Qt::blue);
     else pen.setColor(Qt::red);
     pen.setWidth(3);
     painter.setPen(pen);
     QRect rect = QRect(x,y,size_img,size_img);
     painter.drawRect(rect);
+
     if(game->checkGameOver()){
         QMessageBox *box = new QMessageBox;
         QString go = QString::fromStdString("GAME OVER\nC'est "+game->getWinner()+" qui a gagné !");
         box->setInformativeText(go);
         box->show();
     }
+
+    x = 16;
+    y = 17;
+    conv_coord(x, y);
+    painter.drawText(x-10, y-20, QString("myTurn: ") + (isMyTurn() ? "true" : "false"));
 }
 
 void MainWindow::launch_event(int clic, int x, int y)
 {
-    if(clic==FACTORY){
-        QPoint pos = *new QPoint(x,y);
+    QPoint pos;
+    switch( clic ){
+    case FACTORY:
+        pos = *new QPoint(x,y);
         ShowContextMenuFactory(pos);
-    }
-    if (clic==AIRPORT){
-        QPoint pos = *new QPoint(x,y);
+        break;
+    case AIRPORT:
+        pos = *new QPoint(x,y);
         ShowContextMenuAirport(pos);
-    }
-    if (clic==ATTACK){
-        QPoint pos = *new QPoint(x,y);
+        break;
+    case ATTACK:
+        pos = *new QPoint(x,y);
         ShowContextMenuAttack(pos);
-    }
-    if (clic==MERGE){
-        QPoint pos = *new QPoint(x,y);
+        break;
+    case MERGE:
+        pos = *new QPoint(x,y);
         ShowContextMenuMerge(pos);
+        break;
+    case MOVE:
+        QJsonObject json;
+        json["action"] = MOVE;
+        json["oldX"] = game->getPosBeforeMoved()->getPosX();
+        json["oldY"] = game->getPosBeforeMoved()->getPosY();
+        json["newX"] = x;
+        json["newY"] = y;
+
+        sendJson(json);
+        break;
     }
     repaint();
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event){
+    if( ! isMyTurn() )
+            return;
+
     int x = event->x();
     int y = event->y();
     int clic = game->click_on(x,y);
     launch_event(clic, x, y);
 }
 
+bool MainWindow::isMyTurn(){
+    return game->getCurrentPlayer()->getTeam() == game->getThisPlayer()->getTeam();
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *event){
+    if(! isMyTurn() )
+            return;
+
     int key = event->key();
     cout << key << endl;
+    QJsonObject json;
     switch ( event->key() )
           {
              case SKEY:
                 cout << "Next" << endl;
-                game->change_player();
+                game->next_turn();
+                json["action"] = SKEY;
+                sendJson(json);
                 repaint();
                 break;
             case RIGHT:
@@ -333,9 +393,18 @@ void MainWindow::ShowContextMenuAirport(const QPoint &pos)
     QAction *bcopter = myMenu.addAction("bCopter-9000");
     QAction *bomber = myMenu.addAction("Bomber-22000");
     QAction *fighter = myMenu.addAction("Fighter-20000");
-    connect(bcopter, SIGNAL(triggered()), this, SLOT(create_bcopter()));
-    connect(bomber, SIGNAL(triggered()), this, SLOT(create_bomber()));
-    connect(fighter, SIGNAL(triggered()), this, SLOT(create_fighter()));
+
+    QSignalMapper* signalMapper = new QSignalMapper (this) ;
+    connect (bcopter, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+    connect (bomber, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+    connect (fighter, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+
+    signalMapper -> setMapping (bcopter, BCOPTER) ;
+    signalMapper -> setMapping (bomber, BOMBER) ;
+    signalMapper -> setMapping (fighter, FIGHTER) ;
+
+    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(create_unit(int))) ;
+
     myMenu.exec(globalPos);
 }
 
@@ -366,13 +435,21 @@ void MainWindow::ShowContextMenuMerge(const QPoint& pos)
 }
 
 void MainWindow::attendre(){
-    Unit* unitpt = this->game->getLastMovedUnit();
+    Unit* unitpt = game->getLastMovedUnit();
     unitpt->attendre();
 }
 
 void MainWindow::attaquer(){
-    this->game->getLastMovedUnit()->attaquer(this->game->getSelectedUnit(), this->game->getTerrainAt(this->game->getSelectedUnit()->getPosX(), this->game->getSelectedUnit()->getPosY()));
-    this->game->checkUnits();
+    Unit * selectedUnit = game->getSelectedUnit();
+    game->getLastMovedUnit()->attack(selectedUnit, game->getTerrainAt(selectedUnit->getPosX(), selectedUnit->getPosY()));
+    game->checkUnits();
+    QJsonObject json;
+    json["action"] = ATTACK;
+    json["attackerX"] = game->getLastMovedUnit()->getPosX();
+    json["attackerY"] = game->getLastMovedUnit()->getPosY();
+    json["defendantX"] = game->getSelectedUnit()->getPosX();
+    json["defendantY"] = game->getSelectedUnit()->getPosY();
+    sendJson(json);
     this->repaint();
 }
 
@@ -383,6 +460,129 @@ void MainWindow::fusionner(){
 }
 
 void MainWindow::create_unit(int type){
-    this->game->create_unit(type);
-    this->repaint();
+    game->create_unit(type);
+    QJsonObject unit_created;
+    unit_created["action"] = FACTORY;
+    unit_created["posX"] = game->getLastBuilding()->getPosX();
+    unit_created["posY"] = game->getLastBuilding()->getPosY();
+    unit_created["type"] = type;
+    sendJson(unit_created);
+    repaint();
+}
+
+void MainWindow::sendJson(QJsonObject obj) {
+    QByteArray data = QJsonDocument(obj).toJson();
+    QDataStream out(other);
+    out << (quint32) data.length();
+    other->write(data);
+
+    std::cout << "Sending " << data.toStdString() << std::endl;
+}
+
+void MainWindow::onNewConnection() {
+    std::cout << "A new client is connecting !" << std::endl;
+    other = server->nextPendingConnection();
+    connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+    connect(other, SIGNAL(readyRead()), this, SLOT(onData()));
+
+    QJsonObject info;
+    info["money"] = game->getEarnings();
+    info["first"] = QString::fromStdString(game->getFirstPlayer());
+    update();
+
+    isConfigured = true;
+
+    sendJson(info);
+    update();
+}
+
+void MainWindow::onConnected() {
+    std::cout << "I am connected" << std::endl;
+    connect(other, SIGNAL(readyRead()), this, SLOT(onData()));
+}
+
+void MainWindow::onDisconnected() {
+    std::cout << "The other guy just disconnected" << std::endl;
+}
+
+void MainWindow::onData() {
+    if(currentSize == 0) {
+        if(other->bytesAvailable() < 4) return;
+
+        QDataStream in(other);
+        in >> currentSize;
+    }
+
+    if(other->bytesAvailable() < currentSize) return;
+
+    QByteArray data = other->read(currentSize);
+    std::cout << data.toStdString() << std::endl;
+    currentSize = 0;
+
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    QJsonObject json = doc.object();
+
+    if(! isConfigured) {
+        int money = json["money"].toInt();
+        QString first = json["first"].toString();
+        game->setEarnings(money);
+        game->setFirstPlayer(first.toStdString());
+        update();
+        isConfigured = true;
+    } else {
+        int action = json["action"].toInt();
+        if ( action == MOVE ){
+            int oldX = json["oldX"].toInt();
+            int oldY = json["oldY"].toInt();
+            int newX = json["newX"].toInt();
+            int newY = json["newY"].toInt();
+
+
+            if( Unit * unit = game->getUnitAt(oldX, oldY) ) {
+                game->setSelectedUnit(unit);
+                game->conv_coord(newX, newY);
+                game->move_unit(newX, newY);
+            }
+            else {
+                std::cerr << "ERROR" << std::endl;
+                destroy();
+                return;
+            }
+        }
+        else if( action == FACTORY ){
+            int posX = json["posX"].toInt();
+            int posY = json["posY"].toInt();
+            int type = json["type"].toInt();
+            if( Building* building = game->getBuildingAt(posX, posY) ){
+                game->setLastBuilding(building);
+                game->create_unit(type);
+            }
+            else {
+                std::cerr << "ERROR" << std::endl;
+                destroy();
+                return;
+            }
+        }
+        else if( action == SKEY ){
+            game->next_turn();
+        }
+        else if( action == ATTACK ){
+            int x1 = json["attackerX"].toInt();
+            int y1 = json["attackerY"].toInt();
+            int x2 = json["defendantX"].toInt();
+            int y2 = json["defendantY"].toInt();
+
+            if( game->getLastMovedUnit()->isAt(x1, y1) && game->areNextToEachOther(x1, y1, x2, y2) ){
+                game->getLastMovedUnit()->attack(game->getUnitAt(x2, y2), game->getTerrainAt(x2, y2));
+                game->checkUnits();
+            }
+            else{
+                std::cerr << "ERROR" << std::endl;
+                destroy();
+                return;
+            }
+        }
+    }
+
+    repaint();
 }

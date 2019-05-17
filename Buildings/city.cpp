@@ -4,9 +4,9 @@ using namespace std;
 
 City::City(int x, int y, std::string team): Building (x,y)
 {
-    this->PointDefense=3;
+    this->defensePoints=3;
     this->setTeam(team);
-    this->type="ville";
+    this->type="city";
 }
 
 void City::reparerUnit()
@@ -19,7 +19,7 @@ bool City::activate()
     return false;
 }
 
-void City::setImage(string)
+void City::setImage()
 {
     if( this->getTeam() == "os" ){
         this->Image = 38;

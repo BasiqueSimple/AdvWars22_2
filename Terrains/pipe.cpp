@@ -5,6 +5,6 @@ using namespace std;
 
 Pipe::Pipe(int x, int y) : Terrain (x, y)
 {
-    this->PointDefense=0;
+    this->defensePoints=0;
     this->type="pipe";
 }

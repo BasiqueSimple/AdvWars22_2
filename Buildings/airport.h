@@ -12,7 +12,7 @@ public:
     void construireUnit();
     void reparerUnitair();
     bool activate();
-    void setImage(std::string);
+    void setImage();
 };
 
 #endif // BATIMENTSAEROPORT_H

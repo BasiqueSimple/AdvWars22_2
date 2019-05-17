@@ -4,9 +4,9 @@ using namespace std;
 
 Airport::Airport(int x, int y, std::string team): Building (x,y)
 {
-    this->PointDefense=3;
+    this->defensePoints=3;
     this->setTeam(team);
-    this->type="aeroport";
+    this->type="airport";
 }
 
 void Airport::construireUnit()
@@ -24,7 +24,7 @@ bool Airport::activate()
     return true;
 }
 
-void Airport::setImage(string team)
+void Airport::setImage()
 {
     if( this->getTeam() == "os" ){
         this->Image = 40;

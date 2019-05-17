@@ -4,9 +4,9 @@ using namespace std;
 
 Factory::Factory(int x, int y, std::string team): Building (x,y)
 {
-    this->PointDefense=3;
+    this->defensePoints=3;
     this->setTeam(team);
-    this->type="usine";
+    this->type="factory";
 }
 
 void Factory::construireUnit()
@@ -29,7 +29,7 @@ bool Factory::activate()
     return true;
 }
 
-void Factory::setImage(string)
+void Factory::setImage()
 {
     if( this->getTeam() == "os" ){
         this->Image = 39;

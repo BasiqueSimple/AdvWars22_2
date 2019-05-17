@@ -12,7 +12,7 @@ public:
     void GagnerArgent();
     void reparerUnit();
     bool activate();
-    void setImage(std::string);
+    void setImage();
 };
 
 

@@ -32,15 +32,15 @@ Building::Building(int x, int y) : Terrain (x, y)
 
 void Building::setTeam(std::string team)
 {
-    this->team=team;
-    this->setImage(team);
+    this->team = team;
+    this->setImage();
 }
 
 std::string Building::getTeam(){
     return this->team;
 }
 
-void Building::setImage(string)
+void Building::setImage()
 {
 
 }

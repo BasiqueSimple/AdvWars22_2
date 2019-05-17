@@ -16,7 +16,7 @@ public:
     void setTeam(std::string team);
     std::string getTeam();
     virtual bool activate();
-    virtual void setImage(std::string);
+    virtual void setImage();
     int getPointCapture() const;
     void setPointCapture(int value);
     void reducePointCapture(int value, std::string);

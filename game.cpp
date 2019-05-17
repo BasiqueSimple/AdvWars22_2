@@ -22,6 +22,7 @@
 #include <Units/Unitterrenoinfant/tank.h>
 
 #define NOTHING 0
+#define MOVE 5
 #define FACTORY 1
 #define AIRPORT 2
 #define ATTACK 3
@@ -47,8 +48,10 @@
 
 using namespace std;
 
-Game::Game()
+Game::Game(int earnings, string firstPlayer)
 {
+    this->earnings = earnings;
+    this->firstPlayer = firstPlayer;
     this->start_game();
 }
 
@@ -66,6 +69,11 @@ Player* Game::getCurrentPlayer() const {
 std::string Game::getWinner() const
 {
     return winner;
+}
+
+Position *Game::getPosBeforeMoved() const
+{
+    return posBeforeMoved;
 }
 
 Unit* Game::getLastMovedUnit() const
@@ -98,6 +106,7 @@ vector<Terrain *>* Game::getHighlited() const {
 void Game::start_game(){
     // On crée les joueurs
     players = *new std::vector<Player*>;
+
     players.push_back(new Player(0,"os",false));
     players.push_back(new Player(1,"bm",true));
 
@@ -112,7 +121,8 @@ void Game::start_game(){
     selectedCase = getTerrainAt(4,14);
 
     // On désigne le premier joueur et on le rémunère (doit être après initiate_buildings() )
-    currentPlayer = players[0];
+    if( firstPlayer == "os" ) currentPlayer = players[0];
+    else if( firstPlayer == "bm" ) currentPlayer = players[1];
     pay_player(currentPlayer);
 }
 
@@ -275,7 +285,7 @@ void Game::initiate_buildings()
 
     for (int v = 0 ; v < 2 ; v++)
        {
-        Building * building = new Factory(factories2[v][0],factories2[v][1], "os");
+        Building * building = new Factory(factories2[v][0], factories2[v][1], "os");
         this->buildings->push_back(building);
         this->terrains->push_back(building);
        }
@@ -290,7 +300,7 @@ void Game::initiate_buildings()
 
     for (int v = 0 ; v < 2 ; v++)
        {
-            building = new Factory(factories3[v][0],factories3[v][1], "bm");
+            building = new Factory(factories3[v][0], factories3[v][1], "bm");
             this->buildings->push_back(building);
             this->terrains->push_back(building);
        }
@@ -303,6 +313,36 @@ void Game::conv_coord(int& x, int& y){
     y = y/size_img;
 }
 
+int Game::getEarnings() const
+{
+    return earnings;
+}
+
+void Game::setCurrentPlayer(Player *value)
+{
+    currentPlayer = value;
+}
+
+void Game::setEarnings(int value)
+{
+    earnings = value;
+}
+
+Building *Game::getLastBuilding() const
+{
+    return lastBuilding;
+}
+
+void Game::setLastBuilding(Building *value)
+{
+    lastBuilding = value;
+}
+
+void Game::setSelectedUnit(Unit *value)
+{
+    selectedUnit = value;
+}
+
 bool Game::isHighlighted(int x, int y)
 {
     for(vector<Terrain*>::iterator it = this->highlighted->begin(); it != this->highlighted->end(); ++it){
@@ -313,21 +353,32 @@ bool Game::isHighlighted(int x, int y)
     return false;
 }
 
-int Game::click_on(int x, int y){
-    conv_coord(x, y);
-    cout << x << "," << y << endl;
-
-    // Si c'est pour opérer un déplacement
-    if( !this->highlighted->empty() ){
-        if( isHighlighted(x, y) ) selectedUnit->move(x, y);
+int Game::move_unit(int x, int y)
+{
+    if( (isHighlighted(x, y) || currentPlayer != thisPlayer) && getUnitAt(x, y) == 0 ){
+        highlighted->clear();
+        posBeforeMoved = new Position(selectedUnit->getPosX(), selectedUnit->getPosY());
+        selectedUnit->move(x, y);
         lastMovedUnit = selectedUnit;
+        return MOVE;
+    }
+    else{
         highlighted->clear();
         return NOTHING;
     }
 
+}
+
+int Game::click_on(int x, int y){
+    conv_coord(x, y);
+
+    // Si c'est pour opérer un déplacement
+    if( !this->highlighted->empty() ){
+        return move_unit(x, y);
+    }
+
     // Si c'est une unit
     if( Unit * unit = getUnitAt(x, y) ){
-        cout << "C'est une unit" << endl;
         // Soit de son équipe
         if( unit->getTeam() == currentPlayer->getTeam() ){
             if ( areNextToEachOther(x, y, lastMovedUnit->getPosX(), lastMovedUnit->getPosY()) &&
@@ -353,10 +404,10 @@ int Game::click_on(int x, int y){
     if( Building * building = getBuildingAt(x, y) ) {
         if(building->getTeam() == currentPlayer->getTeam()){
             this->lastBuilding = building;
-            if (building->getTerrainType() == "usine"){
+            if (building->getTerrainType() == "factory"){
                 return FACTORY;
             }
-            else if (building->getTerrainType() == "aeroport"){
+            else if (building->getTerrainType() == "airport"){
                 return AIRPORT;
             }
         }
@@ -370,23 +421,18 @@ bool Game::areNextToEachOther(int x1, int y1, int x2, int y2) {
 }
 
 void Game::pay_player(Player* j){
-    int revenus = 0;
+    int total_earnings = 0;
     for(vector<Building*>::iterator it = this->buildings->begin(); it != this->buildings->end(); ++it)
     {
         if((*it)->getTeam() == j->getTeam()){
-            revenus+=1000;
+            total_earnings += this->earnings;
         }
     }
-    j->gagne_argent(revenus);
+    j->gagne_argent(total_earnings);
 }
 
-void Game::change_player(){
-    if(this->currentPlayer == players[0]){
-        this->currentPlayer = players[1];
-    }
-    else {
-        this->currentPlayer = players[0];
-    }
+void Game::next_turn(){
+    change_player();
     for(vector<Unit*>::iterator it = this->units->begin(); it != this->units->end(); ++it){
         if( (*it)->getTeam() == this->currentPlayer->getTeam() ){
             (*it)->resetMP();
@@ -421,6 +467,15 @@ void Game::change_player(){
                 }
             }
         }
+    }
+}
+
+void Game::change_player(){
+    if(this->currentPlayer == players[0]){
+        this->currentPlayer = players[1];
+    }
+    else {
+        this->currentPlayer = players[0];
     }
 }
 
@@ -480,6 +535,7 @@ bool Game::checkGameOver(){
     int bmUnitsCount = 0;
     int osBuildingsCount = 0;
     int bmBuildingsCount = 0;
+
     for(vector<Unit*>::iterator it = this->getUnits()->begin(); it != this->getUnits()->end(); ++it){
         if((*it)->getTeam() == "os"){
             osUnitsCount++;
@@ -489,10 +545,10 @@ bool Game::checkGameOver(){
         }
     }
     for(vector<Building*>::iterator it = this->buildings->begin(); it != this->buildings->end(); ++it){
-        if((*it)->getTeam() == "os" && ((*it)->getTerrainType() == "aeroport" || (*it)->getTerrainType() == "usine")){
+        if((*it)->getTeam() == "os" && ((*it)->getTerrainType() == "airport" || (*it)->getTerrainType() == "factory")){
             osBuildingsCount++;
         }
-        else if((*it)->getTeam() == "bm" && ((*it)->getTerrainType() == "aeroport" || (*it)->getTerrainType() == "usine")){
+        else if((*it)->getTeam() == "bm" && ((*it)->getTerrainType() == "airport" || (*it)->getTerrainType() == "factory")){
             bmBuildingsCount++;
         }
     }
@@ -552,6 +608,27 @@ Unit * Game::make_unit(int type){
     default:
         return 0;
     }
+}
+
+string Game::getFirstPlayer() const
+{
+    return firstPlayer;
+}
+
+void Game::setFirstPlayer(const string &value)
+{
+    firstPlayer = value;
+}
+
+Player * Game::getThisPlayer() const
+{
+    return thisPlayer;
+}
+
+void Game::setThisPlayer(string value)
+{
+    if( value == "os") thisPlayer = players[0] ;
+    else if( value == "bm" ) thisPlayer = players[1];
 }
 
 int Game::getUnitCost(int type){

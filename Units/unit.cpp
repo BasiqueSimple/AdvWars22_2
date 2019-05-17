@@ -27,7 +27,7 @@ int Unit::ptconso(Terrain* terrain) {
     std::string TerrainType = terrain->getTerrainType();
     int ConsommationMovePoint = 0;
     char MoveType = this->getMoveType();
-    if (TerrainType=="plaine"){
+    if (TerrainType=="plain"){
         //ConsommationMovePoint=F1 B1 T1 W2 A1
         if (MoveType == 'F')
         {
@@ -54,7 +54,7 @@ int Unit::ptconso(Terrain* terrain) {
            cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
     }
-    else if (TerrainType=="montagne")
+    else if (TerrainType=="mountain")
     {
         //ConsommationMovePoint=F2 B1 T- W- A1
         if (MoveType == 'F')
@@ -83,7 +83,7 @@ int Unit::ptconso(Terrain* terrain) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (TerrainType=="foret")
+    else if (TerrainType=="forest")
      {//ConsommationMovePoint=F1 B1 T2 W3 A1
         if (MoveType == 'F')
         {
@@ -110,7 +110,7 @@ int Unit::ptconso(Terrain* terrain) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
     }
-    else if (TerrainType=="riviere")
+    else if (TerrainType=="river")
     {
         //ConsommationMovePoint=F2 B1 T- W- A1
         if (MoveType == 'F')
@@ -165,7 +165,7 @@ int Unit::ptconso(Terrain* terrain) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (TerrainType=="pont")
+    else if (TerrainType=="bridge")
      {
         if (MoveType == 'F')
         {
@@ -192,7 +192,7 @@ int Unit::ptconso(Terrain* terrain) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (TerrainType=="plage")
+    else if (TerrainType=="beach")
      {
         if (MoveType == 'F')
         {
@@ -247,7 +247,7 @@ int Unit::ptconso(Terrain* terrain) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (TerrainType=="ville")
+    else if (TerrainType=="city")
      {
         if (MoveType == 'F')
         {
@@ -274,7 +274,7 @@ int Unit::ptconso(Terrain* terrain) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (TerrainType=="usine")
+    else if (TerrainType=="factory")
      {
         if (MoveType == 'F')
         {
@@ -301,7 +301,7 @@ int Unit::ptconso(Terrain* terrain) {
             cout << "Votre unit possède un type de mouvement inconnu" << endl;
         }
      }
-    else if (TerrainType=="aeroport")
+    else if (TerrainType=="airport")
      {
         if (MoveType == 'F')
         {
@@ -368,7 +368,7 @@ void Unit::attendre()
     this->finished=true;
 }
 
-void Unit::attaquer(Unit* unit, Terrain* terrain){
+void Unit::attack(Unit* unit, Terrain* terrain){
     Combat::attaquer(this, unit, terrain, false);
     this->finished=true;
 }
@@ -507,8 +507,8 @@ char Unit::getMoveType()
 
 void Unit::activate()
 {
-    this->setCasesAcces(this->where(this->getPosX(), this->getPosY(), this->MovePoint, this->game, this->casesAcces));
-    this->game->setHighlighted(this->casesAcces);
+    setCasesAcces(where(getPosX(), getPosY(), MovePoint, game, casesAcces));
+    game->setHighlighted(casesAcces);
 }
 
 bool Unit::getHasMoved(){
