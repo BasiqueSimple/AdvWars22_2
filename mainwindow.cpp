@@ -11,15 +11,38 @@
 #include <QPainter>
 #include <QMouseEvent>
 #include <sstream>
+#include <QSignalMapper>
+
+#define FACTORY 1
+#define AIRPORT 2
+#define ATTACK 3
+#define MERGE 4
+
+#define INFANTRY 0
+#define BAZOOKA 1
+#define BCOPTER 2
+#define BOMBER 3
+#define FIGHTER 4
+#define ANTIAIR 5
+#define MDTANK 6
+#define MEGATANK 7
+#define NEOTANK 8
+#define RECON 9
+#define TANK 10
+
+#define LEFT 16777234
+#define UP 16777235
+#define RIGHT 16777236
+#define DOWN 16777237
+#define SKEY 83
+#define SPACE 32
 
 using namespace std;
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->game = *new Game();
+    this->game = new Game();
 }
 
 MainWindow::~MainWindow()
@@ -75,23 +98,23 @@ void MainWindow::paintEvent(QPaintEvent *event){
        terrain[38]=ih->orangestarcity;
 
 
-       int tableau[17][21] = {{104,102,102,102,102,102,108,3,1,2,18,15,15,34,1,1,1,2,30,30,33},
-                                  {101,34,1,1,1,2,1,18,15,15,34,1,1,3,1,3,1,1,1,3,30},
-                                  {101,2,1,3,2,18,15,35,1,1,1,3,1,1,1,1,43,15,19,1,2},
-                                  {109,2,34,15,15,34,1,1,2,2,2,2,2,3,1,44,23,1,21,19,1},
-                                  {4,4,8,3,1,1,1,2,2,2,2,34,2,1,34,25,44,1,3,21,34},
-                                  {2,34,5,1,1,1,2,2,34,2,2,2,2,3,1,16,1,1,1,1,3},
-                                  {3,1,26,1,3,2,2,1,16,3,2,2,34,1,3,16,34,1,3,2,7},
-                                  {1,18,26,1,1,2,34,3,16,1,1,3,1,1,18,20,1,1,7,4,9},
-                                  {36,20,5,3,1,3,18,15,24,15,15,15,22,15,20,3,1,3,5,18,36},
-                                  {7,4,9,1,1,18,20,1,1,3,1,1,16,3,34,2,1,1,26,20,1},
-                                  {9,2,3,1,34,16,3,1,34,2,2,3,16,1,2,2,3,1,26,1,3},
-                                  {3,1,1,1,1,16,1,3,2,2,2,2,34,2,2,1,1,1,5,34,2},
-                                  {34,19,3,1,39,23,34,1,2,34,2,2,2,2,1,1,1,3,10,4,4},
-                                  {1,21,19,1,25,39,1,3,2,2,2,2,2,1,1,34,15,15,34,2,107},
-                                  {2,1,21,15,38,1,1,1,1,3,1,1,1,35,15,20,2,3,1,2,101},
-                                  {29,3,1,1,1,3,1,3,1,1,34,15,15,20,1,2,1,1,1,34,101},
-                                  {33,29,29,2,1,1,1,34,15,15,20,2,1,3,110,102,102,102,102,102,106}};
+       int map[17][21] = {{104,102,102,102,102,102,108,3,1,2,18,15,15,34,1,1,1,2,30,30,33},
+                          {101,34,1,1,1,2,1,18,15,15,34,1,1,3,1,3,1,1,1,3,30},
+                          {101,2,1,3,2,18,15,35,1,1,1,3,1,1,1,1,43,15,19,1,2},
+                          {109,2,34,15,15,34,1,1,2,2,2,2,2,3,1,44,23,1,21,19,1},
+                          {4,4,8,3,1,1,1,2,2,2,2,34,2,1,34,25,44,1,3,21,34},
+                          {2,34,5,1,1,1,2,2,34,2,2,2,2,3,1,16,1,1,1,1,3},
+                          {3,1,26,1,3,2,2,1,16,3,2,2,34,1,3,16,34,1,3,2,7},
+                          {1,18,26,1,1,2,34,3,16,1,1,3,1,1,18,20,1,1,7,4,9},
+                          {36,20,5,3,1,3,18,15,24,15,15,15,22,15,20,3,1,3,5,18,36},
+                          {7,4,9,1,1,18,20,1,1,3,1,1,16,3,34,2,1,1,26,20,1},
+                          {9,2,3,1,34,16,3,1,34,2,2,3,16,1,2,2,3,1,26,1,3},
+                          {3,1,1,1,1,16,1,3,2,2,2,2,34,2,2,1,1,1,5,34,2},
+                          {34,19,3,1,39,23,34,1,2,34,2,2,2,2,1,1,1,3,10,4,4},
+                          {1,21,19,1,25,39,1,3,2,2,2,2,2,1,1,34,15,15,34,2,107},
+                          {2,1,21,15,38,1,1,1,1,3,1,1,1,35,15,20,2,3,1,2,101},
+                          {29,3,1,1,1,3,1,3,1,1,34,15,15,20,1,2,1,1,1,34,101},
+                          {33,29,29,2,1,1,1,34,15,15,20,2,1,3,110,102,102,102,102,102,106}};
     int width = 1000;
     int size_img = width/21;
     int height = size_img*17;
@@ -106,116 +129,163 @@ void MainWindow::paintEvent(QPaintEvent *event){
        {
         for (int c = 0 ; c < 21 ; c++)
            {
-                if ( std::find(std::begin(bigger_pics), std::end(bigger_pics), tableau[l][c] ) != std::end(bigger_pics) ){
-                    painter.drawPixmap(size_img*c,size_img*l-16,size_img,size_img+16,*terrain[tableau[l][c]]);
+                if ( std::find(std::begin(bigger_pics), std::end(bigger_pics), map[l][c] ) != std::end(bigger_pics) ){
+                    painter.drawPixmap(size_img*c,size_img*l-16,size_img,size_img+16,*terrain[map[l][c]]);
                 }
-                else if ( std::find(std::begin(big_pics), std::end(big_pics), tableau[l][c] ) != std::end(big_pics) ){
-                    painter.drawPixmap(size_img*c,size_img*l-6,size_img,size_img+6,*terrain[tableau[l][c]]);
+                else if ( std::find(std::begin(big_pics), std::end(big_pics), map[l][c] ) != std::end(big_pics) ){
+                    painter.drawPixmap(size_img*c,size_img*l-6,size_img,size_img+6,*terrain[map[l][c]]);
                 }
-                else if ( tableau[l][c] == 35 ){
-                    painter.drawPixmap(size_img*c,size_img*l-29,size_img,size_img+29,*terrain[tableau[l][c]]);
+                else if ( map[l][c] == 35 ){
+                    painter.drawPixmap(size_img*c,size_img*l-29,size_img,size_img+29,*terrain[map[l][c]]);
                 }
                 else{
-                    painter.drawPixmap(size_img*c,size_img*l,size_img,size_img,*terrain[tableau[l][c]]);
+                    painter.drawPixmap(size_img*c,size_img*l,size_img,size_img,*terrain[map[l][c]]);
                 }
            }
        }
 
-    for(vector<Batiment*>::iterator it = this->game.getBatiments()->begin(); it != this->game.getBatiments()->end(); ++it)
+    for(vector<Building*>::iterator it = game->getBuildings()->begin(); it != game->getBuildings()->end(); ++it)
     {
         int x = (*it)->getPosX();
         int y = (*it)->getPosY();
+        conv_coord(x, y);
         if( (*it)->getTeam() == "os" ){
             if ( std::find(std::begin(bigger_pics), std::end(bigger_pics), (*it)->getImage() ) != std::end(bigger_pics) ){
-                painter.drawPixmap(size_img*x,size_img*y-16,size_img,size_img+16,*terrain[(*it)->getImage()]);
+                painter.drawPixmap(x,y-16,size_img,size_img+16,*terrain[(*it)->getImage()]);
             }
             else if ( std::find(std::begin(big_pics), std::end(big_pics), (*it)->getImage() ) != std::end(big_pics) ){
-                painter.drawPixmap(size_img*x,size_img*y-6,size_img,size_img+6,*terrain[(*it)->getImage()]);
+                painter.drawPixmap(x,y-6,size_img,size_img+6,*terrain[(*it)->getImage()]);
             }
             else if ( (*it)->getImage() == 39 ){
-                painter.drawPixmap(size_img*x,size_img*y-29,size_img,size_img+29,*terrain[(*it)->getImage()]);
+                painter.drawPixmap(x,y-29,size_img,size_img+29,*terrain[(*it)->getImage()]);
             }
             else{
-                painter.drawPixmap(size_img*x,size_img*y,size_img,size_img,*terrain[(*it)->getImage()]);
+                painter.drawPixmap(x,y,size_img,size_img,*terrain[(*it)->getImage()]);
             }
         }
         else if( (*it)->getTeam() == "bm" ){
             if ( std::find(std::begin(bigger_pics), std::end(bigger_pics), (*it)->getImage() ) != std::end(bigger_pics) ){
-                painter.drawPixmap(size_img*x,size_img*y-16,size_img,size_img+16,*terrain[(*it)->getImage()]);
+                painter.drawPixmap(x,y-16,size_img,size_img+16,*terrain[(*it)->getImage()]);
             }
             else if ( std::find(std::begin(big_pics), std::end(big_pics), (*it)->getImage() ) != std::end(big_pics) ){
-                painter.drawPixmap(size_img*x,size_img*y-6,size_img,size_img+6,*terrain[(*it)->getImage()]);
+                painter.drawPixmap(x,y-6,size_img,size_img+6,*terrain[(*it)->getImage()]);
             }
             else if ( (*it)->getImage() == 44 ){
-                painter.drawPixmap(size_img*x,size_img*y-29,size_img,size_img+29,*terrain[(*it)->getImage()]);
+                painter.drawPixmap(x,y-29,size_img,size_img+29,*terrain[(*it)->getImage()]);
             }
             else{
-                painter.drawPixmap(size_img*x,size_img*y,size_img,size_img,*terrain[(*it)->getImage()]);
+                painter.drawPixmap(x,y,size_img,size_img,*terrain[(*it)->getImage()]);
             }
         }
     }
 
-    for(unsigned int i = 0; i < this->game.getunits()->size(); ++i)
-    {
-        int x = (*this->game.getunits())[i]->getPosX();
-        int y = (*this->game.getunits())[i]->getPosY();
-        painter.drawPixmap(size_img*x, size_img*y,size_img, size_img, (*this->game.getunits())[i]->getimg());
-    }
-
-    for(vector<Terrain*>::iterator it = this->game.getHighlited()->begin(); it != this->game.getHighlited()->end(); ++it)
+    for(vector<Unit*>::iterator it = game->getUnits()->begin(); it != game->getUnits()->end(); ++it)
     {
         int x = (*it)->getPosX();
         int y = (*it)->getPosY();
-        QRect rect = QRect(x*size_img,y*size_img,size_img,size_img);
+        conv_coord(x, y);
+        painter.drawPixmap(x, y,size_img, size_img, (*it)->getimg());
+    }
+
+    for(vector<Terrain*>::iterator it = game->getHighlited()->begin(); it != game->getHighlited()->end(); ++it)
+    {
+        int x = (*it)->getPosX();
+        int y = (*it)->getPosY();
+        conv_coord(x, y);
+        QRect rect = QRect(x,y,size_img,size_img);
         painter.drawRect(rect);
     }
 
-    if(this->game.checkGameOver()){
+    int x = game->getSelectedCase()->getPosX();
+    int y = game->getSelectedCase()->getPosY();
+    conv_coord(x, y);
+    QPen pen = QPen();
+    if(game->getCurrentPlayer()->getTeam() == "bm") pen.setColor(Qt::blue);
+    else pen.setColor(Qt::red);
+    pen.setWidth(3);
+    painter.setPen(pen);
+    QRect rect = QRect(x,y,size_img,size_img);
+    painter.drawRect(rect);
+    if(game->checkGameOver()){
         QMessageBox *box = new QMessageBox;
-        QString go = QString::fromStdString("GAME OVER\nC'est "+this->game.getWinner()+" qui a gagné !");
+        QString go = QString::fromStdString("GAME OVER\nC'est "+game->getWinner()+" qui a gagné !");
         box->setInformativeText(go);
         box->show();
     }
 }
 
+void MainWindow::launch_event(int clic, int x, int y)
+{
+    if(clic==FACTORY){
+        QPoint pos = *new QPoint(x,y);
+        ShowContextMenuFactory(pos);
+    }
+    if (clic==AIRPORT){
+        QPoint pos = *new QPoint(x,y);
+        ShowContextMenuAirport(pos);
+    }
+    if (clic==ATTACK){
+        QPoint pos = *new QPoint(x,y);
+        ShowContextMenuAttack(pos);
+    }
+    if (clic==MERGE){
+        QPoint pos = *new QPoint(x,y);
+        ShowContextMenuMerge(pos);
+    }
+    repaint();
+}
+
 void MainWindow::mousePressEvent(QMouseEvent *event){
     int x = event->x();
     int y = event->y();
-    int clic = this->game.click_on(x,y);
-    if(clic==1){
-        QPoint pos = *new QPoint(x,y);
-        this->ShowContextMenuCreateUsine(pos);
-    }
-    if (clic==2){
-        this->repaint();
-        QPoint pos = *new QPoint(x,y);
-        this->ShowContextMenuCreateAeroport(pos);
-    }
-    if (clic==3){
-        this->repaint();
-        QPoint pos = *new QPoint(x,y);
-        this->ShowContextMenuAttaquer(pos);
-    }
-    if (clic==4){
-        this->repaint();
-        QPoint pos = *new QPoint(x,y);
-        this->ShowContextMenuFusionner(pos);
-    }
-    this->repaint();
+    int clic = game->click_on(x,y);
+    launch_event(clic, x, y);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event){
+    int key = event->key();
+    cout << key << endl;
     switch ( event->key() )
           {
-             case 83:
+             case SKEY:
                 cout << "Next" << endl;
-                this->game.joueur_suivant();
-                this->repaint();
+                game->change_player();
+                repaint();
+                break;
+            case RIGHT:
+               game->moveSelectedCase(RIGHT);
+               repaint();
+               break;
+            case LEFT:
+               game->moveSelectedCase(LEFT);
+               repaint();
+               break;
+            case UP:
+               game->moveSelectedCase(UP);
+               repaint();
+               break;
+            case DOWN:
+               game->moveSelectedCase(DOWN);
+               repaint();
+               break;
+            case SPACE:
+                int x = game->getSelectedCase()->getPosX();
+                int y = game->getSelectedCase()->getPosY();
+                conv_coord(x, y);
+                int clic = game->click_on(x, y);
+                launch_event(clic, x, y);
                 break;
           }
 }
 
-void MainWindow::ShowContextMenuCreateUsine(const QPoint& pos)
+void MainWindow::conv_coord(int &x, int &y){
+    int width = 1000;
+    int size_img = width/21;
+    x *= size_img;
+    y *= size_img;
+}
+
+void MainWindow::ShowContextMenuFactory(const QPoint& pos)
 {
     QPoint globalPos = this->mapToGlobal(pos);
 
@@ -229,18 +299,32 @@ void MainWindow::ShowContextMenuCreateUsine(const QPoint& pos)
     QAction *mdtank = myMenu.addAction("MDTank-16000");
     QAction *megatank = myMenu.addAction("MegaTank-28000");
     QAction *neotank = myMenu.addAction("NeoTank-22000");
-    connect(infant, SIGNAL(triggered()), this, SLOT(create_infant()));
-    connect(bazoo, SIGNAL(triggered()), this, SLOT(create_bazoo()));
-    connect(recon, SIGNAL(triggered()), this, SLOT(create_recon()));
-    connect(tank, SIGNAL(triggered()), this, SLOT(create_tank()));
-    connect(aa, SIGNAL(triggered()), this, SLOT(create_aa()));
-    connect(mdtank, SIGNAL(triggered()), this, SLOT(create_mdtank()));
-    connect(megatank, SIGNAL(triggered()), this, SLOT(create_megatank()));
-    connect(neotank, SIGNAL(triggered()), this, SLOT(create_neotank()));
+
+    QSignalMapper* signalMapper = new QSignalMapper (this) ;
+    connect (infant, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+    connect (bazoo, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+    connect (recon, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+    connect (tank, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+    connect (aa, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+    connect (mdtank, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+    connect (megatank, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+    connect (neotank, SIGNAL(triggered()), signalMapper, SLOT(map())) ;
+
+    signalMapper -> setMapping (infant, INFANTRY) ;
+    signalMapper -> setMapping (bazoo, BAZOOKA) ;
+    signalMapper -> setMapping (recon, RECON) ;
+    signalMapper -> setMapping (tank, TANK) ;
+    signalMapper -> setMapping (aa, ANTIAIR) ;
+    signalMapper -> setMapping (mdtank, MDTANK) ;
+    signalMapper -> setMapping (megatank, MEGATANK) ;
+    signalMapper -> setMapping (neotank, NEOTANK) ;
+
+    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(create_unit(int))) ;
+
     myMenu.exec(globalPos);
 }
 
-void MainWindow::ShowContextMenuCreateAeroport(const QPoint &pos)
+void MainWindow::ShowContextMenuAirport(const QPoint &pos)
 {
     QPoint globalPos = this->mapToGlobal(pos);
 
@@ -255,7 +339,7 @@ void MainWindow::ShowContextMenuCreateAeroport(const QPoint &pos)
     myMenu.exec(globalPos);
 }
 
-void MainWindow::ShowContextMenuAttaquer(const QPoint& pos)
+void MainWindow::ShowContextMenuAttack(const QPoint& pos)
 {
     QPoint globalPos = this->mapToGlobal(pos);
 
@@ -268,7 +352,7 @@ void MainWindow::ShowContextMenuAttaquer(const QPoint& pos)
     myMenu.exec(globalPos);
 }
 
-void MainWindow::ShowContextMenuFusionner(const QPoint& pos)
+void MainWindow::ShowContextMenuMerge(const QPoint& pos)
 {
     QPoint globalPos = this->mapToGlobal(pos);
 
@@ -282,75 +366,23 @@ void MainWindow::ShowContextMenuFusionner(const QPoint& pos)
 }
 
 void MainWindow::attendre(){
-    Unit* unitpt = this->game.getDernier_bouge();
+    Unit* unitpt = this->game->getLastMovedUnit();
     unitpt->attendre();
 }
 
 void MainWindow::attaquer(){
-    this->game.getDernier_bouge()->attaquer(this->game.getDernierUnit(), this->game.get_terrain_at(this->game.getDernierUnit()->getPosX(), this->game.getDernierUnit()->getPosY()));
-    this->game.checkUnits();
+    this->game->getLastMovedUnit()->attaquer(this->game->getSelectedUnit(), this->game->getTerrainAt(this->game->getSelectedUnit()->getPosX(), this->game->getSelectedUnit()->getPosY()));
+    this->game->checkUnits();
     this->repaint();
 }
 
 void MainWindow::fusionner(){
-    this->game.getDernier_bouge()->fusion(this->game.getDernierUnit());
-    this->game.checkUnits();
+    this->game->getLastMovedUnit()->fusion(this->game->getSelectedUnit());
+    this->game->checkUnits();
     this->repaint();
 }
 
-void MainWindow::create_infant(){
-    this->game.create_infant();
+void MainWindow::create_unit(int type){
+    this->game->create_unit(type);
     this->repaint();
 }
-
-void MainWindow::create_bcopter(){
-    this->game.create_bcopter();
-    this->repaint();
-}
-
-void MainWindow::create_bomber(){
-    this->game.create_bomber();
-    this->repaint();
-}
-
-void MainWindow::create_fighter(){
-    this->game.create_fighter();
-    this->repaint();
-}
-
-void MainWindow::create_bazoo(){
-    this->game.create_bazoo();
-    this->repaint();
-}
-
-void MainWindow::create_recon(){
-    this->game.create_recon();
-    this->repaint();
-}
-
-void MainWindow::create_aa(){
-    this->game.create_aa();
-    this->repaint();
-}
-
-void MainWindow::create_tank(){
-    this->game.create_tank();
-    this->repaint();
-}
-
-void MainWindow::create_mdtank(){
-    this->game.create_mdtank();
-    this->repaint();
-}
-
-void MainWindow::create_megatank(){
-    this->game.create_megatank();
-    this->repaint();
-}
-
-void MainWindow::create_neotank(){
-    this->game.create_neotank();
-    this->repaint();
-}
-
-

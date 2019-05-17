@@ -2,14 +2,14 @@
 #define UNITAIR_H
 
 #include "./Units/unit.h"
-#include "./Batiments/batimentsaeroport.h"
+#include "./Buildings/airport.h"
 
 class Unitair : public Unit
 {
 public:
     //Méthode
     Unitair(int, int);
-    void etrerepare(Terrain, Joueur);
+    void etrerepare(Terrain, Player);
     virtual void resetMP();
 };
 

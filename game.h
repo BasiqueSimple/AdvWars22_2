@@ -1,10 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
-#include "joueur.h"
+#include "player.h"
 #include <iostream>
 #include <Units/unit.h>
 #include <vector>
-#include <Batiments/batiments.h>
+#include <Buildings/building.h>
 
 
 
@@ -15,47 +15,49 @@ class Game {
 public:
     Game();
     int click_on(int, int);
-    Unit* getDernierUnit();
-    void create_infant();
-    void create_bazoo();
-    void create_aa();
-    void create_recon();
-    void create_tank();
-    void create_mdtank();
-    void create_megatank();
-    void create_neotank();
-    void create_bcopter();
-    void create_bomber();
-    void create_fighter();
-    vector<Unit *> *getunits();
-    vector<Terrain *> * getHighlited();
-    void joueur_suivant();
-    Terrain * get_terrain_at(int, int);
-    Batiment * get_batiment_at(int, int);
+    Unit* getSelectedUnit() const;
+    vector<Unit *> * getUnits() const;
+    vector<Terrain *> * getHighlited() const;
+    void change_player();
+    Terrain * getTerrainAt(int, int);
+    Building * getBuildingAt(int, int);
     void setHighlighted(vector<Terrain*>*);
-    std::vector<Batiment *> * getBatiments() const;
-    Joueur* getJoueur_actuel();
-    bool check_money(int, Joueur *);
-    Unit *getDernier_bouge() const;
+    std::vector<Building *> * getBuildings() const;
+    Player* getCurrentPlayer() const;
+    bool check_money(int, Player *);
+    Unit *getLastMovedUnit() const;
 
     void checkUnits();
     bool checkGameOver();
     std::string getWinner() const;
 
+    bool isHighlighted(int x, int y);
+
+    Unit *getUnitAt(int x, int y);
+    int getUnitCost(int type);
+    void create_unit(int type);
+    void moveSelectedCase(int direction);
+    Terrain *getSelectedCase() const;
+
 private:
     std::vector<Terrain*> * highlighted;
-    std::vector<Terrain*> terrains;
+    Terrain * selectedCase;
+    std::vector<Terrain*> * terrains;
     std::vector<Unit*> * units;
-    std::vector<Batiment*> * batiments;
-    std::vector<Joueur*> joueurs;
-    std::tuple<int,int> conv_coord(int x, int y);
-    Joueur* joueur_actuel;
+    std::vector<Building*> * buildings;
+    std::vector<Player*> players;
+    void conv_coord(int& x, int& y);
+    Player* currentPlayer;
     std::string winner;
-    Batiment* dernier_batiment;
-    Unit* dernier_unit;
-    Unit* dernier_bouge;
+    Building* lastBuilding;
+    Unit* selectedUnit;
+    Unit* lastMovedUnit;
     void start_game();
-    void remunere(Joueur*);
+    void pay_player(Player*);
+    void initiate_buildings();
+    void initiate_terrains();
+    bool areNextToEachOther(int x1, int y1, int x2, int y2);
+    Unit *make_unit(int type);
 };
 
 #endif // GAME_H

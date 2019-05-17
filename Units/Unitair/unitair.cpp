@@ -8,9 +8,9 @@ Unitair::Unitair(int x,int y): Unit(x, y)
     this->MoveType ='A';
 }
 
-void Unitair::etrerepare(Terrain terrain, Joueur joueur)
+void Unitair::etrerepare(Terrain terrain, Player joueur)
 {
-    if (typeid (terrain) == typeid (Batimentaeroport))
+    if (typeid (terrain) == typeid (Airport))
     {
         if (this->PV <= 10)
         {

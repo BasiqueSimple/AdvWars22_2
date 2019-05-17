@@ -3,20 +3,20 @@
 #include <iostream>
 #include <string>
 #include "./Terrains/terrain.h"
-#include "./joueur.h"
+#include "./player.h"
 #include "position.h"
-#include "./Terrains/plaine.h"
-#include "./Terrains/montagne.h"
-#include "./Terrains/foret.h"
+#include "./Terrains/plain.h"
+#include "./Terrains/mountain.h"
+#include "./Terrains/forest.h"
 #include "./Terrains/pipe.h"
-#include "./Terrains/plage.h"
-#include "./Terrains/pont.h"
+#include "./Terrains/beach.h"
+#include "./Terrains/bridge.h"
 #include "./Terrains/reef.h"
-#include "./Terrains/riviere.h"
+#include "./Terrains/river.h"
 #include "./Terrains/route.h"
-#include "./Batiments/batimentsville.h"
-#include "./Batiments/batimentsusine.h"
-#include "./Batiments/batimentsaeroport.h"
+#include "./Buildings/city.h"
+#include "./Buildings/factory.h"
+#include "./Buildings/airport.h"
 
 class Game;
 
@@ -35,13 +35,13 @@ protected:
     Game * game;
     vector<Terrain*>* casesAcces;
     bool HasMoved;
-    bool tourFini;
+    bool finished;
 public:
     //Méthodes
     Unit(int,int);
     ~Unit();
     virtual int getCout();
-    bool getTourFini();
+    bool hasFinished() const;
     void setTourFini(bool vf);
     bool getHasMoved();
     void resetHasMoved();
@@ -52,7 +52,7 @@ public:
     int ptconso(Terrain*);
     void attendre();
     void recevoirdegat(int);
-    void etrerepare(Batiment);
+    void etrerepare(Building);
     virtual void resetMP();
     void fusion(Unit*);
     bool EtreEnVie();

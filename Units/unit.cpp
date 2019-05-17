@@ -1,6 +1,6 @@
 #include "unit.h"
 #include <string>
-#include "Unitterreinfant/unitterreinfantinfant.h"
+#include "Unitterreinfant/infantry.h"
 #include "game.h"
 #include "math.h"
 #include <typeinfo>
@@ -365,12 +365,12 @@ int Unit::ptconso(Terrain* terrain) {
 void Unit::attendre()
 {
     cout << "j'attends" << endl;
-    this->tourFini=true;
+    this->finished=true;
 }
 
 void Unit::attaquer(Unit* unit, Terrain* terrain){
     Combat::attaquer(this, unit, terrain, false);
-    this->tourFini=true;
+    this->finished=true;
 }
 
 int Unit::getPV()
@@ -387,35 +387,35 @@ int Unit::getCout(){
     return this->Cout;
 }
 
-void Unit::etrerepare(Batiment batiment)
+void Unit::etrerepare(Building batiment)
 {
     int prix = 0;
-    if ((batiment.getTerrainType()=="usine" || batiment.getTerrainType()=="ville") && (batiment.getTeam()== this->game->getJoueur_actuel()->getTeam())){
+    if ((batiment.getTerrainType()=="usine" || batiment.getTerrainType()=="ville") && (batiment.getTeam()== this->game->getCurrentPlayer()->getTeam())){
         if (this->UnitType == 0){
-            prix = Unitterrenoinfantantiair::Cout;
+            prix = Antiair::cost;
         }
         else if (this->UnitType == 4 ){
-            prix = Unitterreinfantinfant::Cout;
+            prix = Infantry::cost;
         }
         else if (this->UnitType == 5 ){
-            prix = Unitterrenoinfantmdtank::Cout;
+            prix = Mdtank::cost;
         }
         else if (this->UnitType == 6 ){
-            prix = Unitterreinfantbazooka::Cout;
+            prix = Bazooka::cost;
         }
         else if (this->UnitType == 7 ){
-            prix = Unitterrenoinfantmegatank::Cout;
+            prix = Megatank::cost;
         }
         else if (this->UnitType == 8 ){
-            prix = Unitterrenoinfantneotank::Cout;
+            prix = Neotank::cost;
         }
         else if (this->UnitType == 9 ){
-            prix = Unitterrenoinfantrecon::Cout;
+            prix = Recon::cost;
         }
         else if (this->UnitType == 10 ){
-            prix = Unitterrenoinfanttank::Cout;
+            prix = Tank::cost;
         }
-        if (prix != 0 && this->PV < 10 && this->game->check_money((int)round(prix*0.9), this->game->getJoueur_actuel())){
+        if (prix != 0 && this->PV < 10 && this->game->check_money((int)round(prix*0.9), this->game->getCurrentPlayer())){
             cout << "Tu es une unité " << this->UnitType << " terrestre sur " << batiment.getTerrainType() << "et tu coutes " << prix << endl;
             if (this->PV == 9){
                 this->PV +=1;
@@ -427,17 +427,17 @@ void Unit::etrerepare(Batiment batiment)
             }
         }
     }
-    else if (batiment.getTerrainType()=="aeroport" && batiment.getTeam()== this->game->getJoueur_actuel()->getTeam()) {
+    else if (batiment.getTerrainType()=="aeroport" && batiment.getTeam()== this->game->getCurrentPlayer()->getTeam()) {
         if (this->UnitType == 1){
-            prix = Unitairbcopter::Cout;
+            prix = Bcopter::cost;
          }
         else if(this->UnitType == 2){
-            prix = Unitairbomber::Cout;
+            prix = Bomber::cost;
         }
         else if (this->UnitType == 3){
-            prix = Unitairfighter::Cout;
+            prix = Fighter::cost;
         }
-        if (prix != 0 && this->PV < 10 && this->game->check_money((int)round(prix*0.9), this->game->getJoueur_actuel())){
+        if (prix != 0 && this->PV < 10 && this->game->check_money((int)round(prix*0.9), this->game->getCurrentPlayer())){
             cout << "dans le if fct.1" << endl;
             cout << "Tu es une unité " << this->UnitType << " aerienne sur " << batiment.getTerrainType() << "et tu coutes " << prix << endl;
             if (this->PV == 9){
@@ -548,7 +548,7 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
         int nextx = posx;
         int nexty = posy-1;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
-            Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
+            Terrain* ptTerrain = game->getTerrainAt(nextx, nexty);
             int MovePointNecessaires = this->ptconso(ptTerrain);
             if (MP >= MovePointNecessaires && MovePointNecessaires !=0){
                 cases_acces->push_back(ptTerrain);
@@ -560,7 +560,7 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
         nextx = posx;
         nexty = posy+1;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
-            Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
+            Terrain* ptTerrain = game->getTerrainAt(nextx, nexty);
             int MovePointNecessaires = this->ptconso(ptTerrain);
             if (MP >= MovePointNecessaires && MovePointNecessaires !=0 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
                 cases_acces->push_back(ptTerrain);
@@ -572,7 +572,7 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
         nextx = posx-1;
         nexty = posy;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
-            Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
+            Terrain* ptTerrain = game->getTerrainAt(nextx, nexty);
                 int MovePointNecessaires = this->ptconso(ptTerrain);
                 if (MP >= MovePointNecessaires && MovePointNecessaires !=0 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
                     cases_acces->push_back(ptTerrain);
@@ -584,7 +584,7 @@ vector<Terrain*> * Unit::where(int posx, int posy, int MP, Game * game, vector<T
         nextx = posx+1;
         nexty = posy;
         if(nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
-            Terrain* ptTerrain = game->get_terrain_at(nextx, nexty);
+            Terrain* ptTerrain = game->getTerrainAt(nextx, nexty);
             int MovePointNecessaires = this->ptconso(ptTerrain);
             if (MP >= MovePointNecessaires && MovePointNecessaires !=0 && nextx < dimx && nextx >= 0 && nexty < dimy && nexty >= 0){
                 cases_acces->push_back(ptTerrain);
@@ -625,10 +625,10 @@ void Unit::move(int x, int y)
     this->HasMoved = true;
 }
 
-bool Unit::getTourFini(){
-    return this->tourFini;
+bool Unit::hasFinished() const{
+    return this->finished;
 }
 
-void Unit::setTourFini(bool vf){
-    this->tourFini= vf;
+void Unit::setTourFini(bool b){
+    this->finished= b;
 }
