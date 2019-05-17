@@ -415,8 +415,8 @@ void MainWindow::ShowContextMenuAttack(const QPoint& pos)
     QMenu myMenu;
     QAction *attend = myMenu.addAction("Attendre");
     QAction *attaque = myMenu.addAction("Attaquer");
-    connect(attend, SIGNAL(triggered()), this, SLOT(attendre()));
-    connect(attaque, SIGNAL(triggered()), this, SLOT(attaquer()));
+    connect(attend, SIGNAL(triggered()), this, SLOT(wait()));
+    connect(attaque, SIGNAL(triggered()), this, SLOT(attack()));
 
     myMenu.exec(globalPos);
 }
@@ -428,18 +428,18 @@ void MainWindow::ShowContextMenuMerge(const QPoint& pos)
     QMenu myMenu;
     QAction *attend = myMenu.addAction("Attendre");
     QAction *fusionne = myMenu.addAction("Fusionner");
-    connect(attend, SIGNAL(triggered()), this, SLOT(attendre()));
-    connect(fusionne, SIGNAL(triggered()), this, SLOT(fusionner()));
+    connect(attend, SIGNAL(triggered()), this, SLOT(wait()));
+    connect(fusionne, SIGNAL(triggered()), this, SLOT(merge()));
 
     myMenu.exec(globalPos);
 }
 
-void MainWindow::attendre(){
-    Unit* unitpt = game->getLastMovedUnit();
-    unitpt->attendre();
+void MainWindow::wait(){
+    Unit* unit = game->getLastMovedUnit();
+    unit->wait();
 }
 
-void MainWindow::attaquer(){
+void MainWindow::attack(){
     Unit * selectedUnit = game->getSelectedUnit();
     game->getLastMovedUnit()->attack(selectedUnit, game->getTerrainAt(selectedUnit->getPosX(), selectedUnit->getPosY()));
     game->checkUnits();
@@ -453,10 +453,17 @@ void MainWindow::attaquer(){
     this->repaint();
 }
 
-void MainWindow::fusionner(){
-    this->game->getLastMovedUnit()->fusion(this->game->getSelectedUnit());
-    this->game->checkUnits();
-    this->repaint();
+void MainWindow::merge(){
+    game->getLastMovedUnit()->merge(game->getSelectedUnit());
+    game->checkUnits();
+    QJsonObject json;
+    json["action"] = MERGE;
+    json["fromX"] = game->getLastMovedUnit()->getPosX();
+    json["fromY"] = game->getLastMovedUnit()->getPosY();
+    json["intoX"] = game->getSelectedUnit()->getPosX();
+    json["intoY"] = game->getSelectedUnit()->getPosY();
+    sendJson(json);
+    repaint();
 }
 
 void MainWindow::create_unit(int type){
@@ -475,8 +482,6 @@ void MainWindow::sendJson(QJsonObject obj) {
     QDataStream out(other);
     out << (quint32) data.length();
     other->write(data);
-
-    std::cout << "Sending " << data.toStdString() << std::endl;
 }
 
 void MainWindow::onNewConnection() {
@@ -516,7 +521,6 @@ void MainWindow::onData() {
     if(other->bytesAvailable() < currentSize) return;
 
     QByteArray data = other->read(currentSize);
-    std::cout << data.toStdString() << std::endl;
     currentSize = 0;
 
     QJsonDocument doc = QJsonDocument::fromJson(data);
@@ -574,6 +578,22 @@ void MainWindow::onData() {
 
             if( game->getLastMovedUnit()->isAt(x1, y1) && game->areNextToEachOther(x1, y1, x2, y2) ){
                 game->getLastMovedUnit()->attack(game->getUnitAt(x2, y2), game->getTerrainAt(x2, y2));
+                game->checkUnits();
+            }
+            else{
+                std::cerr << "ERROR" << std::endl;
+                destroy();
+                return;
+            }
+        }
+        else if( action == MERGE ){
+            int x1 = json["fromX"].toInt();
+            int y1 = json["fromY"].toInt();
+            int x2 = json["intoX"].toInt();
+            int y2 = json["intoY"].toInt();
+
+            if( game->getLastMovedUnit()->isAt(x1, y1) && game->areNextToEachOther(x1, y1, x2, y2) ){
+                game->getLastMovedUnit()->merge(game->getUnitAt(x2, y2));
                 game->checkUnits();
             }
             else{

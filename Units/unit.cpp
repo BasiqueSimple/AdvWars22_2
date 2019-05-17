@@ -362,7 +362,7 @@ int Unit::ptconso(Terrain* terrain) {
     return ConsommationMovePoint;
 }
 
-void Unit::attendre()
+void Unit::wait()
 {
     cout << "j'attends" << endl;
     this->finished=true;
@@ -461,7 +461,7 @@ void Unit::setCasesAcces(vector<Terrain*> * cases_acces){
     this->casesAcces = cases_acces;
 }
 
-void Unit::fusion(Unit* celuiquejerejoins)
+void Unit::merge(Unit* celuiquejerejoins)
 {
     if (this->getUnitType() == celuiquejerejoins->getUnitType())
     {

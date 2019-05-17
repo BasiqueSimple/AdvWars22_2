@@ -50,11 +50,11 @@ public:
     bool peut_dessus(Unit, int, int, vector<Terrain*>);
     void mvts_possibles(Unit, int, int, vector<Terrain*>);
     int ptconso(Terrain*);
-    void attendre();
+    void wait();
     void recevoirdegat(int);
     void etrerepare(Building);
     virtual void resetMP();
-    void fusion(Unit*);
+    void merge(Unit*);
     bool EtreEnVie();
     bool isAt(int,int);
     void activate();

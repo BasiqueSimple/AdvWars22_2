@@ -31,9 +31,9 @@ public:
     void conv_coord(int &x, int &y);
     bool isMyTurn();
 public slots:
-    void fusionner();
-    void attendre();
-    void attaquer();
+    void merge();
+    void wait();
+    void attack();
     void create_unit(int type);
     void onNewConnection();
     void onConnected();

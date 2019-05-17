@@ -61,6 +61,37 @@ void Game::setHighlighted(vector<Terrain *> *casesAcces)
     this->highlighted = casesAcces;
 }
 
+void Game::setCurrentPlayer(Player *value)
+{
+    currentPlayer = value;
+}
+
+void Game::setEarnings(int value)
+{
+    earnings = value;
+}
+
+void Game::setLastBuilding(Building *value)
+{
+    lastBuilding = value;
+}
+
+void Game::setSelectedUnit(Unit *value)
+{
+    selectedUnit = value;
+}
+
+void Game::setThisPlayer(string value)
+{
+    if( value == "os") thisPlayer = players[0] ;
+    else if( value == "bm" ) thisPlayer = players[1];
+}
+
+void Game::setFirstPlayer(const string &value)
+{
+    firstPlayer = value;
+}
+
 // GETTERS
 Player* Game::getCurrentPlayer() const {
     return this->currentPlayer;
@@ -96,6 +127,26 @@ vector<Unit*> * Game::getUnits() const {
 Terrain *Game::getSelectedCase() const
 {
     return selectedCase;
+}
+
+int Game::getEarnings() const
+{
+    return earnings;
+}
+
+string Game::getFirstPlayer() const
+{
+    return firstPlayer;
+}
+
+Player * Game::getThisPlayer() const
+{
+    return thisPlayer;
+}
+
+Building *Game::getLastBuilding() const
+{
+    return lastBuilding;
 }
 
 vector<Terrain *>* Game::getHighlited() const {
@@ -313,36 +364,6 @@ void Game::conv_coord(int& x, int& y){
     y = y/size_img;
 }
 
-int Game::getEarnings() const
-{
-    return earnings;
-}
-
-void Game::setCurrentPlayer(Player *value)
-{
-    currentPlayer = value;
-}
-
-void Game::setEarnings(int value)
-{
-    earnings = value;
-}
-
-Building *Game::getLastBuilding() const
-{
-    return lastBuilding;
-}
-
-void Game::setLastBuilding(Building *value)
-{
-    lastBuilding = value;
-}
-
-void Game::setSelectedUnit(Unit *value)
-{
-    selectedUnit = value;
-}
-
 bool Game::isHighlighted(int x, int y)
 {
     for(vector<Terrain*>::iterator it = this->highlighted->begin(); it != this->highlighted->end(); ++it){
@@ -355,7 +376,8 @@ bool Game::isHighlighted(int x, int y)
 
 int Game::move_unit(int x, int y)
 {
-    if( (isHighlighted(x, y) || currentPlayer != thisPlayer) && getUnitAt(x, y) == 0 ){
+    if( (isHighlighted(x, y) || currentPlayer != thisPlayer) &&
+            (getUnitAt(x, y) == 0 or getUnitAt(x, y) == selectedUnit )){
         highlighted->clear();
         posBeforeMoved = new Position(selectedUnit->getPosX(), selectedUnit->getPosY());
         selectedUnit->move(x, y);
@@ -608,27 +630,6 @@ Unit * Game::make_unit(int type){
     default:
         return 0;
     }
-}
-
-string Game::getFirstPlayer() const
-{
-    return firstPlayer;
-}
-
-void Game::setFirstPlayer(const string &value)
-{
-    firstPlayer = value;
-}
-
-Player * Game::getThisPlayer() const
-{
-    return thisPlayer;
-}
-
-void Game::setThisPlayer(string value)
-{
-    if( value == "os") thisPlayer = players[0] ;
-    else if( value == "bm" ) thisPlayer = players[1];
 }
 
 int Game::getUnitCost(int type){
