@@ -37,6 +37,7 @@
 #define DOWN 16777237
 #define SKEY 83
 #define SPACE 32
+#define ENTER 16777220
 
 using namespace std;
 
@@ -329,13 +330,20 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                repaint();
                break;
             case SPACE:
-                int x = game->getSelectedCase()->getPosX();
+               { int x = game->getSelectedCase()->getPosX();
                 int y = game->getSelectedCase()->getPosY();
                 conv_coord(x, y);
                 int clic = game->click_on(x, y);
                 launch_event(clic, x, y);
-                break;
-          }
+                break;}
+            case ENTER:
+              { int x = game->getSelectedCase()->getPosX();
+                int y = game->getSelectedCase()->getPosY();
+                conv_coord(x, y);
+                int clic = game->click_on(x, y);
+                launch_event(clic, x, y);
+                break;}
+            }
 }
 
 void MainWindow::conv_coord(int &x, int &y){
