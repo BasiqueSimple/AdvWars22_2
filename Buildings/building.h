@@ -7,6 +7,7 @@ class Building : public Terrain
 {
     std::string team;
     int PointCapture;
+    bool enCapture;
 public:
     //Attributs
     int Cout;
@@ -21,6 +22,8 @@ public:
     void setPointCapture(int value);
     void reducePointCapture(int value, std::string);
     int getImage();
+    void setEnCapture(bool value);
+    bool getEnCapture() const;
 };
 
 

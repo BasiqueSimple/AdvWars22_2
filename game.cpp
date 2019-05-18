@@ -27,6 +27,7 @@
 #define AIRPORT 2
 #define ATTACK 3
 #define MERGE 4
+#define MOVEANDCAPTURE 6
 
 #define INFANTRY 0
 #define BAZOOKA 1
@@ -383,8 +384,10 @@ int Game::move_unit(int x, int y)
         selectedUnit->move(x, y);
         lastMovedUnit = selectedUnit;
         if( Building * building = getBuildingAt(x, y) ) {
-            if(building->getTeam() != currentPlayer->getTeam()){
+            if(building->getTeam() != currentPlayer->getTeam() && (selectedUnit->getUnitType() == INFANTRY || selectedUnit->getUnitType() == BAZOOKA)){
                 building->setPointCapture(20);
+                this->lastBuilding = building;
+                return MOVEANDCAPTURE;
             }
         }
         return MOVE;
@@ -458,7 +461,7 @@ void Game::pay_player(Player* j){
     j->gagne_argent(total_earnings);
 }
 
-void Game::next_turn(){
+int Game::next_turn(){
     change_player();
     for(vector<Unit*>::iterator it = this->units->begin(); it != this->units->end(); ++it){
         if( (*it)->getTeam() == this->currentPlayer->getTeam() ){
@@ -469,9 +472,9 @@ void Game::next_turn(){
             int y = (*it)->getPosY();
             if( this->getBuildingAt(x,y) ){
                 Building * batiment = this->getBuildingAt(x,y);
-                cout << "ici : " << (*it)->getUnitType() << endl;
-                if( batiment->getTeam() != this->currentPlayer->getTeam() && ((*it)->getUnitType()==INFANTRY || (*it)->getUnitType()==BAZOOKA) )
-                {
+                cout << "true : " << true << endl;
+                cout << "ici : " << batiment->getEnCapture() << endl;
+                if( batiment->getTeam() != this->currentPlayer->getTeam() && ((*it)->getUnitType()==INFANTRY || (*it)->getUnitType()==BAZOOKA) && batiment->getEnCapture() ){
                     batiment->reducePointCapture((*it)->getPV(), this->currentPlayer->getTeam());
                     cout << "plus que " << batiment->getPointCapture() << " points" << endl;
                 } else {
@@ -638,6 +641,16 @@ Unit * Game::make_unit(int type){
     default:
         return 0;
     }
+}
+
+Building *Game::getSelectedBuilding() const
+{
+    return selectedBuilding;
+}
+
+void Game::setSelectedBuilding(Building *value)
+{
+    selectedBuilding = value;
 }
 
 int Game::getUnitCost(int type){

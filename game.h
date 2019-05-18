@@ -44,7 +44,7 @@ public:
     void conv_coord(int& x, int& y);
     void setCurrentPlayer(Player *value);
 
-    void next_turn();
+    int next_turn();
     Player * getThisPlayer() const;
     void setThisPlayer(string value);
 
@@ -52,6 +52,9 @@ public:
     bool areNextToEachOther(int x1, int y1, int x2, int y2);
     string getFirstPlayer() const;
     void setFirstPlayer(const string &value);
+
+    Building *getSelectedBuilding() const;
+    void setSelectedBuilding(Building *value);
 
 private:
     std::vector<Terrain*> * highlighted;
@@ -74,6 +77,7 @@ private:
     Position* posBeforeMoved;
     string firstPlayer;
     Player * thisPlayer;
+    Building* selectedBuilding;
 };
 
 #endif // GAME_H

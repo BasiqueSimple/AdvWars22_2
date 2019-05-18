@@ -18,6 +18,7 @@
 #define ATTACK 3
 #define MERGE 4
 #define MOVE 5
+#define MOVEANDCAPTURE 6
 
 #define INFANTRY 0
 #define BAZOOKA 1
@@ -270,7 +271,7 @@ void MainWindow::launch_event(int clic, int x, int y)
         ShowContextMenuMerge(pos);
         break;
     case MOVE:
-        QJsonObject json;
+       { QJsonObject json;
         json["action"] = MOVE;
         json["oldX"] = game->getPosBeforeMoved()->getPosX();
         json["oldY"] = game->getPosBeforeMoved()->getPosY();
@@ -278,7 +279,20 @@ void MainWindow::launch_event(int clic, int x, int y)
         json["newY"] = y;
 
         sendJson(json);
-        break;
+        break;}
+
+     case MOVEANDCAPTURE:
+      {  QJsonObject json;
+        json["action"] = MOVE;
+        json["oldX"] = game->getPosBeforeMoved()->getPosX();
+        json["oldY"] = game->getPosBeforeMoved()->getPosY();
+        json["newX"] = x;
+        json["newY"] = y;
+
+        sendJson(json);
+        pos = *new QPoint(x,y);
+        ShowContextMenuCapture(pos);
+        break;}
     }
     repaint();
 }
@@ -429,6 +443,19 @@ void MainWindow::ShowContextMenuAttack(const QPoint& pos)
     myMenu.exec(globalPos);
 }
 
+void MainWindow::ShowContextMenuCapture(const QPoint& pos)
+{
+    QPoint globalPos = this->mapToGlobal(pos);
+
+    QMenu myMenu;
+    QAction *attend = myMenu.addAction("Attendre");
+    QAction *capture = myMenu.addAction("Capturer");
+    connect(attend, SIGNAL(triggered()), this, SLOT(wait()));
+    connect(capture, SIGNAL(triggered()), this, SLOT(capture()));
+
+    myMenu.exec(globalPos);
+}
+
 void MainWindow::ShowContextMenuMerge(const QPoint& pos)
 {
     QPoint globalPos = this->mapToGlobal(pos);
@@ -440,6 +467,11 @@ void MainWindow::ShowContextMenuMerge(const QPoint& pos)
     connect(fusionne, SIGNAL(triggered()), this, SLOT(merge()));
 
     myMenu.exec(globalPos);
+}
+
+void MainWindow::capture(){
+    game->getLastBuilding()->setEnCapture(true);
+
 }
 
 void MainWindow::wait(){

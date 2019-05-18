@@ -25,6 +25,16 @@ void Building::reducePointCapture(int value, std::string team)
     }
 }
 
+void Building::setEnCapture(bool value)
+{
+    enCapture = value;
+}
+
+bool Building::getEnCapture() const
+{
+    return enCapture;
+}
+
 Building::Building(int x, int y) : Terrain (x, y)
 {
     this->PointCapture = 20;

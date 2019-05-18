@@ -25,6 +25,7 @@ public:
     void ShowContextMenuAirport(const QPoint &pos);
     void ShowContextMenuAttack(const QPoint &pos);
     void ShowContextMenuMerge(const QPoint &pos);
+    void ShowContextMenuCapture(const QPoint &pos);
 
     void launch_event(int clic, int x, int y);
     
@@ -34,6 +35,7 @@ public slots:
     void merge();
     void wait();
     void attack();
+    void capture();
     void create_unit(int type);
     void onNewConnection();
     void onConnected();
