@@ -5,7 +5,7 @@ using namespace std;
 Bazooka::Bazooka(int x, int y, Game * game, std::string team): Terreinfant (x, y)
 {
     this->MoveType ='B';
-    this->UnitType=6;
+    this->UnitType=1;
     this->setTeam(team);
     std::string path = ":/ImageUnit/" + team + "mech";
     this->setImg(*new QPixmap(QString::fromStdString(path)));

@@ -4,7 +4,7 @@ using namespace std;
 
 Bomber::Bomber(int x, int y, Game * game, std::string team): Unitair(x, y)
 {
-    this->UnitType = 2;
+    this->UnitType = 3;
     this->setTeam(team);
     std::string path = ":/ImageUnit/" + team + "bomber";
     this->setImg(*new QPixmap(QString::fromStdString(path)));
