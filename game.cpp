@@ -382,6 +382,11 @@ int Game::move_unit(int x, int y)
         posBeforeMoved = new Position(selectedUnit->getPosX(), selectedUnit->getPosY());
         selectedUnit->move(x, y);
         lastMovedUnit = selectedUnit;
+        if( Building * building = getBuildingAt(x, y) ) {
+            if(building->getTeam() != currentPlayer->getTeam()){
+                building->setPointCapture(20);
+            }
+        }
         return MOVE;
     }
     else{
