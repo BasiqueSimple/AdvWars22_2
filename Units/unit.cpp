@@ -390,7 +390,9 @@ int Unit::getCout(){
 void Unit::etrerepare(Building batiment)
 {
     int prix = 0;
-    if ((batiment.getTerrainType()=="usine" || batiment.getTerrainType()=="ville") && (batiment.getTeam()== this->game->getCurrentPlayer()->getTeam())){
+    cout << "je suis dans la fonction" << endl;
+    cout << "type terrain : " << batiment.getTerrainType() << endl ;
+    if ((batiment.getTerrainType()=="factory" || batiment.getTerrainType()=="city")){
         if (this->UnitType == 0){
             prix = Antiair::cost;
         }
@@ -427,7 +429,7 @@ void Unit::etrerepare(Building batiment)
             }
         }
     }
-    else if (batiment.getTerrainType()=="aeroport" && batiment.getTeam()== this->game->getCurrentPlayer()->getTeam()) {
+    else if (batiment.getTerrainType()=="airport" ) {
         if (this->UnitType == 1){
             prix = Bcopter::cost;
          }

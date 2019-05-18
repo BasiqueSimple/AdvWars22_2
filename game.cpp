@@ -462,15 +462,17 @@ void Game::next_turn(){
             (*it)->setTourFini(false);
             int x = (*it)->getPosX();
             int y = (*it)->getPosY();
-            if( this->getBuildingAt(x,y) )
-            {
+            if( this->getBuildingAt(x,y) ){
                 Building * batiment = this->getBuildingAt(x,y);
                 if( batiment->getTeam() != this->currentPlayer->getTeam() )
                 {
                     batiment->reducePointCapture((*it)->getPV(), this->currentPlayer->getTeam());
                     cout << "plus que " << batiment->getPointCapture() << " points" << endl;
+                } else {
+                  (*it)->etrerepare(*batiment);
                 }
-            }
+                            }
+
         }
     }
     this->pay_player(this->currentPlayer);
