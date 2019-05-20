@@ -32,7 +32,6 @@ SOURCES += \
     imageholder.cpp \
     main.cpp \
     mainwindow.cpp \
-    menubox.cpp \
     position.cpp \
     ui.cpp \
     Buildings/building.cpp \
@@ -74,7 +73,6 @@ HEADERS += \
     ia.h \
     imageholder.h \
     mainwindow.h \
-    menubox.h \
     position.h \
     ui.h \
     Terrains/plain.h \
