@@ -390,7 +390,6 @@ int Unit::getCout(){
 void Unit::etrerepare(Building batiment)
 {
     int prix = 0;
-    cout << "je suis dans la fonction" << endl;
     cout << "type terrain : " << batiment.getTerrainType() << endl ;
     if ((batiment.getTerrainType()=="factory" || batiment.getTerrainType()=="city") && (batiment.getTeam()==this->team)){
         if (this->UnitType == 0){

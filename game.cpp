@@ -472,8 +472,6 @@ int Game::next_turn(){
             int y = (*it)->getPosY();
             if( this->getBuildingAt(x,y) ){
                 Building * batiment = this->getBuildingAt(x,y);
-                cout << "true : " << true << endl;
-                cout << "ici : " << batiment->getEnCapture() << endl;
                 if( batiment->getTeam() != this->currentPlayer->getTeam() && ((*it)->getUnitType()==INFANTRY || (*it)->getUnitType()==BAZOOKA) && batiment->getEnCapture() ){
                     batiment->reducePointCapture((*it)->getPV(), this->currentPlayer->getTeam());
                     cout << "plus que " << batiment->getPointCapture() << " points" << endl;

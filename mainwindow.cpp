@@ -19,6 +19,7 @@
 #define MERGE 4
 #define MOVE 5
 #define MOVEANDCAPTURE 6
+#define CAPTURE 7
 
 #define INFANTRY 0
 #define BAZOOKA 1
@@ -325,7 +326,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                 game->next_turn();
                 json["action"] = SKEY;
                 sendJson(json);
-                this->repaint();
+                repaint();
                 break;
             case RIGHT:
                game->moveSelectedCase(RIGHT);
@@ -471,7 +472,12 @@ void MainWindow::ShowContextMenuMerge(const QPoint& pos)
 
 void MainWindow::capture(){
     game->getLastBuilding()->setEnCapture(true);
-
+    QJsonObject json;
+    json["action"] = CAPTURE;
+    json["terrainX"] = game->getLastBuilding()->getPosX();
+    json["terrainY"] = game->getLastBuilding()->getPosY();
+    sendJson(json);
+    this->repaint();
 }
 
 void MainWindow::wait(){
@@ -619,6 +625,19 @@ void MainWindow::onData() {
             if( game->getLastMovedUnit()->isAt(x1, y1) && game->areNextToEachOther(x1, y1, x2, y2) ){
                 game->getLastMovedUnit()->attack(game->getUnitAt(x2, y2), game->getTerrainAt(x2, y2));
                 game->checkUnits();
+            }
+            else{
+                std::cerr << "ERROR" << std::endl;
+                destroy();
+                return;
+            }
+        }
+        else if( action == CAPTURE){
+            int x = json["terrainX"].toInt();
+            int y = json["terrainY"].toInt();
+
+            if (game->getLastBuilding()->isAt(x,y)){
+                game->getLastBuilding()->setEnCapture(true);
             }
             else{
                 std::cerr << "ERROR" << std::endl;
