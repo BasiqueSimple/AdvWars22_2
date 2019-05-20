@@ -487,20 +487,6 @@ int Game::next_turn(){
     this->pay_player(this->currentPlayer);
     cout << "Joueur " << this->currentPlayer->getTeam() << " à toi de jouer !" <<endl;
     cout << "Tu as " << this->currentPlayer->getargent() << " d'argent." <<endl;
-    for(vector<Unit*>::iterator iter = this->units->begin(); iter != this->units->end(); ++iter){
-        if( (*iter)->getTeam() == this->currentPlayer->getTeam() ){
-            int x = (*iter)->getPosX();
-            int y = (*iter)->getPosY();
-            if( this->getBuildingAt(x,y))
-            {
-                Building * batiment = this->getBuildingAt(x,y);
-                if( batiment->getTeam() == this->currentPlayer->getTeam() )
-                {
-                    (*iter)->etrerepare(*batiment);
-                }
-            }
-        }
-    }
 }
 
 void Game::change_player(){

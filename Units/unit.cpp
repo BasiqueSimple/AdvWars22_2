@@ -392,7 +392,7 @@ void Unit::etrerepare(Building batiment)
     int prix = 0;
     cout << "je suis dans la fonction" << endl;
     cout << "type terrain : " << batiment.getTerrainType() << endl ;
-    if ((batiment.getTerrainType()=="factory" || batiment.getTerrainType()=="city")){
+    if ((batiment.getTerrainType()=="factory" || batiment.getTerrainType()=="city") && (batiment.getTeam()==this->team)){
         if (this->UnitType == 0){
             prix = Antiair::cost;
         }
@@ -424,12 +424,13 @@ void Unit::etrerepare(Building batiment)
                 cout << "Tu es passé de 9 à" << this->PV << "PV" << endl;
             }
             else {
+                int pv = this->PV;
                 this->PV +=2;
-                cout << "Tu es passé de moins de 9 à" << this->PV << "PV" << endl;
+                cout << "Tu es passé de" << pv << " à" << this->PV << "PV" << endl;
             }
         }
     }
-    else if (batiment.getTerrainType()=="airport" ) {
+    else if ((batiment.getTerrainType()=="airport" )  && (batiment.getTeam()==this->team)) {
         if (this->UnitType == 1){
             prix = Bcopter::cost;
          }

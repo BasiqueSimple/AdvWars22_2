@@ -325,7 +325,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                 game->next_turn();
                 json["action"] = SKEY;
                 sendJson(json);
-                repaint();
+                this->repaint();
                 break;
             case RIGHT:
                game->moveSelectedCase(RIGHT);
