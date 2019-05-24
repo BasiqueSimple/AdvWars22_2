@@ -18,7 +18,7 @@ using namespace std;
 class Game {
 public:
     Game(int, std::string, ia*, ia*);
-    int click_on(int, int, bool);
+    int click_on(int, int);
     Unit* getSelectedUnit() const;
     vector<Unit *> * getUnits() const;
     vector<Terrain *> * getHighlited() const;

@@ -71,6 +71,8 @@ public:
     int getDamageType() const;
     int getUnitType() const;
 
+    std::vector<Terrain *> *getCasesAcces() const;
+
 private:
     QPixmap img;
     std::vector<Terrain*> * where(int posx, int posy, int PM, Game * game, std::vector<Terrain*> * cases_acces);

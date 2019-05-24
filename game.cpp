@@ -399,11 +399,9 @@ int Game::move_unit(int x, int y)
 
 }
 
-int Game::click_on(int x, int y, bool conv){
+int Game::click_on(int x, int y){
 
-    if (conv){
         conv_coord(x, y);
-    }
     cout << "click on" << endl;
     // Si c'est pour opérer un déplacement
     if( !this->highlighted->empty() ){
@@ -556,6 +554,15 @@ void Game::checkUnits(){
 }
 
 bool Game::checkGameOver(){
+    if (this->players[1]->getIA()->getType() == "path_find"){
+        Building* building = getBuildingAt(4, 14);
+        if (building->getTeam() == players[1]->getTeam())
+        {
+            this->winner = "bm";
+            return true;
+        }
+    }
+
     int osUnitsCount = 0;
     int bmUnitsCount = 0;
     int osBuildingsCount = 0;

@@ -610,6 +610,11 @@ void Unit::setImg(QPixmap img){
     this->img=img;
 }
 
+std::vector<Terrain *> *Unit::getCasesAcces() const
+{
+    return casesAcces;
+}
+
 QPixmap Unit::getimg(){
     return this->img;
 }

@@ -35,12 +35,14 @@ public:
     
     void conv_coord(int &x, int &y);
     bool isMyTurn();
+
+    void sendJson(QJsonObject obj);
 public slots:
     void merge();
     void wait();
     void attack();
     void capture();
-    void create_unit(int type, bool ia);
+    void create_unit(int type, bool ia); //C'est cette ligne que j'ai modifié !!!!!
     void onNewConnection();
     void onConnected();
     void onDisconnected();
@@ -52,7 +54,6 @@ private:
     QTcpSocket* other = nullptr;
     quint32 currentSize = 0;
     bool isConfigured = false;
-    void sendJson(QJsonObject obj);
 };
 
 #endif // MAINWINDOW_H

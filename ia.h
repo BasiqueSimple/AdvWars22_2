@@ -14,6 +14,7 @@ public :
 
     std::string getType() const;
     void play_path_find(Game* game);
+    Terrain* distanceMin(std::vector<Terrain*>* cases, int goalX, int goalY);
 
 private :
     std::string type;

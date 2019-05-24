@@ -310,7 +310,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
 
     int x = event->x();
     int y = event->y();
-    int clic = game->click_on(x,y, true);
+    int clic = game->click_on(x,y);
     launch_event(clic, x, y);
 }
 
@@ -354,14 +354,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                { int x = game->getSelectedCase()->getPosX();
                 int y = game->getSelectedCase()->getPosY();
                 conv_coord(x, y);
-                int clic = game->click_on(x, y, true);
+                int clic = game->click_on(x, y);
                 launch_event(clic, x, y);
                 break;}
             case ENTER:
               { int x = game->getSelectedCase()->getPosX();
                 int y = game->getSelectedCase()->getPosY();
                 conv_coord(x, y);
-                int clic = game->click_on(x, y, true);
+                int clic = game->click_on(x, y);
                 launch_event(clic, x, y);
                 break;}
             }
