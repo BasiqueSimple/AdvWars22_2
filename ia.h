@@ -1,7 +1,6 @@
 #ifndef IA_H
 #define IA_H
 #include "game.h"
-#include "mainwindow.h"
 #include <Buildings/building.h>
 
 class MainWindow;

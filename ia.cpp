@@ -1,6 +1,5 @@
 #include "ia.h"
 #include <Buildings/building.h>
-#include <windows.h>
 #include <math.h>
 
 

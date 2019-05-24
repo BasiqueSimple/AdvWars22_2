@@ -13,7 +13,6 @@
 #include <sstream>
 #include <QSignalMapper>
 #include "ia.h"
-#include <windows.h>
 
 #define FACTORY 1
 #define AIRPORT 2
