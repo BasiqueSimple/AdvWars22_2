@@ -392,16 +392,16 @@ void Unit::etrerepare(Building batiment)
     int prix = 0;
     cout << "type terrain : " << batiment.getTerrainType() << endl ;
     if ((batiment.getTerrainType()=="factory" || batiment.getTerrainType()=="city") && (batiment.getTeam()==this->team)){
-        if (this->UnitType == 0){
+        if (this->UnitType == 5){
             prix = Antiair::cost;
         }
-        else if (this->UnitType == 4 ){
+        else if (this->UnitType == 0 ){
             prix = Infantry::cost;
         }
-        else if (this->UnitType == 5 ){
+        else if (this->UnitType == 6 ){
             prix = Mdtank::cost;
         }
-        else if (this->UnitType == 6 ){
+        else if (this->UnitType == 1 ){
             prix = Bazooka::cost;
         }
         else if (this->UnitType == 7 ){
@@ -430,13 +430,13 @@ void Unit::etrerepare(Building batiment)
         }
     }
     else if ((batiment.getTerrainType()=="airport" )  && (batiment.getTeam()==this->team)) {
-        if (this->UnitType == 1){
+        if (this->UnitType == 2){
             prix = Bcopter::cost;
          }
-        else if(this->UnitType == 2){
+        else if(this->UnitType == 3){
             prix = Bomber::cost;
         }
-        else if (this->UnitType == 3){
+        else if (this->UnitType == 4){
             prix = Fighter::cost;
         }
         if (prix != 0 && this->PV < 10 && this->game->check_money((int)round(prix*0.9), this->game->getCurrentPlayer())){
