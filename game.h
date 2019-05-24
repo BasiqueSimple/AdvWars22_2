@@ -48,7 +48,7 @@ public:
     void conv_coord(int& x, int& y);
     void setCurrentPlayer(Player *value);
 
-    int next_turn();
+    void next_turn();
     Player * getThisPlayer() const;
     void setThisPlayer(string value);
 

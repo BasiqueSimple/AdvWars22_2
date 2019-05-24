@@ -42,29 +42,33 @@
 #define SPACE 32
 #define ENTER 16777220
 
+#define SERVER false
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
-    this->game = new Game(1000, "os", new ia("recon", this), new ia("greedy", this));
+    this->game = new Game(1000, "os", new ia("no", this), new ia("path_find", this));
 
-    server = new QTcpServer();
-    if(! server->listen(QHostAddress::Any, 8123)) {
-        std::cout << "I am a client" << std::endl;
-        game->setThisPlayer("bm");
-        other = new QTcpSocket();
-        connect(other, SIGNAL(connected()), this, SLOT(onConnected()));
-        other->connectToHost("127.0.0.1", 8123);
-        connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
-    } else {
-        std::cout << "I am the server" << std::endl;
-        game->setThisPlayer("os");
-        other = nullptr;
+    if( SERVER ){
+        server = new QTcpServer();
+        if(! server->listen(QHostAddress::Any, 8123)) {
+            std::cout << "I am a client" << std::endl;
+            game->setThisPlayer("bm");
+            other = new QTcpSocket();
+            connect(other, SIGNAL(connected()), this, SLOT(onConnected()));
+            other->connectToHost("127.0.0.1", 8123);
+            connect(other, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
+        } else {
+            std::cout << "I am the server" << std::endl;
+            game->setThisPlayer("os");
+            other = nullptr;
+        }
+
+        connect(server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
     }
-
-    connect(server, SIGNAL(newConnection()), this, SLOT(onNewConnection()));
 }
 
 MainWindow::~MainWindow()
@@ -407,7 +411,7 @@ void MainWindow::ShowContextMenuFactory(const QPoint& pos)
     signalMapper -> setMapping (megatank, MEGATANK) ;
     signalMapper -> setMapping (neotank, NEOTANK) ;
 
-    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(create_unit(int, false))) ;
+    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(create_unit(int))) ;
     myMenu.exec(globalPos);
 }
 
@@ -430,7 +434,7 @@ void MainWindow::ShowContextMenuAirport(const QPoint &pos)
     signalMapper -> setMapping (bomber, BOMBER) ;
     signalMapper -> setMapping (fighter, FIGHTER) ;
 
-    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(create_unit(int, false))) ;
+    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(create_unit(int))) ;
 
     myMenu.exec(globalPos);
 }
@@ -516,6 +520,19 @@ void MainWindow::merge(){
     repaint();
 }
 
+void MainWindow::create_unit(int type){
+    game->create_unit(type);
+
+    QJsonObject unit_created;
+    unit_created["action"] = FACTORY;
+    unit_created["posX"] = game->getLastBuilding()->getPosX();
+    unit_created["posY"] = game->getLastBuilding()->getPosY();
+    unit_created["type"] = type;
+    sendJson(unit_created);
+
+    repaint();
+}
+
 void MainWindow::create_unit(int type, bool ia){
     game->create_unit(type);
     if (!ia){
@@ -530,10 +547,12 @@ void MainWindow::create_unit(int type, bool ia){
 }
 
 void MainWindow::sendJson(QJsonObject obj) {
-    QByteArray data = QJsonDocument(obj).toJson();
-    QDataStream out(other);
-    out << (quint32) data.length();
-    other->write(data);
+    if( SERVER ){
+        QByteArray data = QJsonDocument(obj).toJson();
+        QDataStream out(other);
+        out << (quint32) data.length();
+        other->write(data);
+    }
 }
 
 void MainWindow::onNewConnection() {

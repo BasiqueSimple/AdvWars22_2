@@ -30,7 +30,6 @@ public:
     void ShowContextMenuAttack(const QPoint &pos);
     void ShowContextMenuMerge(const QPoint &pos);
     void ShowContextMenuCapture(const QPoint &pos);
-
     void launch_event(int clic, int x, int y);
     
     void conv_coord(int &x, int &y);
@@ -41,10 +40,11 @@ public slots:
     void merge();
     void wait();
     void attack();
-    void capture();
-    void create_unit(int type, bool ia); //C'est cette ligne que j'ai modifié !!!!!
+    void capture();//C'est cette ligne que j'ai modifié !!!!!
     void onNewConnection();
     void onConnected();
+    void create_unit(int);
+    void create_unit(int, bool);
     void onDisconnected();
     void onData();
 private:

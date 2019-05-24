@@ -46,6 +46,8 @@
 #define RIGHT 16777236
 #define DOWN 16777237
 
+#define SERVER false
+
 
 using namespace std;
 
@@ -65,6 +67,7 @@ void Game::setHighlighted(vector<Terrain *> *casesAcces)
 void Game::setCurrentPlayer(Player *value)
 {
     currentPlayer = value;
+    if( !SERVER ) thisPlayer = value;
 }
 
 void Game::setEarnings(int value)
@@ -161,6 +164,9 @@ void Game::start_game(ia* IAOS, ia* IABM){
 
     players.push_back(new Player(0,"os", IAOS));
     players.push_back(new Player(1,"bm", IABM));
+
+    if( !SERVER && firstPlayer == "os") thisPlayer = players[0];
+    else thisPlayer = players[1];
 
     // On crée les terrains
     initiate_terrains();
@@ -462,7 +468,7 @@ void Game::pay_player(Player* j){
     j->gagne_argent(total_earnings);
 }
 
-int Game::next_turn(){
+void Game::next_turn(){
     change_player();
     for(vector<Unit*>::iterator it = this->units->begin(); it != this->units->end(); ++it){
         if( (*it)->getTeam() == this->currentPlayer->getTeam() ){
@@ -479,21 +485,18 @@ int Game::next_turn(){
                 } else {
                   (*it)->etrerepare(*batiment);
                 }
-                            }
-
+            }
         }
     }
     this->pay_player(this->currentPlayer);
     cout << "Joueur " << this->currentPlayer->getTeam() << " à toi de jouer !" <<endl;
     cout << "Tu as " << this->currentPlayer->getargent() << " d'argent." <<endl;
     if (this->currentPlayer->getIA()->getType() == "path_find"){
-        cout << "hello" << endl;
         this->currentPlayer->getIA()->play_path_find(this);
     }
     if (this->currentPlayer->getIA()->getType() == "greedy"){
         this->currentPlayer->getIA()->play_greedy(this);
     }
-
     if (this->currentPlayer->getIA()->getType() == "recon"){
         this->currentPlayer->getIA()->play_recon(this);
     }
@@ -502,9 +505,11 @@ int Game::next_turn(){
 void Game::change_player(){
     if(this->currentPlayer == players[0]){
         this->currentPlayer = players[1];
+        if( !SERVER ) thisPlayer = players[1];
     }
     else {
         this->currentPlayer = players[0];
+        if( !SERVER ) thisPlayer = players[0];
     }
 }
 
