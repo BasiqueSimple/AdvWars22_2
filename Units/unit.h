@@ -33,7 +33,7 @@ protected:
     void setImg(QPixmap img);
     Position *pos;
     Game * game;
-    vector<Terrain*>* casesAcces;
+    std::vector<Terrain*>* casesAcces;
     bool HasMoved;
     bool finished;
 public:
@@ -47,8 +47,8 @@ public:
     void resetHasMoved();
     void move(int, int);
     void mouvementspossibles(Terrain);
-    bool peut_dessus(Unit, int, int, vector<Terrain*>);
-    void mvts_possibles(Unit, int, int, vector<Terrain*>);
+    bool peut_dessus(Unit, int, int, std::vector<Terrain*>);
+    void mvts_possibles(Unit, int, int, std::vector<Terrain*>);
     int ptconso(Terrain*);
     void wait();
     void recevoirdegat(int);
@@ -73,8 +73,8 @@ public:
 
 private:
     QPixmap img;
-    vector<Terrain*> * where(int posx, int posy, int PM, Game * game, vector<Terrain*> * cases_acces);
-    void setCasesAcces(vector<Terrain *> *cases_acces);
+    std::vector<Terrain*> * where(int posx, int posy, int PM, Game * game, std::vector<Terrain*> * cases_acces);
+    void setCasesAcces(std::vector<Terrain *> *cases_acces);
 };
 
 

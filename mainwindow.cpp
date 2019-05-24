@@ -12,6 +12,8 @@
 #include <QMouseEvent>
 #include <sstream>
 #include <QSignalMapper>
+#include "ia.h"
+#include <windows.h>
 
 #define FACTORY 1
 #define AIRPORT 2
@@ -47,7 +49,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
-    this->game = new Game(1000, "bm");
+    this->game = new Game(1000, "os", new ia("no", this), new ia("path_find", this));
 
     server = new QTcpServer();
     if(! server->listen(QHostAddress::Any, 8123)) {
@@ -253,9 +255,13 @@ void MainWindow::paintEvent(QPaintEvent *){
 
 void MainWindow::launch_event(int clic, int x, int y)
 {
+    cout << "truuc" << endl;
     QPoint pos;
     switch( clic ){
     case FACTORY:
+        cout << "factory " << endl;
+        cout << "x = " << x <<endl;
+        cout << "y = " << y << endl;
         pos = *new QPoint(x,y);
         ShowContextMenuFactory(pos);
         break;
@@ -304,7 +310,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event){
 
     int x = event->x();
     int y = event->y();
-    int clic = game->click_on(x,y);
+    int clic = game->click_on(x,y, true);
     launch_event(clic, x, y);
 }
 
@@ -348,14 +354,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event){
                { int x = game->getSelectedCase()->getPosX();
                 int y = game->getSelectedCase()->getPosY();
                 conv_coord(x, y);
-                int clic = game->click_on(x, y);
+                int clic = game->click_on(x, y, true);
                 launch_event(clic, x, y);
                 break;}
             case ENTER:
               { int x = game->getSelectedCase()->getPosX();
                 int y = game->getSelectedCase()->getPosY();
                 conv_coord(x, y);
-                int clic = game->click_on(x, y);
+                int clic = game->click_on(x, y, true);
                 launch_event(clic, x, y);
                 break;}
             }
@@ -402,8 +408,7 @@ void MainWindow::ShowContextMenuFactory(const QPoint& pos)
     signalMapper -> setMapping (megatank, MEGATANK) ;
     signalMapper -> setMapping (neotank, NEOTANK) ;
 
-    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(create_unit(int))) ;
-
+    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(create_unit(int, false))) ;
     myMenu.exec(globalPos);
 }
 
@@ -426,7 +431,7 @@ void MainWindow::ShowContextMenuAirport(const QPoint &pos)
     signalMapper -> setMapping (bomber, BOMBER) ;
     signalMapper -> setMapping (fighter, FIGHTER) ;
 
-    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(create_unit(int))) ;
+    connect (signalMapper, SIGNAL(mapped(int)), this, SLOT(create_unit(int, false))) ;
 
     myMenu.exec(globalPos);
 }
@@ -512,14 +517,16 @@ void MainWindow::merge(){
     repaint();
 }
 
-void MainWindow::create_unit(int type){
+void MainWindow::create_unit(int type, bool ia){
     game->create_unit(type);
+    if (!ia){
     QJsonObject unit_created;
     unit_created["action"] = FACTORY;
     unit_created["posX"] = game->getLastBuilding()->getPosX();
     unit_created["posY"] = game->getLastBuilding()->getPosY();
     unit_created["type"] = type;
     sendJson(unit_created);
+    }
     repaint();
 }
 

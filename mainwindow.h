@@ -2,10 +2,14 @@
 #define MAINWINDOW_H
 
 #include "game.h"
+#include "ia.h"
 
 #include <QActionGroup>
 #include <QMainWindow>
 #include <QtNetwork>
+
+class ia;
+class Game;
 
 namespace Ui {
 class MainWindow;
@@ -36,7 +40,7 @@ public slots:
     void wait();
     void attack();
     void capture();
-    void create_unit(int type);
+    void create_unit(int type, bool ia);
     void onNewConnection();
     void onConnected();
     void onDisconnected();

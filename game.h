@@ -5,7 +5,11 @@
 #include <Units/unit.h>
 #include <vector>
 #include <Buildings/building.h>
+#include "ia.h"
 
+class Unit;
+class Player;
+class ia;
 
 
 using namespace std;
@@ -13,8 +17,8 @@ using namespace std;
 
 class Game {
 public:
-    Game(int, string);
-    int click_on(int, int);
+    Game(int, std::string, ia*, ia*);
+    int click_on(int, int, bool);
     Unit* getSelectedUnit() const;
     vector<Unit *> * getUnits() const;
     vector<Terrain *> * getHighlited() const;
@@ -56,6 +60,8 @@ public:
     Building *getSelectedBuilding() const;
     void setSelectedBuilding(Building *value);
 
+    std::vector<Player *> getPlayers() const;
+
 private:
     std::vector<Terrain*> * highlighted;
     Terrain * selectedCase;
@@ -69,7 +75,7 @@ private:
     Unit* selectedUnit;
     Unit* lastMovedUnit;
     int earnings;
-    void start_game();
+    void start_game(ia*, ia*);
     void pay_player(Player*);
     void initiate_buildings();
     void initiate_terrains();

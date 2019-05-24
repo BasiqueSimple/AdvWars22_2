@@ -2,11 +2,11 @@
 #include <iostream>
 using namespace std;
 
-Player::Player(int id, std::string team, bool IA)
+Player::Player(int id, std::string team, ia* IA)
 {
     this->id=id;
     this->team=team;
-    this->est_IA=IA;
+    this->IA = IA;
     this->argent=0;
 }
 
@@ -26,4 +26,9 @@ void Player::gagne_argent(int rev)
 int Player::getargent()
 {
     return this->argent;
+}
+
+ia *Player::getIA() const
+{
+    return IA;
 }

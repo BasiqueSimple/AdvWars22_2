@@ -49,11 +49,11 @@
 
 using namespace std;
 
-Game::Game(int earnings, string firstPlayer)
+Game::Game(int earnings, string firstPlayer, ia* IAOS, ia* IABM)
 {
     this->earnings = earnings;
     this->firstPlayer = firstPlayer;
-    this->start_game();
+    this->start_game(IAOS, IABM);
 }
 
 // SETTERS
@@ -155,12 +155,12 @@ vector<Terrain *>* Game::getHighlited() const {
 }
 // -------------------------------------------------------------
 
-void Game::start_game(){
+void Game::start_game(ia* IAOS, ia* IABM){
     // On crée les joueurs
     players = *new std::vector<Player*>;
 
-    players.push_back(new Player(0,"os",false));
-    players.push_back(new Player(1,"bm",true));
+    players.push_back(new Player(0,"os", IAOS));
+    players.push_back(new Player(1,"bm", IABM));
 
     // On crée les terrains
     initiate_terrains();
@@ -399,9 +399,12 @@ int Game::move_unit(int x, int y)
 
 }
 
-int Game::click_on(int x, int y){
-    conv_coord(x, y);
+int Game::click_on(int x, int y, bool conv){
 
+    if (conv){
+        conv_coord(x, y);
+    }
+    cout << "click on" << endl;
     // Si c'est pour opérer un déplacement
     if( !this->highlighted->empty() ){
         return move_unit(x, y);
@@ -485,6 +488,11 @@ int Game::next_turn(){
     this->pay_player(this->currentPlayer);
     cout << "Joueur " << this->currentPlayer->getTeam() << " à toi de jouer !" <<endl;
     cout << "Tu as " << this->currentPlayer->getargent() << " d'argent." <<endl;
+    if (this->currentPlayer->getIA()->getType() == "path_find"){
+        cout << "hello" << endl;
+        this->currentPlayer->getIA()->play_path_find(this);
+
+    }
 }
 
 void Game::change_player(){
@@ -635,6 +643,11 @@ Building *Game::getSelectedBuilding() const
 void Game::setSelectedBuilding(Building *value)
 {
     selectedBuilding = value;
+}
+
+std::vector<Player *> Game::getPlayers() const
+{
+    return players;
 }
 
 int Game::getUnitCost(int type){
