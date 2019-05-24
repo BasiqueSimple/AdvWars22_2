@@ -489,7 +489,9 @@ int Game::next_turn(){
     if (this->currentPlayer->getIA()->getType() == "path_find"){
         cout << "hello" << endl;
         this->currentPlayer->getIA()->play_path_find(this);
-
+    }
+    if (this->currentPlayer->getIA()->getType() == "greedy"){
+        this->currentPlayer->getIA()->play_greedy(this);
     }
 }
 
@@ -584,9 +586,14 @@ bool Game::checkGameOver(){
             bmBuildingsCount++;
         }
     }
-    if(osUnitsCount == 0 && osBuildingsCount == 0){
-        this->winner = "bm";
-        return true;
+    if(osBuildingsCount == 0){
+        if (this->players[1]->getIA()->getType() == "greedy"){
+            this->winner = "bm";
+            return true;
+        } else if (osUnitsCount == 0 ){
+            this->winner = "bm";
+            return true;
+        }
     }
     else if(bmUnitsCount == 0 && bmBuildingsCount == 0){
         this->winner = "os";
