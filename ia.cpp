@@ -172,3 +172,151 @@ int ia::closestBuildingToCapture(vector<Building*> ToCapture, Unit* unit){
 
     return numBuilding;
 }
+
+void ia::play_recon(Game* game){
+
+    for (vector<Building*>::iterator it = game->getBuildings()->begin(); it != game->getBuildings()->end(); ++it){
+        if ((*it)->getTerrainType() == "factory" && (*it)->getTeam() != game->getCurrentPlayer()->getTeam()){
+            this->FactoryToCapture.push_back((*it));
+        }
+    }
+
+    if (!FactoryToCapture.empty()){
+        for (vector<Unit*>::iterator ite = game->getUnits()->begin(); ite != game->getUnits()->end(); ++ite){
+            if ((*ite)->getTeam() == game->getCurrentPlayer()->getTeam()){
+                cout << "1. je suis dans ton équipe"<< endl;
+                bool hasMoved = false;
+                (*ite)->activate();
+
+                for (vector<Building*>::iterator it = game->getBuildings()->begin(); it != game->getBuildings()->end(); ++it){
+                    if ((*it)->getTerrainType() == "factory" && (*it)->getTeam() != game->getCurrentPlayer()->getTeam()){
+                        this->FactoryToCapture.push_back((*it));
+                    }
+                }
+
+                int numBuilding = this->closestBuildingToCapture(this->FactoryToCapture, (*ite));
+                Building* closestBuilding = (this->FactoryToCapture)[numBuilding];
+                int goalX = closestBuilding->getPosX();
+                int goalY = closestBuilding->getPosY();
+
+                for (vector<Terrain*>::iterator iter = (*ite)->getCasesAcces()->begin(); iter != (*ite)->getCasesAcces()->end(); ++iter){
+                    if(goalX == (*iter)->getPosX() && goalY == (*iter)->getPosY()){
+                        cout << "3. tu peux direct bouger vers un bat à capt" << endl;
+                        (*ite)->move((*iter)->getPosX(), (*iter)->getPosY());
+                        closestBuilding->setEnCapture(true);
+                        hasMoved = true;
+                        break;
+                    }
+                }
+
+                if (! hasMoved){
+                    cout << "4. Tu n'as pas encore bougé" << endl;
+                    Terrain* CaseToMoveTo = this->distanceMin((*ite)->getCasesAcces(), closestBuilding->getPosX(), closestBuilding->getPosY());
+                    int goalX = CaseToMoveTo->getPosX();
+                    int goalY = CaseToMoveTo->getPosY();
+                    (*ite)->move(goalX, goalY);
+                }
+                this->FactoryToCapture.clear();
+            }
+        }
+                    /*if ((*iter)->getTerrainType() == "factory" || (*iter)->getTerrainType() == "city" || (*iter)->getTerrainType() == "airport"){
+                        int x = (*iter)->getPosX();
+                        int y = (*iter)->getPosY();
+                        Building* building = game->getBuildingAt(x, y);
+                        if(building->getTeam() != game->getCurrentPlayer()->getTeam()){
+                            (*ite)->move(x, y);
+                            building->setEnCapture(true);
+                        }
+                    }*/
+        cout << "j'ai fini de bouger tout le monde" << endl;
+
+        for (vector<Building*>::iterator it = game->getBuildings()->begin(); it != game->getBuildings()->end(); ++it){
+            if ((*it)->getTeam() == game->getCurrentPlayer()->getTeam() && (*it)->getTerrainType() == "factory" && game->getCurrentPlayer()->getargent() >= 1000 ){
+                cout << "6. tu peux produire" << endl;
+                game->setLastBuilding((*it));
+                game->setCurrentPlayer((game->getPlayers())[0]);
+                this->mainwindow->create_unit(INFANTRY, true);
+            }
+        }
+        game->next_turn() ;
+    } else {
+        for (vector<Unit*>::iterator ite = game->getUnits()->begin(); ite != game->getUnits()->end(); ++ite){
+            if ((*ite)->getTeam() == game->getCurrentPlayer()->getTeam()){
+                cout << "1. je suis dans ton équipe"<< endl;
+                bool hasMoved = false;
+                (*ite)->activate();
+                for (vector<Unit*>::iterator it = game->getUnits()->begin(); it != game->getUnits()->end(); ++it){
+                   if ((*it)->getTeam() != game->getCurrentPlayer()->getTeam()) {
+                       cout << "2. la unit n'est pas a toi "  << endl;
+                       (this->UnitsToKill).push_back((*it));
+                    }
+                }
+
+                int numUnit = this->closestUnitToKill(this->UnitsToKill, (*ite));
+                Unit* closestUnit = (this->UnitsToKill)[numUnit];
+                int goalX = closestUnit->getPosX();
+                int goalY = closestUnit->getPosY();
+
+                for (vector<Terrain*>::iterator iter = (*ite)->getCasesAcces()->begin(); iter != (*ite)->getCasesAcces()->end(); ++iter){
+                    int possibleX = (*iter)->getPosX();
+                    int possibleY = (*iter)->getPosY();
+                    if((goalX == possibleX && goalY-1 == possibleY) || (goalX == possibleX && goalY+1 == possibleY) || (goalX-1 == possibleX && goalY == possibleY) ||  (goalX+1 == possibleX && goalY == possibleY)){
+                        cout << "3. tu peux direct bouger près d'une unit à tuer" << endl;
+                        (*ite)->move(possibleX, possibleY);
+                        (*ite)->attack(closestUnit, game->getTerrainAt(closestUnit->getPosX(), closestUnit->getPosY()));
+                        game->checkUnits();
+                        hasMoved = true;
+                        break;
+                    }
+                }
+
+                if (! hasMoved){
+                    cout << "4. Tu n'as pas encore bougé" << endl;
+                    Terrain* CaseToMoveTo = this->distanceMin((*ite)->getCasesAcces(), closestUnit->getPosX(), closestUnit->getPosY());
+                    int goalX = CaseToMoveTo->getPosX();
+                    int goalY = CaseToMoveTo->getPosY();
+                    (*ite)->move(goalX, goalY);
+                }
+                this->UnitsToKill.clear();
+            }
+        }
+
+        cout << "j'ai fini de bouger tout le monde" << endl;
+
+        for (vector<Building*>::iterator it = game->getBuildings()->begin(); it != game->getBuildings()->end(); ++it){
+            if ((*it)->getTeam() == game->getCurrentPlayer()->getTeam() && (*it)->getTerrainType() == "factory" && game->getCurrentPlayer()->getargent() >= 4000 ){
+                cout << "6. tu peux produire" << endl;
+                game->setLastBuilding((*it));
+                game->setCurrentPlayer((game->getPlayers())[0]);
+                this->mainwindow->create_unit(RECON, true);
+            }
+        }
+        game->next_turn() ;
+
+}}
+
+
+int ia::closestUnitToKill(vector<Unit*> UnitsToKill, Unit* unit){
+    int sourceX = unit->getPosX();
+    int sourceY = unit->getPosY();
+    int i = 0;
+    int numUnit;
+    double distMin = 23567;
+    for (vector<Unit*>::iterator it = UnitsToKill.begin(); it != UnitsToKill.end(); ++it){
+        int goalX = (*it)->getPosX();
+        int goalY = (*it)->getPosY();
+        double distance = sqrt(pow(goalX-sourceX, 2)+pow(goalY-sourceY, 2));
+        cout << "dist = " << distance << endl;
+        if (i == 0){
+           distMin = distance;
+           numUnit = i;
+        }
+        else if(distance < distMin){
+            distMin = distance;
+            numUnit = i;
+        }
+        i += 1;
+    }
+
+    return numUnit;
+}

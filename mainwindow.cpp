@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 {
     ui->setupUi(this);
 
-    this->game = new Game(1000, "os", new ia("no", this), new ia("greedy", this));
+    this->game = new Game(1000, "os", new ia("recon", this), new ia("greedy", this));
 
     server = new QTcpServer();
     if(! server->listen(QHostAddress::Any, 8123)) {

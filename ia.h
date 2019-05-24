@@ -18,11 +18,15 @@ public :
     Terrain* distanceMin(std::vector<Terrain*>* cases, int goalX, int goalY);
     void play_greedy(Game* game);
     int closestBuildingToCapture(std::vector<Building*> ToCapture, Unit* unit);
+    int closestUnitToKill(std::vector<Unit*> UnitsToKill, Unit* unit);
+    void play_recon(Game* game);
 
 private :
     std::string type;
     MainWindow* mainwindow;
     std::vector<Building*> ToCapture;
+    std::vector<Building*> FactoryToCapture;
+    std::vector<Unit*> UnitsToKill;
 };
 
 #endif // IA_H

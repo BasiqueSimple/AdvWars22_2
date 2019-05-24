@@ -493,6 +493,10 @@ int Game::next_turn(){
     if (this->currentPlayer->getIA()->getType() == "greedy"){
         this->currentPlayer->getIA()->play_greedy(this);
     }
+
+    if (this->currentPlayer->getIA()->getType() == "recon"){
+        this->currentPlayer->getIA()->play_recon(this);
+    }
 }
 
 void Game::change_player(){
